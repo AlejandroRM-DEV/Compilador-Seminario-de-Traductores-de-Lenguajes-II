@@ -1,0 +1,27 @@
+#include <iostream>
+#include <fstream>
+#include "Lexico.h"
+
+using namespace std;
+
+int main() {
+    Lexico lex;
+    ofstream salida;
+
+    while( !lex.fin() ) {
+        lex.sigSimbolo();
+        cout << lex.toString() << endl << endl;
+    }
+
+    salida.open( "salida.txt" );
+    if( !lex.hayError() ) {
+        cout << "Sin error" << endl;
+        salida << 1;
+    } else {
+        cout << "error" << endl;
+        salida << 0;
+    }
+    salida.close();
+
+    return 0;
+}
