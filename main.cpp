@@ -9,7 +9,7 @@ int main() {
 
     while( !lex.fin() ) {
         lex.sigSimbolo();
-        cout << lex.toString() << endl << endl;
+        cout << lex.toString() << endl;
     }
 
     if( !lex.hayError() ) {
