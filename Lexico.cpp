@@ -4,6 +4,7 @@ Lexico::Lexico() {
     archivo.open( "entrada.c" );
     if ( archivo.is_open() ) {
         error = false;
+        idTabla = 0;
         generaEtiquetas();
     } else {
         error = true;
@@ -12,9 +13,6 @@ Lexico::Lexico() {
 
 Lexico::~Lexico() {
     archivo.close();
-    for( EntradaTablaSimbolo* entrada : tablaSimbolos ) {
-        delete entrada;
-    }
 }
 
 void Lexico::sigSimbolo() {
@@ -46,7 +44,7 @@ void Lexico::sigSimbolo() {
                 break;
             }
         }
-    } while ( estado == Q19 ); // Ignora comentarios
+    } while ( estado == Q22 ); // Ignora comentarios
     fijaTipo( estado );
 }
 
@@ -59,50 +57,49 @@ int Lexico::transicion( char c ) {
         return E2;
     } else if( c >= '0' && c <= '9' ) {
         return E3;
-    } else if( c == '+' || c == '-' ) {
+    } else if( c == '+' ) {
         return E4;
-    } else if( c == '/'  ) {
+    } else if( c == '-' ) {
         return E5;
-    } else if( c == '*' ) {
+    } else if( c == '/'  ) {
         return E6;
-    } else if( c == '%' ) {
+    } else if( c == '*' ) {
         return E7;
-    } else if( c == '&' ) {
+    } else if( c == '%' ) {
         return E8;
-    } else if( c == '|' ) {
+    } else if( c == '&' ) {
         return E9;
-    } else if( c == '!' ) {
+    } else if( c == '|' ) {
         return E10;
-    } else if( c == '=' ) {
+    } else if( c == '!' ) {
         return E11;
-    } else if( c == '<' || c == '>' ) {
+    } else if( c == '=' ) {
         return E12;
-    } else if( c == ',' ) {
+    } else if( c == '<' || c == '>' ) {
         return E13;
-    } else if( c == ';' ) {
+    } else if( c == ',' ) {
         return E14;
-    } else if( c == '(' ) {
+    } else if( c == ';' ) {
         return E15;
-    } else if( c == ')' ) {
+    } else if( c == '(' ) {
         return E16;
-    } else if( c == '{' ) {
+    } else if( c == ')' ) {
         return E17;
-    } else if( c == '}' ) {
+    } else if( c == '{' ) {
         return E18;
-    } else if( c == '$' ) {
+    } else if( c == '}' ) {
         return E19;
-    } else { // RESTO DE ASCII
+    } else if( c == '$' ) {
         return E20;
+    } else { // RESTO DE ASCII
+        return E21;
     }
 }
 
 void Lexico::insertaSimbolo( string simbolo ) {
-    for( EntradaTablaSimbolo* entrada : tablaSimbolos ) {
-        if( entrada->nombre == simbolo ) {
-            return;
-        }
+    if( tablaSimbolos.insert( EntradaTS( simbolo, idTabla ) ).second ) {
+        idTabla++;
     }
-    tablaSimbolos.push_back( new EntradaTablaSimbolo( simbolo ) );
 }
 
 void Lexico::fijaTipo( int estado ) {
@@ -119,53 +116,60 @@ void Lexico::fijaTipo( int estado ) {
         tipo = ENTERO;
         break;
     case Q3:
+    case Q4:
         tipo = OP_ADITIVO;
         break;
-    case Q4:
     case Q5:
-        tipo = OP_MULTIPLICATIVO;
+        tipo = OP_INCREMENTO;
+        break;
+    case Q6:
+        tipo = OP_DECREMENTO;
         break;
     case Q7:
-        tipo = LOGICO_AND;
-        break;
-    case Q9:
-        tipo = LOGICO_OR;
+    case Q8:
+        tipo = OP_MULTIPLICATIVO;
         break;
     case Q10:
-        tipo = LOGICO_NOT;
-        break;
-    case Q11:
-        tipo = OP_ASIGNACION;
+        tipo = LOGICO_AND;
         break;
     case Q12:
-        tipo = OP_IGUALDAD;
+        tipo = LOGICO_OR;
         break;
     case Q13:
+        tipo = LOGICO_NOT;
+        break;
     case Q14:
-        tipo = OP_RELACIONAL;
+        tipo = OP_ASIGNACION;
         break;
     case Q15:
-        tipo = COMA;
+        tipo = OP_IGUALDAD;
         break;
     case Q16:
-        tipo = DELIMITADOR;
+    case Q17:
+        tipo = OP_RELACIONAL;
+        break;
+    case Q18:
+        tipo = COMA;
         break;
     case Q19:
-        tipo = COMENTARIO;
-        break;
-    case Q21:
-        tipo = PARENTESIS_IZQ;
+        tipo = DELIMITADOR;
         break;
     case Q22:
-        tipo = PARENTESIS_DER;
-        break;
-    case Q23:
-        tipo = LLAVE_IZQ;
+        tipo = COMENTARIO;
         break;
     case Q24:
-        tipo = LLAVE_DER;
+        tipo = PARENTESIS_IZQ;
         break;
     case Q25:
+        tipo = PARENTESIS_DER;
+        break;
+    case Q26:
+        tipo = LLAVE_IZQ;
+        break;
+    case Q27:
+        tipo = LLAVE_DER;
+        break;
+    case Q28:
         tipo = FIN_ENTRADA;
         break;
     default:
@@ -195,14 +199,18 @@ string Lexico::toString() {
 
     ss << "[ " << etiquetas[tipo];
     if( tipo == IDENTIFICADOR ) {
-        for( EntradaTablaSimbolo* entrada : tablaSimbolos ) {
-            if( entrada->nombre == simbolo ) {
-                ss << ", " << entrada->id;
-                break;
-            }
-        }
+        ss << ", " << tablaSimbolos.find(simbolo)->second;
     }
     ss << " ] [ " << simbolo << " ]";
+    return ss.str();
+}
+
+string Lexico::toStringTablaSimbolos() {
+    stringstream ss;
+    ss << "ID\tSimbolo" << endl;
+    for( EntradaTS entrada : tablaSimbolos ) {
+        ss << entrada.second << "\t" << entrada.first << endl;
+    }
     return ss.str();
 }
 
@@ -211,6 +219,8 @@ void Lexico::generaEtiquetas() {
     etiquetas[RESERVADO] = "Reservado";
     etiquetas[ENTERO] = "Entero";
     etiquetas[OP_ADITIVO] = "OP Aditivo";
+    etiquetas[OP_INCREMENTO] = "OP Incremento";
+    etiquetas[OP_DECREMENTO] = "OP Decremento";
     etiquetas[OP_MULTIPLICATIVO] = "OP Multiplicativo";
     etiquetas[LOGICO_AND] = "Logico AND";
     etiquetas[LOGICO_OR] = "Logico OR";
@@ -227,5 +237,4 @@ void Lexico::generaEtiquetas() {
     etiquetas[LLAVE_DER] = "Llave der.";
     etiquetas[FIN_ENTRADA] = "Fin de entrada";
     etiquetas[ERROR] = "Error";
-
 }

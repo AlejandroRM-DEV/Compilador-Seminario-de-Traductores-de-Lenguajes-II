@@ -12,6 +12,8 @@ int main() {
         cout << lex.toString() << endl;
     }
 
+    cout << "\r\n" << lex.toStringTablaSimbolos() << endl;
+
     if( !lex.hayError() ) {
         cout << "Sin error" << endl;
     } else {

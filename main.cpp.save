@@ -6,22 +6,18 @@ using namespace std;
 
 int main() {
     Lexico lex;
-    ofstream salida;
 
     while( !lex.fin() ) {
         lex.sigSimbolo();
-        cout << lex.toString() << endl << endl;
+        cout << lex.toString() << endl;
     }
 
-    salida.open( "salida.txt" );
+    cout << lex.toStringTablaSimbolos << endl
     if( !lex.hayError() ) {
         cout << "Sin error" << endl;
-        salida << 1;
     } else {
-        cout << "error" << endl;
-        salida << 0;
+        cout << "Error" << endl;
     }
-    salida.close();
 
     return 0;
 }
