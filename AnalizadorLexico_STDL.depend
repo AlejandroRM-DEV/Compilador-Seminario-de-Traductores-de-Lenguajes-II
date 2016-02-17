@@ -1,18 +1,17 @@
 # depslib dependency file v1.0
-1455117854 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\main.cpp
+1455675950 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\main.cpp
 	<iostream>
 	<fstream>
 	"Lexico.h"
 
-1455331808 c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\lexico.h
+1455675675 c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\lexico.h
 	<iostream>
 	<fstream>
 	<set>
 	<map>
 	<sstream>
-	"EntradaTablaSimbolo.h"
 
-1455117788 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\lexico.cpp
+1455676056 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\lexico.cpp
 	"Lexico.h"
 
 1454687241 c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\entratablasimbolo.h

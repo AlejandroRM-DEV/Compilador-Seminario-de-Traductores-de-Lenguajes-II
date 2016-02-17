@@ -6,7 +6,6 @@
 #include <set>
 #include <map>
 #include <sstream>
-#include "EntradaTablaSimbolo.h"
 
 using namespace std;
 
@@ -56,10 +55,10 @@ private:
         {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
         {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
         {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
-        {Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q21, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20},
-        {Q20, Q20, Q20, Q20, Q20, Q20, Q22, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20},
+        {Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q21, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, K, Q20},
+        {Q20, Q20, Q20, Q20, Q20, Q20, Q22, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, K, Q20},
         {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
-        {Q23, Q22, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23},
+        {Q23, Q22, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q22, Q23},
         {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
         {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
         {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},

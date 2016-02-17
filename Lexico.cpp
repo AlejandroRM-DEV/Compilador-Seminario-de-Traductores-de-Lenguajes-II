@@ -3,9 +3,11 @@
 Lexico::Lexico() {
     archivo.open( "entrada.c" );
     if ( archivo.is_open() ) {
-        error = false;
-        idTabla = 0;
         generaEtiquetas();
+        error = false;
+        simbolo = "";
+        idTabla = 0;
+        tipo = -1;
     } else {
         error = true;
     }
@@ -36,6 +38,7 @@ void Lexico::sigSimbolo() {
                 break;
             }
             estado = matriz[estado][columna];
+
             archivo.get( caracter );
             simbolo += caracter;
 
@@ -89,7 +92,7 @@ int Lexico::transicion( char c ) {
         return E18;
     } else if( c == '}' ) {
         return E19;
-    } else if( c == '$' ) {
+    } else if( c == EOF ) {
         return E20;
     } else { // RESTO DE ASCII
         return E21;
@@ -183,7 +186,7 @@ bool Lexico::hayError() {
 }
 
 bool Lexico::fin() {
-    return simbolo == "$" || hayError();
+    return (tipo == FIN_ENTRADA) || hayError();
 }
 
 string Lexico::dameSimbolo() {

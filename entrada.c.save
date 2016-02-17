@@ -5,9 +5,9 @@ Alejandro Ramirez Munoz * :D
 Otro comentario :P
 */
 
-int calcularArea( int base, int altura ) {
+int calcArea( int base, int altura ) {
     int area;
-    if ( base >= 0 && altura >= 0 ) {
+    if ( base > 0 && altura > 0 ) {
         area = base * altura;
     } else {
         area = 0;
@@ -18,18 +18,19 @@ int calcularArea( int base, int altura ) {
 int main() {
     int i, area;
     int base = 10, altura = 20;
-    area = area( base, altura );
+    area = calcArea( base, altura );
 
     if( area > 100 ) {
         //Algo de codigo aqui
     } else {
         //Algo de codigo aqui
     }
-    for( i = 0; i < 10; i = i + 1 ) {
+    for( i = 0; i < 10; i++ ) {
         //Algo de codigo aqui
     }
     do {
         i = i - 1;
     } while( i >= 0 );
 }
-$
+
+//Co

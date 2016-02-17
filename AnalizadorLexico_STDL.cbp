@@ -32,8 +32,6 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="EntradaTablaSimbolo.cpp" />
-		<Unit filename="EntradaTablaSimbolo.h" />
 		<Unit filename="Lexico.cpp" />
 		<Unit filename="Lexico.h" />
 		<Unit filename="main.cpp" />

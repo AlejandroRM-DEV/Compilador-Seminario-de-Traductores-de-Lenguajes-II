@@ -7,16 +7,24 @@ using namespace std;
 int main() {
     Lexico lex;
 
-    while( !lex.fin() ) {
+    while( true ) {
         lex.sigSimbolo();
-        cout << lex.toString() << endl;
+
+        if( !lex.fin() ) {
+            cout << lex.toString() << endl;
+        } else {
+            break;
+        }
     }
 
-    cout << lex.toStringTablaSimbolos << endl
-    if( !lex.hayError() ) {
-        cout << "Sin error" << endl;
-    } else {
+    cout << "\r\n" << lex.toStringTablaSimbolos() << endl;
+
+    if( lex.hayError() ) {
         cout << "Error" << endl;
+        cout << lex.toString() << endl;
+    } else {
+        cout << "Sin error" << endl;
+        
     }
 
     return 0;
