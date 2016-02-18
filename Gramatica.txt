@@ -351,7 +351,6 @@ expresion_constante
 	: expresion_condicional
 		
 		
-
 expresion_logica_OR
 	: expresion_logica_AND expresion_logica_OR_prima
 	
@@ -501,15 +500,13 @@ lista_expresiones_argumento
 lista_expresiones_argumento_prima
 	: ',' expresion_de_asignacion lista_expresiones_argumento_prima
 	| EPSILON	
-					
-***********************    POR REVISAR    ***************************
 
-	
 
 proposicion_de_seleccion
-	: IF '(' expresion ')' proposicion
-	| IF '(' expresion ')' proposicion ELSE proposicion
+	: IF '(' expresion ')' proposicion proposicion_de_seleccion_else
 	| SWITCH '(' expresion ')' proposicion
 	
 
-
+proposicion_de_seleccion_else
+	: ELSE proposicion
+	| EPSILON
