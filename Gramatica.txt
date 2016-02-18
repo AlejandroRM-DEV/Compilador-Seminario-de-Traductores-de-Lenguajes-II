@@ -3,37 +3,32 @@
 unidad_de_traduccion
 	: declaracion_externa unidad_de_traduccion_prima
 	
-
 unidad_de_traduccion_prima
 	: declaracion_externa unidad_de_traduccion_prima
 	| EPSILON
-
 
 declaracion_externa
 	: definicion_de_funcion
 	| declaracion
 	
-
 definicion_de_funcion
-	: especificadores_de_declaracion declarator lista_de_declaraciones proposicion_compuesta
+	: especificadores_de_declaracion declarator lista_de_declaraciones 
+
+proposicion_compuesta
 	| especificadores_de_declaracion declarator proposicion_compuesta
 	| declarator lista_de_declaraciones proposicion_compuesta
 	| declarator proposicion_compuesta
-
 
 declaracion
 	: especificadores_de_declaracion ';'
 	| especificadores_de_declaracion lista_declaradores_init ';'
 	
-
 lista_de_declaraciones
 	: declaracion lista_de_declaraciones_prima
-
 
 lista_de_declaraciones_prima
 	: declaracion lista_de_declaraciones_prima
 	| EPSILON
-
 
 especificadores_de_declaracion
 	: especificador_categoria_almacenamiento
@@ -43,7 +38,6 @@ especificadores_de_declaracion
 	| calificador_de_tipo
 	| calificador_de_tipo especificadores_de_declaracion
 	
-
 especificador_categoria_almacenamiento
 	: TYPEDEF
 	| EXTERN
@@ -51,7 +45,6 @@ especificador_categoria_almacenamiento
 	| AUTO
 	| REGISTER
 	
-
 especificador_de_tipo
 	: VOID
 	| CHAR
@@ -66,49 +59,39 @@ especificador_de_tipo
 	| especificador_enum
 	| nombre_de_tipo
 	
-	
 calificador_de_tipo
 	: CONST
 	| VOLATILE
-	
 	
 especificador_estructura_o_union
 	: estructura_o_union IDENTIFICADOR '{' lista_declaraciones_struct '}'
 	| estructura_o_union '{' lista_declaraciones_struct '}'
 	| estructura_o_union IDENTIFICADOR
 
-
 estructura_o_union
 	: STRUCT
 	| UNION
-	
-	
+		
 lista_declaraciones_struct
 	: declaracion_struct lista_declaraciones_struct_prima
-	
-	
+		
 lista_declaraciones_struct_prima
 	: declaracion_struct ',' lista_declaraciones_struct_prima
 	| EPSILON 
 
-
 lista_declaradores_init
 	: declarador_init lista_declaradores_init_prima
 	
-
 lista_declaradores_init_prima
 	: ',' declarador_init lista_declaradores_init_prima
 	| EPSILON
 	
-
 declarador_init
 	: declarator
 	| declarator '=' inicializador
 	
-
 declaracion_struct
 	: lista_calificador_especificador lista_declaradores_struct ';'
-
 	
 lista_calificador_especificador
 	: especificador_de_tipo lista_calificador_especificador
@@ -116,51 +99,41 @@ lista_calificador_especificador
 	| calificador_de_tipo lista_calificador_especificador
 	| calificador_de_tipo
 
-
 lista_declaradores_struct
 	: declarador_struct lista_declaradores_struct_prima
-
 
 lista_declaradores_struct_prima
 	: ',' declarador_struct lista_declaradores_struct_prima
 	| EPSILON
-
 	
 declarador_struct
 	: declarator
 	| ':' expresion_constante
 	| declarator ':' expresion_constante
 		
-
 especificador_enum
 	: ENUM '{' lista_de_enumerador '}'
 	| ENUM IDENTIFICADOR '{' lista_de_enumerador '}'
 	| ENUM IDENTIFICADOR
 	
-
 lista_de_enumerador
 	: enumerador lista_de_enumerador_prima
 	
-
 lista_de_enumerador_prima
 	: ',' enumerador lista_de_enumerador_prima
 	| EPSILON
 
-
 enumerador
 	: IDENTIFICADOR
 	| IDENTIFICADOR '=' expresion_constante
-	
-	
+		
 declarator
 	: apuntador declarador_directo
 	| declarador_directo
 	
-	
 declarador_directo
 	: IDENTIFICADOR declarador_directo_prima
 	| '(' declarator ')' declarador_directo_prima
-	
 	
 declarador_directo_prima
 	: '[' expresion_constante ']' declarador_directo_prima
@@ -170,79 +143,63 @@ declarador_directo_prima
 	| '(' ')' declarador_directo_prima
 	| EPSILON
 	
-	
 apuntador
 	: '*'
 	| '*' lista_calificadores_de_tipo
 	| '*' apuntador
 	| '*' lista_calificadores_de_tipo apuntador
 	
-
 lista_calificadores_de_tipo
 	: calificador_de_tipo lista_calificadores_de_tipo_prima
-	
 	
 lista_calificadores_de_tipo_prima
 	: calificador_de_tipo lista_calificadores_de_tipo_prima
 	| EPSILON
 	
-	
-
 lista_tipos_de_parametros
 	: lista_de_parametros
 	| lista_de_parametros ',' 3_PUNTOS
 	
-
 lista_de_parametros
 	: declaracion_parametro lista_de_parametros_prima
-	
 	
 lista_de_parametros_prima
 	: ',' declaracion_parametro lista_de_parametros_prima
 	| EPSILON
-
 
 declaracion_parametro
 	: especificadores_de_declaracion declarator
 	| especificadores_de_declaracion declarador_abstracto
 	| especificadores_de_declaracion
 	
-
 lista_de_identificadores
 	: IDENTIFICADOR lista_de_identificadores_prima
-	
-	
+		
 lista_de_identificadores_prima
 	: ',' IDENTIFICADOR lista_de_identificadores_prima
 	| EPSILON
-	
 	
 inicializador
 	: expresion_de_asignacion
 	| '{' lista_de_inicializadores '}'
 	| '{' lista_de_inicializadores ',' '}'
 	
-
 lista_de_inicializadores
 	: inicializador lista_de_inicializadores_prima
-	
 	
 lista_de_inicializadores_prima
 	: ',' inicializador lista_de_inicializadores_prima
 	| EPSILON 
 	
-	
 nombre_de_tipo
 	: lista_calificador_especificador
 	| lista_calificador_especificador declarador_abstracto
 	
-
 declarador_abstracto
 	: apuntador
 	| declarador_abstracto_directo
 	| apuntador declarador_abstracto_directo
 	
-
 declarador_abstracto_directo
 	: '(' declarador_abstracto ')' declarador_abstracto_directo_prima
 	| '[' ']' declarador_abstracto_directo_prima
@@ -258,11 +215,9 @@ declarador_abstracto_directo_prima
 	| '(' lista_tipos_de_parametros ')' declarador_abstracto_directo_prima
 	| EPSILON 
 
-
 nombre_typedef
 	: IDENTIFICADOR
 	
-
 proposicion
 	: proposicion_etiquetada
 	| proposicion_compuesta
@@ -271,12 +226,10 @@ proposicion
 	| proposicion_de_iteracion
 	| proposicion_de_salto
 	
-
 proposicion_etiquetada
 	: IDENTIFICADOR ':' proposicion
 	| CASE expresion_constante ':' proposicion
 	| DEFAULT ':' proposicion
-
 
 proposicion_compuesta
 	: '{' '}'
@@ -284,20 +237,16 @@ proposicion_compuesta
 	| '{' lista_de_declaraciones '}'
 	| '{' lista_de_declaraciones lista_de_proposiciones '}'
 		
-
 lista_de_proposiciones
 	: proposicion lista_de_proposiciones_prima
-	
 	
 lista_de_proposiciones_prima
 	: proposicion lista_de_proposiciones_prima
 	| EPSILON	
 
-
 proposicion_expresion
 	: ';'
 	| expresion ';'	
-
 
 proposicion_de_iteracion
 	: WHILE '(' expresion ')' proposicion
@@ -305,7 +254,6 @@ proposicion_de_iteracion
 	| FOR '(' proposicion_expresion proposicion_expresion ')' proposicion
 	| FOR '(' proposicion_expresion proposicion_expresion expresion ')' proposicion
 	
-
 proposicion_de_salto
 	: GOTO IDENTIFICADOR ';'
 	| CONTINUE ';'
@@ -313,154 +261,126 @@ proposicion_de_salto
 	| RETURN ';'
 	| RETURN expresion ';'
 	
-	
 expresion
 	: expresion_de_asignacion expresion_prima
 	
-
 expresion_prima
 	: ',' expresion_de_asignacion expresion_prima
 	| EPSILON
-	
 	
 expresion_de_asignacion
 	: expresion_condicional
 	| expresion_unaria operador_de_asignacion expresion_de_asignacion
 	
-
 operador_de_asignacion
 	: '='
-	| MUL_ASIGN
-	| DIV_ASIGN
-	| MOD_ASIGN
-	| SUMA_ASIGN
-	| RESTA_ASIGN
-	| IZQ_ASIGN
-	| DER_ASIGN
-	| AND_ASIGN
-	| XOR_ASIGN
-	| OR_ASIGN
+	| "*="
+	| "/="
+	| "%="
+	| "+="
+	| "-="
+	| "<<="
+	| ">>="
+	| "&="
+	| "^="
+	| "|="
 	
-
 expresion_condicional
 	: expresion_logica_OR
 	| expresion_logica_OR '?' expresion ':' expresion_condicional
 	
-
 expresion_constante
 	: expresion_condicional
-		
-		
+			
 expresion_logica_OR
 	: expresion_logica_AND expresion_logica_OR_prima
 	
-
 expresion_logica_OR_prima
-	: OR_OP expresion_logica_AND expresion_logica_OR_prima
+	: "||" expresion_logica_AND expresion_logica_OR_prima
 	| EPSILON
-	
 	
 expresion_logica_AND
 	: expresion_OR_inclusivo expresion_logica_AND_prima
 
-
 expresion_logica_AND_prima
-	: AND_OP expresion_OR_inclusivo expresion_logica_AND_prima	
+	: "&&" expresion_OR_inclusivo expresion_logica_AND_prima
+	| EPSILON	
 
-	
 expresion_OR_inclusivo
 	: expresion_OR_exclusivo expresion_OR_inclusivo_prima
-
 
 expresion_OR_inclusivo_prima
 	: '|' expresion_OR_exclusivo expresion_OR_inclusivo_prima
 	| EPSILON
-	
-	
+		
 expresion_OR_exclusivo
 	: expresion_AND expresion_OR_exclusivo_prima
-
 	
 expresion_OR_exclusivo_prima
 	: '^' expresion_AND expresion_OR_exclusivo_prima
 	| EPSILON
 
-
 expresion_AND
 	: expresion_de_igualdad expresion_AND_prima
 
-
 expresion_AND_prima
-	: '&' expresion_de_igualdad	expresion_AND_prima
+	: '&' expresion_de_igualdad expresion_AND_prima
 	| EPSILON	
 	
-
 expresion_de_igualdad
 	: expresion_relacional expresion_de_igualdad_prima
 	
-	
 expresion_de_igualdad_prima 
-	: EQ_OP expresion_relacional expresion_de_igualdad_prima
-	| NE_OP expresion_relacional expresion_de_igualdad_prima
+	: "=="expresion_relacional expresion_de_igualdad_prima
+	| "!="expresion_relacional expresion_de_igualdad_prima
 	| EPSILON
 	
-
 expresion_relacional
 	: expresion_de_corrimiento expresion_relacional_prima
 	
-
 expresion_relacional_prima
 	: '<' expresion_de_corrimiento expresion_relacional_prima
 	| '>' expresion_de_corrimiento expresion_relacional_prima
-	| LE_OP expresion_de_corrimiento expresion_relacional_prima
-	| GE_OP expresion_de_corrimiento expresion_relacional_prima
+	| "<=" expresion_de_corrimiento expresion_relacional_prima
+	| ">=" expresion_de_corrimiento expresion_relacional_prima
 	| EPSILON
-	
 	
 expresion_de_corrimiento
 	: expresion_aditiva expresion_de_corrimiento_prima
 		
-
 expresion_de_corrimiento_prima 
-	: LEFT_OP expresion_aditiva expresion_de_corrimiento_prima
-	| RIGHT_OP expresion_aditiva expresion_de_corrimiento_prima
+	: "<<" expresion_aditiva expresion_de_corrimiento_prima
+	| ">>" expresion_aditiva expresion_de_corrimiento_prima
 	| EPSILON
-	
 		
 expresion_aditiva
 	: expresion_multiplicativa expresion_aditiva_prima
-
 
 expresion_aditiva_prima 
 	: '+' expresion_multiplicativa expresion_aditiva_prima
 	| '-' expresion_multiplicativa expresion_aditiva_prima
 	| EPSILON
-	
-	
+		
 expresion_cast
 	: expresion_unaria
 	| '(' nombre_de_tipo ')' expresion_cast
 	
-
 expresion_multiplicativa
 	: expresion_cast expresion_multiplicativa_prima
-
 
 expresion_multiplicativa_prima
 	: '*' expresion_cast expresion_multiplicativa_prima
 	| '/' expresion_cast expresion_multiplicativa_prima
 	| '%' expresion_cast expresion_multiplicativa_prima
 	| EPSILON
-	
-	
+		
 expresion_unaria
 	: expresion_posfija
-	| INC_OP expresion_unaria
-	| DEC_OP expresion_unaria
+	| "++" expresion_unaria
+	| "--" expresion_unaria
 	| operador_unario expresion_cast
 	| SIZEOF expresion_unaria
 	| SIZEOF '(' nombre_de_tipo ')'
-	
 	
 operador_unario
 	: '&'
@@ -470,43 +390,36 @@ operador_unario
 	| '~'
 	| '!'
 	
-
 expresion_posfija
 	: expresion_primaria expresion_posfija_prima
-	
 	
 expresion_posfija_prima
 	: '[' expresion ']' expresion_posfija_prima
 	| '(' ')' expresion_posfija_prima 
 	| '(' lista_expresiones_argumento ')' expresion_posfija_prima 
 	| '.' IDENTIFICADOR expresion_posfija_prima 
-	| PTR_OP IDENTIFICADOR expresion_posfija_prima
-	| INC_OP expresion_posfija_prima
-	| DEC_OP expresion_posfija_prima
+	| "->" IDENTIFICADOR expresion_posfija_prima
+	| "++" expresion_posfija_prima
+	| "--" expresion_posfija_prima
 	| EPSILON
 	
-
 expresion_primaria
 	: IDENTIFICADOR
 	| CONSTANTE
 	| CADENA
 	| '(' expresion ')'
 	
-
 lista_expresiones_argumento
 	: expresion_de_asignacion lista_expresiones_argumento_prima
-
 
 lista_expresiones_argumento_prima
 	: ',' expresion_de_asignacion lista_expresiones_argumento_prima
 	| EPSILON	
 
-
 proposicion_de_seleccion
 	: IF '(' expresion ')' proposicion proposicion_de_seleccion_else
 	| SWITCH '(' expresion ')' proposicion
 	
-
 proposicion_de_seleccion_else
 	: ELSE proposicion
 	| EPSILON
