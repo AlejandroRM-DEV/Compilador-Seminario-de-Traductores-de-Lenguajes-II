@@ -1,0 +1,257 @@
+unidad_de_traduccion
+	: declaracion_externa unidad_de_traduccion_prima
+	
+unidad_de_traduccion_prima
+	: declaracion_externa unidad_de_traduccion_prima
+	| EPSILON
+
+declaracion_externa
+	: definicion_de_funcion
+	| declaracion
+	
+definicion_de_funcion
+	: especificador_de_tipo declarador lista_de_declaraciones 
+
+proposicion_compuesta
+	: especificador_de_tipo declarador proposicion_compuesta
+	| declarador proposicion_compuesta_post
+
+proposicion_compuesta_post
+	: lista_de_declaraciones proposicion_compuesta
+	| proposicion_compuesta
+
+declaracion
+	: especificador_de_tipo declaracion_post
+	
+declaracion_post
+	: ';'
+	| lista_declaradores_init ';'
+
+lista_de_declaraciones
+	: declaracion lista_de_declaraciones_prima
+
+lista_de_declaraciones_prima
+	: declaracion lista_de_declaraciones_prima
+	| EPSILON
+	
+especificador_de_tipo
+	: VOID
+	| INT
+
+lista_declaradores_init
+	: declarador_init lista_declaradores_init_prima
+	
+lista_declaradores_init_prima
+	: ',' declarador_init lista_declaradores_init_prima
+	| EPSILON
+	
+declarador_init
+	: declarator
+	| declarador '=' inicializador
+	
+lista_calificador_especificador
+	: especificador_de_tipo
+
+declarator
+	: IDENTIFICADOR
+
+lista_tipos_de_parametros
+	: lista_de_parametros
+	
+lista_de_parametros
+	: declaracion_parametro lista_de_parametros_prima
+	
+lista_de_parametros_prima
+	: ',' declaracion_parametro lista_de_parametros_prima
+	| EPSILON
+
+declaracion_parametro
+	: especificador_de_tipo declaracion_parametro_post
+
+declaracion_parametro_post
+	: declarator
+	| EPSILON
+	
+lista_de_identificadores
+	: IDENTIFICADOR lista_de_identificadores_prima
+		
+lista_de_identificadores_prima
+	: ',' IDENTIFICADOR lista_de_identificadores_prima
+	| EPSILON
+	
+inicializador
+	: expresion_de_asignacion
+	
+lista_de_inicializadores
+	: inicializador lista_de_inicializadores_prima
+	
+lista_de_inicializadores_prima
+	: ',' inicializador lista_de_inicializadores_prima
+	| EPSILON 
+	
+nombre_de_tipo
+	: lista_calificador_especificador
+	
+proposicion
+	: proposicion_etiquetada
+	| proposicion_compuesta
+	| proposicion_expresion
+	| proposicion_de_seleccion
+	| proposicion_de_iteracion
+	| proposicion_de_salto
+	
+proposicion_compuesta
+	: '{' '}'
+	| '{' lista_de_proposiciones '}'
+	| '{' lista_de_declaraciones '}'
+	| '{' lista_de_declaraciones lista_de_proposiciones '}'
+		
+lista_de_proposiciones
+	: proposicion lista_de_proposiciones_prima
+	
+lista_de_proposiciones_prima
+	: proposicion lista_de_proposiciones_prima
+	| EPSILON	
+
+proposicion_expresion
+	: expresion ';'	
+
+proposicion_de_iteracion
+	: WHILE '(' expresion ')' proposicion
+	| DO proposicion WHILE '(' expresion ')' ';'
+	| FOR '(' proposicion_expresion proposicion_expresion for_post
+	
+for_post
+	: ')' proposicion
+	| expresion ')' proposicion
+
+proposicion_de_salto
+	: CONTINUE ';'
+	| BREAK ';'
+	| RETURN ';'
+	| RETURN expresion ';'
+	
+expresion
+	: expresion_de_asignacion expresion_prima
+	
+expresion_prima
+	: ',' expresion_de_asignacion expresion_prima
+	| EPSILON
+	
+expresion_de_asignacion
+	: expresion_condicional
+	| expresion_unaria operador_de_asignacion expresion_de_asignacion
+	
+operador_de_asignacion
+	: '='
+	
+expresion_condicional
+	: expresion_logica_OR
+	
+expresion_constante
+	: expresion_condicional
+			
+expresion_logica_OR
+	: expresion_logica_AND expresion_logica_OR_prima
+	
+expresion_logica_OR_prima
+	: "||" expresion_logica_AND expresion_logica_OR_prima
+	| EPSILON
+	
+expresion_logica_AND
+	: expresion_OR_inclusivo expresion_logica_AND_prima
+
+expresion_logica_AND_prima
+	: "&&" expresion_OR_inclusivo expresion_logica_AND_prima
+	| EPSILON	
+
+expresion_OR_inclusivo
+	: expresion_OR_exclusivo expresion_OR_inclusivo_prima
+
+expresion_OR_inclusivo_prima
+	: '|' expresion_OR_exclusivo expresion_OR_inclusivo_prima
+	| EPSILON
+		
+expresion_OR_exclusivo
+	: expresion_AND expresion_OR_exclusivo_prima
+	
+expresion_OR_exclusivo_prima
+	: '^' expresion_AND expresion_OR_exclusivo_prima
+	| EPSILON
+
+expresion_AND
+	: expresion_de_igualdad expresion_AND_prima
+
+expresion_AND_prima
+	: '&' expresion_de_igualdad expresion_AND_prima
+	| EPSILON	
+	
+expresion_de_igualdad
+	: expresion_relacional expresion_de_igualdad_prima
+	
+expresion_de_igualdad_prima 
+	: "=="expresion_relacional expresion_de_igualdad_prima
+	| "!="expresion_relacional expresion_de_igualdad_prima
+	| EPSILON
+	
+expresion_relacional
+	: expresion_de_corrimiento expresion_relacional_prima
+	
+expresion_relacional_prima
+	: '<' expresion_de_corrimiento expresion_relacional_prima
+	| '>' expresion_de_corrimiento expresion_relacional_prima
+	| "<=" expresion_de_corrimiento expresion_relacional_prima
+	| ">=" expresion_de_corrimiento expresion_relacional_prima
+	| EPSILON
+	
+expresion_de_corrimiento
+	: expresion_aditiva 
+		
+expresion_aditiva
+	: expresion_multiplicativa expresion_aditiva_prima
+
+expresion_aditiva_prima 
+	: '+' expresion_multiplicativa expresion_aditiva_prima
+	| '-' expresion_multiplicativa expresion_aditiva_prima
+	| EPSILON
+
+expresion_multiplicativa
+	: expresion_unaria expresion_multiplicativa_prima
+
+expresion_multiplicativa_prima
+	: '*' expresion_unaria expresion_multiplicativa_prima
+	| '/' expresion_unaria expresion_multiplicativa_prima
+	| '%' expresion_unaria expresion_multiplicativa_prima
+	| EPSILON
+
+expresion_unaria
+	: expresion_posfija
+	| "++" expresion_unaria
+	| "--" expresion_unaria
+	| '!' expresion_unaria
+
+expresion_posfija
+	: expresion_primaria expresion_posfija_prima
+	
+expresion_posfija_prima
+	: "++" expresion_posfija_prima
+	| "--" expresion_posfija_prima
+	| EPSILON
+	
+expresion_primaria
+	: IDENTIFICADOR
+	| '(' expresion ')'
+	
+lista_expresiones_argumento
+	: expresion_de_asignacion lista_expresiones_argumento_prima
+
+lista_expresiones_argumento_prima
+	: ',' expresion_de_asignacion lista_expresiones_argumento_prima
+	| EPSILON	
+
+proposicion_de_seleccion
+	: IF '(' expresion ')' proposicion proposicion_de_seleccion_else
+	
+proposicion_de_seleccion_else
+	: ELSE proposicion
+	| EPSILON
