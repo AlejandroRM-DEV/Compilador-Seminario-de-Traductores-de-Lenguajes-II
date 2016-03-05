@@ -3,7 +3,6 @@
 Lexico::Lexico() {
     archivo.open( "entrada.c" );
     if ( archivo.is_open() ) {
-        generaEtiquetas();
         error = false;
         simbolo = "";
         idTabla = 0;
@@ -186,7 +185,7 @@ bool Lexico::hayError() {
 }
 
 bool Lexico::fin() {
-    return (tipo == FIN_ENTRADA) || hayError();
+    return ( tipo == FIN_ENTRADA ) || hayError();
 }
 
 string Lexico::dameSimbolo() {
@@ -197,12 +196,20 @@ int Lexico::dameTipo() {
     return tipo;
 }
 
+queue<ParToken> Lexico::dameListaTokens() {
+    while( !fin() ) {
+        sigSimbolo();
+        listaTokens.push ( make_pair(simbolo, tipo) );
+    }
+    return listaTokens;
+}
+
 string Lexico::toString() {
     stringstream ss;
 
     ss << "[ " << etiquetas[tipo];
     if( tipo == IDENTIFICADOR ) {
-        ss << ", " << tablaSimbolos.find(simbolo)->second;
+        ss << ", " << tablaSimbolos.find( simbolo )->second;
     }
     ss << " ] [ " << simbolo << " ]";
     return ss.str();
@@ -215,29 +222,4 @@ string Lexico::toStringTablaSimbolos() {
         ss << entrada.second << "\t" << entrada.first << endl;
     }
     return ss.str();
-}
-
-void Lexico::generaEtiquetas() {
-    etiquetas[IDENTIFICADOR] = "Identificador";
-    etiquetas[RESERVADO] = "Reservado";
-    etiquetas[ENTERO] = "Entero";
-    etiquetas[OP_ADITIVO] = "OP Aditivo";
-    etiquetas[OP_INCREMENTO] = "OP Incremento";
-    etiquetas[OP_DECREMENTO] = "OP Decremento";
-    etiquetas[OP_MULTIPLICATIVO] = "OP Multiplicativo";
-    etiquetas[LOGICO_AND] = "Logico AND";
-    etiquetas[LOGICO_OR] = "Logico OR";
-    etiquetas[LOGICO_NOT] = "Logico NOT";
-    etiquetas[OP_ASIGNACION] = "OP Asignacion";
-    etiquetas[OP_IGUALDAD] = "OP Igualdad";
-    etiquetas[OP_RELACIONAL] = "OP Relacional";
-    etiquetas[COMA] = "Coma";
-    etiquetas[DELIMITADOR] = "Delimitador";
-    etiquetas[COMENTARIO] = "Comentario";
-    etiquetas[PARENTESIS_IZQ] = "Parentesis izq.";
-    etiquetas[PARENTESIS_DER] = "Parentesis der.";
-    etiquetas[LLAVE_IZQ] = "Llave izq.";
-    etiquetas[LLAVE_DER] = "Llave der.";
-    etiquetas[FIN_ENTRADA] = "Fin de entrada";
-    etiquetas[ERROR] = "Error";
 }

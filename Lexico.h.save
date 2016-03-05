@@ -3,13 +3,16 @@
 
 #include <iostream>
 #include <fstream>
-#include <set>
 #include <map>
 #include <sstream>
+#include <queue>
+
+#include "Constantes.h"
 
 using namespace std;
 
-typedef pair<string,int> EntradaTS;
+typedef pair<string, int> EntradaTS;
+typedef pair<string, int> ParToken;
 
 enum Estado {
     Q0, Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11, Q12, Q13, Q14, Q15, Q16,
@@ -21,12 +24,7 @@ enum Entrada {
     E17, E18, E19, E20, E21, NUMERO_ENTRADAS
 } ;
 
-enum Token {
-    IDENTIFICADOR, RESERVADO, ENTERO, OP_ADITIVO, OP_INCREMENTO, OP_DECREMENTO, OP_MULTIPLICATIVO,
-    LOGICO_AND, LOGICO_OR, LOGICO_NOT, OP_ASIGNACION, OP_IGUALDAD, OP_RELACIONAL, COMA, DELIMITADOR,
-    COMENTARIO, PARENTESIS_IZQ, PARENTESIS_DER, LLAVE_IZQ, LLAVE_DER, FIN_ENTRADA, ERROR,
-    NUMERO_TOKENS
-};
+
 
 enum Salida {
     NO, SI
@@ -58,7 +56,7 @@ private:
         {Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q21, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, K, Q20},
         {Q20, Q20, Q20, Q20, Q20, Q20, Q22, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, Q20, K, Q20},
         {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
-        {Q23, Q22, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, K, Q23},
+        {Q23, Q22, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q23, Q22, Q23},
         {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
         {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
         {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
@@ -91,7 +89,7 @@ private:
         {NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO},
         {NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO},
         {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
-        {NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, SI, NO},
+        {NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO},
         {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
         {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
         {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
@@ -99,14 +97,8 @@ private:
         {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
         {NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO}
     };
-    set<string> reservados = {"auto", "break", "case", "char", "const", "continue", "default",
-                              "do", "double", "else", "enum", "extern", "float", "for", "goto",
-                              "if", "inline", "int", "long",  "register", "return", "short",
-                              "signed",  "sizeof", "static", "struct", "switch", "typedef",
-                              "union", "unsigned", "void", "volatile", "while"
-                             };
     map<string, int> tablaSimbolos;
-    string etiquetas[NUMERO_TOKENS];
+    queue<ParToken> listaTokens;
 
     char caracter;
     int estado;
@@ -118,7 +110,9 @@ private:
 
     void fijaTipo( int );
     int transicion( char );
+
 public:
+    string etiquetas[NUMERO_TOKENS];
     Lexico();
     ~Lexico();
     void sigSimbolo();
@@ -130,5 +124,6 @@ public:
     void generaEtiquetas();
     string toString();
     string toStringTablaSimbolos();
+    queue<ParToken> dameListaTokens();
 };
 #endif // LEXICO_H_INCLUDED

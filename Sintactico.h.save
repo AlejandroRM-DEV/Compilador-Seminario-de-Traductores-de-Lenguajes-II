@@ -1,0 +1,138 @@
+#ifndef SINTACTICO_H_INCLUDED
+#define SINTACTICO_H_INCLUDED
+
+#include "Constantes.h"
+
+class Sintactico {
+private:
+    bool error;
+    queue<ParToken> tokens;
+
+    void comprueba( string simbolo );
+    void comprueba( Token tipo );
+    void marcarError( string mensaje );
+
+public:
+    Sintactico( queue<ParToken> tokens ) {
+        error = false;
+        this->tokens = tokens;
+    }
+
+    bool hayError() {
+        return error;
+    }
+
+    void analiza() {
+        unidad_traduccion();
+    }
+
+    void unidad_traduccion() {
+        definicion();
+        unidad_traduccion_prima();
+    }
+
+    void unidad_traduccion_prima() {
+        if( error ) return;
+        if( tokens.front().second != FIN_ENTRADA ) {
+            definicion();
+            unidad_traduccion_prima();
+        }
+    }
+
+    void definicion() {
+        if( error ) return;
+        especificador_tipo();
+        comprueba( IDENTIFICADOR );
+        definicion_prima();
+    }
+
+    void definicion_prima() {
+        if( error ) return;
+        if( tokens.front().second == PARENTESIS_IZQ ) {
+            tokens.pop();
+            if( tokens.front().second == PARENTESIS_DER ) {
+                tokens.pop();
+                cuerpo_funcion();
+            } else {
+                lista_param();
+                comprueba( PARENTESIS_DER );
+                cuerpo_funcion();
+            }
+        } else {
+            declarador_init_prima();
+            lista_vars();
+        }
+    }
+
+    void cuerpo_funcion() {
+        if( error ) return;
+        if( tokens.front().second == DELIMITADOR ) {
+            tokens.pop();
+        } else {
+            proposicion_compuesta();
+        }
+    }
+
+    void lista_vars() {
+        if( error ) return;
+        switch( tokens.front().second ) {
+        case DELIMITADOR:
+            tokens.pop();
+            break;
+        case COMA:
+            tokens.pop();
+            declarador_init();
+            lista_vars();
+            break;
+        default:
+            marcarError( "Se esperaba un \";\" o una \",\"" );
+        }
+    }
+
+    void lista_de_declaraciones() {
+        if( error ) return;
+        if( tokens.front().first == "int" ) {
+            especificador_tipo();
+            declarador_init();
+            lista_vars();
+            lista_de_declaraciones();
+        }
+    }
+    void declarador_init();
+    void declarador_init_prima();
+    void lista_param();
+    void lista_param_prima();
+    void especificador_tipo();
+    void expresion();
+    void expresion_prima();
+    void expresion_de_asignacion();
+    void expresion_logica_OR();
+    void expresion_logica_OR_prima();
+    void expresion_logica_AND();
+    void expresion_logica_AND_prima();
+    void expresion_de_igualdad();
+    void expresion_de_igualdad_prima();
+    void expresion_relacional();
+    void expresion_relacional_prima();
+    void expresion_aditiva();
+    void expresion_aditiva_prima();
+    void expresion_multiplicativa();
+    void expresion_multiplicativa_prima();
+    void expresion_unaria();
+    void expresion_posfija();
+    void expresion_posfija_prima();
+    void expresion_primaria();
+    void lista_expresiones_argumento();
+    void lista_expresiones_argumento_prima();
+    void proposicion_de_seleccion();
+    void proposicion_de_seleccion_else();
+    void proposicion();
+    void proposicion_compuesta();
+    void lista_de_proposiciones();
+    void proposicion_expresion();
+    void proposicion_de_iteracion();
+    void for_post();
+    void proposicion_de_salto();
+};
+
+#endif // SINTACTICO_H_INCLUDED

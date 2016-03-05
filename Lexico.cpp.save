@@ -3,11 +3,11 @@
 Lexico::Lexico() {
     archivo.open( "entrada.c" );
     if ( archivo.is_open() ) {
+        generaEtiquetas();
         error = false;
+        simbolo = "";
         idTabla = 0;
         tipo = -1;
-        simbolo = "";
-        generaEtiquetas();
     } else {
         error = true;
     }
@@ -47,7 +47,6 @@ void Lexico::sigSimbolo() {
                 break;
             }
         }
-        cout << toString() << endl;
     } while ( estado == Q22 ); // Ignora comentarios
     fijaTipo( estado );
 }
@@ -187,7 +186,7 @@ bool Lexico::hayError() {
 }
 
 bool Lexico::fin() {
-    return (tipo == FIN_ENTRADA) || hayError();
+    return ( tipo == FIN_ENTRADA ) || hayError();
 }
 
 string Lexico::dameSimbolo() {
@@ -198,12 +197,20 @@ int Lexico::dameTipo() {
     return tipo;
 }
 
+queue<ParToken> Lexico::dameListaTokens() {
+    while( !fin() ) {
+        sigSimbolo();
+        listaTokens.emplace ( make_pair(simbolo, tipo) );
+    }
+    return listaTokens;
+}
+
 string Lexico::toString() {
     stringstream ss;
 
     ss << "[ " << etiquetas[tipo];
     if( tipo == IDENTIFICADOR ) {
-        ss << ", " << tablaSimbolos.find(simbolo)->second;
+        ss << ", " << tablaSimbolos.find( simbolo )->second;
     }
     ss << " ] [ " << simbolo << " ]";
     return ss.str();

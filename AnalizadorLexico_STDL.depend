@@ -1,35 +1,29 @@
 # depslib dependency file v1.0
-1455675950 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\main.cpp
-	<iostream>
-	<fstream>
+1457158372 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\lexico.cpp
 	"Lexico.h"
 
-1455675675 c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\lexico.h
+1457159855 c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\lexico.h
 	<iostream>
 	<fstream>
-	<set>
-	<map>
 	<sstream>
+	<queue>
+	<map>
+	"Constantes.h"
 
-1455676056 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\lexico.cpp
-	"Lexico.h"
-
-1454687241 c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\entratablasimbolo.h
-	<iostream>
-
-1454687557 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\entradatablasimbolo.cpp
-	"EntradaTablaSimbolo.h"
-
-1454816552 c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\entradatablasimbolo.h
-	<iostream>
-
-1454687241 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\entradatablasimbolo.h
-	<iostream>
-
-1454688480 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\lexico.h
+1457163710 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\main.cpp
 	<iostream>
 	<fstream>
-	<set>
-	<vector>
-	"EntradaTablaSimbolo.h"
+	"Lexico.h"
+	"Sintactico.h"
+
+1457159968 c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\sintactico.h
+	"Constantes.h"
+	<queue>
+
+1457159951 c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\constantes.h
+	<iostream>
+	<map>
+
+1457193029 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\sintactico.cpp
+	"Sintactico.h"
 

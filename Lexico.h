@@ -3,13 +3,13 @@
 
 #include <iostream>
 #include <fstream>
-#include <set>
-#include <map>
 #include <sstream>
+#include <queue>
+#include <map>
+
+#include "Constantes.h"
 
 using namespace std;
-
-typedef pair<string,int> EntradaTS;
 
 enum Estado {
     Q0, Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11, Q12, Q13, Q14, Q15, Q16,
@@ -20,13 +20,6 @@ enum Entrada {
     E0, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16,
     E17, E18, E19, E20, E21, NUMERO_ENTRADAS
 } ;
-
-enum Token {
-    IDENTIFICADOR, RESERVADO, ENTERO, OP_ADITIVO, OP_INCREMENTO, OP_DECREMENTO, OP_MULTIPLICATIVO,
-    LOGICO_AND, LOGICO_OR, LOGICO_NOT, OP_ASIGNACION, OP_IGUALDAD, OP_RELACIONAL, COMA, DELIMITADOR,
-    COMENTARIO, PARENTESIS_IZQ, PARENTESIS_DER, LLAVE_IZQ, LLAVE_DER, FIN_ENTRADA, ERROR,
-    NUMERO_TOKENS
-};
 
 enum Salida {
     NO, SI
@@ -99,14 +92,8 @@ private:
         {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
         {NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO}
     };
-    set<string> reservados = {"auto", "break", "case", "char", "const", "continue", "default",
-                              "do", "double", "else", "enum", "extern", "float", "for", "goto",
-                              "if", "inline", "int", "long",  "register", "return", "short",
-                              "signed",  "sizeof", "static", "struct", "switch", "typedef",
-                              "union", "unsigned", "void", "volatile", "while"
-                             };
     map<string, int> tablaSimbolos;
-    string etiquetas[NUMERO_TOKENS];
+    queue<ParToken> listaTokens;
 
     char caracter;
     int estado;
@@ -118,17 +105,18 @@ private:
 
     void fijaTipo( int );
     int transicion( char );
+    void insertaSimbolo( string );
+
 public:
     Lexico();
     ~Lexico();
     void sigSimbolo();
-    void insertaSimbolo( string );
     bool hayError();
     bool fin();
     string dameSimbolo();
     int dameTipo();
-    void generaEtiquetas();
     string toString();
     string toStringTablaSimbolos();
+    queue<ParToken> dameListaTokens();
 };
 #endif // LEXICO_H_INCLUDED

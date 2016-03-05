@@ -32,8 +32,11 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Constantes.h" />
 		<Unit filename="Lexico.cpp" />
 		<Unit filename="Lexico.h" />
+		<Unit filename="Sintactico.cpp" />
+		<Unit filename="Sintactico.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

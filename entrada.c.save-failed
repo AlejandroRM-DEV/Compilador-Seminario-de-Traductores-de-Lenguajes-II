@@ -1,7 +1,4 @@
 /*
-    Archivo de prueba para el analizador sintactico, sólo se revisa que sea sintacticamente
-    correcto.
-*/
 int global;
 int global, global2;
 int global = 1;
@@ -178,7 +175,11 @@ int func() {
         }
     }
 }
+*/
+int func(){
 
+int func(){}
+/*
 int func() {
     int var = a + 1 - c * 2 / e;
     int var = 1 - b * c / 2 + e;
@@ -210,40 +211,4 @@ int func() {
     if( ( a == b ) && ( c != d ) && ( e < f ) && ( g > h ) && ( i <= j ) && ( k <= l ) ) {}
 }
 
-int func() {
-    int a = 0, b = 1, c = 2;
-    int x, y, z;
-
-    if( a >= 0 ) {
-        for( x = 0; x <= 20; x++ ) {
-            while( b == 1 ) {
-                do {
-                    y = c + b;
-                    z = c * 2;
-                    if( z > 100 ) {
-                        break;
-                    } else if( y < 100 ) {
-                        a++;
-                    } else {
-                        continue;
-                    }
-                    c--;
-                } while( c != 0 );
-            }
-        }
-        while( b == 1 ) {
-            do {
-                z = c * 2;
-                for( x = 100; x > 0; x-- ) {
-                    y = c + b;
-                }
-                c--;
-            } while( c != 0 );
-        }
-    }
-    if( z > 100 ) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
+*/
