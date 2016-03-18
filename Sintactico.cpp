@@ -44,6 +44,7 @@ void Sintactico::unidad_traduccion() {
 
 void Sintactico::unidad_traduccion_prima() {
     if( error ) return;
+
     if( tokens.front().second != FIN_ENTRADA ) {
         definicion();
         unidad_traduccion_prima();
@@ -52,6 +53,7 @@ void Sintactico::unidad_traduccion_prima() {
 
 void Sintactico::definicion() {
     if( error ) return;
+
     especificador_tipo();
     comprueba( IDENTIFICADOR );
     definicion_prima();
@@ -59,6 +61,7 @@ void Sintactico::definicion() {
 
 void Sintactico::definicion_prima() {
     if( error ) return;
+
     if( tokens.front().second == PARENTESIS_IZQ ) {
         tokens.pop();
         if( tokens.front().second == PARENTESIS_DER ) {
@@ -77,6 +80,7 @@ void Sintactico::definicion_prima() {
 
 void Sintactico::cuerpo_funcion() {
     if( error ) return;
+
     if( tokens.front().second == DELIMITADOR ) {
         tokens.pop();
     } else {
@@ -86,6 +90,7 @@ void Sintactico::cuerpo_funcion() {
 
 void Sintactico::lista_vars() {
     if( error ) return;
+
     switch( tokens.front().second ) {
     case DELIMITADOR:
         tokens.pop();
@@ -102,6 +107,7 @@ void Sintactico::lista_vars() {
 
 void Sintactico::lista_de_declaraciones() {
     if( error ) return;
+
     switch( reservados.find( tokens.front().first )->second ) {
     case INT:
         especificador_tipo();
@@ -119,12 +125,14 @@ void Sintactico::lista_de_declaraciones() {
 
 void Sintactico::declarador_init() {
     if( error ) return;
+
     comprueba( IDENTIFICADOR );
     declarador_init_prima();
 }
 
 void Sintactico::declarador_init_prima() {
     if( error ) return;
+
     if( tokens.front().second == OP_ASIGNACION ) {
         tokens.pop();
         expresion_de_asignacion();
@@ -133,6 +141,7 @@ void Sintactico::declarador_init_prima() {
 
 void Sintactico::lista_param() {
     if( error ) return;
+
     especificador_tipo();
     declarador_init();
     lista_param_prima();
@@ -140,6 +149,7 @@ void Sintactico::lista_param() {
 
 void Sintactico::lista_param_prima() {
     if( error ) return;
+
     if( tokens.front().second == COMA ) {
         tokens.pop();
         especificador_tipo();
@@ -150,6 +160,7 @@ void Sintactico::lista_param_prima() {
 
 void Sintactico::especificador_tipo() {
     if( error ) return;
+
     switch( reservados.find( tokens.front().first )->second ) {
     case INT:
     case VOID:
@@ -163,12 +174,14 @@ void Sintactico::especificador_tipo() {
 
 void Sintactico::expresion() {
     if( error ) return;
+
     expresion_de_asignacion();
     expresion_prima();
 }
 
 void Sintactico::expresion_prima() {
     if( error ) return;
+
     if( tokens.front().second == COMA ) {
         tokens.pop();
         expresion_de_asignacion();
@@ -178,6 +191,7 @@ void Sintactico::expresion_prima() {
 
 void Sintactico::expresion_de_asignacion() {
     if( error ) return;
+
     expresion_unaria();
     switch( tokens.front().second ) {
     case OP_ASIGNACION:
@@ -204,12 +218,14 @@ void Sintactico::expresion_de_asignacion() {
 
 void Sintactico::expresion_logica_OR() {
     if( error ) return;
+
     expresion_logica_AND();
     expresion_logica_OR_prima();
 }
 
 void Sintactico::expresion_logica_OR_prima() {
     if( error ) return;
+
     if( tokens.front().second == LOGICO_OR ) {
         tokens.pop();
         expresion_logica_AND();
@@ -219,12 +235,14 @@ void Sintactico::expresion_logica_OR_prima() {
 
 void Sintactico::expresion_logica_AND() {
     if( error ) return;
+
     expresion_de_igualdad();
     expresion_logica_AND_prima();
 }
 
 void Sintactico::expresion_logica_AND_prima() {
     if( error ) return;
+
     if( tokens.front().second == LOGICO_AND ) {
         tokens.pop();
         expresion_de_igualdad();
@@ -234,12 +252,14 @@ void Sintactico::expresion_logica_AND_prima() {
 
 void Sintactico::expresion_de_igualdad() {
     if( error ) return;
+
     expresion_relacional();
     expresion_de_igualdad_prima();
 }
 
 void Sintactico::expresion_de_igualdad_prima() {
     if( error ) return;
+
     if( tokens.front().second == OP_IGUALDAD ) {
         tokens.pop();
         expresion_relacional();
@@ -249,12 +269,14 @@ void Sintactico::expresion_de_igualdad_prima() {
 
 void Sintactico::expresion_relacional() {
     if( error ) return;
+
     expresion_aditiva();
     expresion_relacional_prima();
 }
 
 void Sintactico::expresion_relacional_prima() {
     if( error ) return;
+
     if( tokens.front().second == OP_RELACIONAL ) {
         tokens.pop();
         expresion_aditiva();
@@ -264,12 +286,14 @@ void Sintactico::expresion_relacional_prima() {
 
 void Sintactico::expresion_aditiva() {
     if( error ) return;
+
     expresion_multiplicativa();
     expresion_aditiva_prima();
 }
 
 void Sintactico::expresion_aditiva_prima() {
     if( error ) return;
+
     if( tokens.front().second == OP_ADITIVO ) {
         tokens.pop();
         expresion_multiplicativa();
@@ -279,12 +303,14 @@ void Sintactico::expresion_aditiva_prima() {
 
 void Sintactico::expresion_multiplicativa() {
     if( error ) return;
+
     expresion_unaria();
     expresion_multiplicativa_prima();
 }
 
 void Sintactico::expresion_multiplicativa_prima() {
     if( error ) return;
+
     if( tokens.front().second == OP_MULTIPLICATIVO ) {
         tokens.pop();
         expresion_unaria();
@@ -294,6 +320,7 @@ void Sintactico::expresion_multiplicativa_prima() {
 
 void Sintactico::expresion_unaria() {
     if( error ) return;
+
     switch( tokens.front().second ) {
     case OP_INCREMENTO:
     case OP_DECREMENTO:
@@ -309,18 +336,27 @@ void Sintactico::expresion_unaria() {
 
 void Sintactico::expresion_posfija() {
     if( error ) return;
+
     expresion_primaria();
     expresion_posfija_prima();
 }
 
 void Sintactico::expresion_posfija_prima() {
     if( error ) return;
+
     switch( tokens.front().second ) {
     case OP_INCREMENTO:
     case OP_DECREMENTO:
         tokens.pop();
         expresion_posfija_prima();
         break;
+    case PARENTESIS_IZQ:
+        tokens.pop();
+        if( tokens.front().second != PARENTESIS_DER){
+            lista_expresiones_argumento();
+        }
+        comprueba(PARENTESIS_DER);
+        expresion_posfija_prima();
     default:
         break;
     }
@@ -328,6 +364,7 @@ void Sintactico::expresion_posfija_prima() {
 
 void Sintactico::expresion_primaria() {
     if( error ) return;
+
     switch( tokens.front().second ) {
     case IDENTIFICADOR:
     case ENTERO:
@@ -345,12 +382,14 @@ void Sintactico::expresion_primaria() {
 
 void Sintactico::lista_expresiones_argumento() {
     if( error ) return;
+
     expresion_de_asignacion();
     lista_expresiones_argumento_prima();
 }
 
 void Sintactico::lista_expresiones_argumento_prima() {
     if( error ) return;
+
     if( tokens.front().second == COMA ) {
         tokens.pop();
         expresion_de_asignacion();
@@ -360,6 +399,7 @@ void Sintactico::lista_expresiones_argumento_prima() {
 
 void Sintactico::proposicion_de_seleccion() {
     if( error ) return;
+
     if( tokens.front().first == "if" ) {
         tokens.pop();
         comprueba( PARENTESIS_IZQ );
@@ -372,6 +412,7 @@ void Sintactico::proposicion_de_seleccion() {
 
 void Sintactico::proposicion_de_seleccion_else() {
     if( error ) return;
+
     if( tokens.front().first == "else" ) {
         tokens.pop();
         proposicion();
@@ -380,6 +421,7 @@ void Sintactico::proposicion_de_seleccion_else() {
 
 void Sintactico::proposicion() {
     if( error ) return;
+
     proposicion_compuesta();
     proposicion_de_seleccion();
     proposicion_de_iteracion();
@@ -387,10 +429,10 @@ void Sintactico::proposicion() {
     /**
         Las siguiente condiciones provocarian un falso error:
 
-        (*) '}' Se verifica que exista en proposicion_compuesta();
+        (*) '}' Se verifica que exista en proposicion_compuesta() por lista_de_proposiciones()
         (*) P. Reservada: las unicas palabras reservadas admitidas por las proposiciones ya
-                se contemplaron en las funciones anteriores, ademas excluir las P.R. que en la
-                gramatica aparezcan despues de proposicion() (p. ej. "else")
+                se contemplaron en las funciones anteriores, si hay una P.R. debe validarla quien
+                llamo a proposicion()
     **/
     if( tokens.front().second != LLAVE_DER && tokens.front().second != RESERVADO ) {
         proposicion_expresion();
@@ -399,6 +441,7 @@ void Sintactico::proposicion() {
 
 void Sintactico::proposicion_compuesta() {
     if( error ) return;
+
     if( tokens.front().second == LLAVE_IZQ ) {
         tokens.pop();
         lista_de_declaraciones();
@@ -408,6 +451,7 @@ void Sintactico::proposicion_compuesta() {
 
 void Sintactico::lista_de_proposiciones() {
     if( error ) return;
+
     if( tokens.front().second == LLAVE_DER ) {
         tokens.pop();
     } else {
@@ -419,6 +463,7 @@ void Sintactico::lista_de_proposiciones() {
 
 void Sintactico::proposicion_expresion() {
     if( error ) return;
+
     if( tokens.front().second == DELIMITADOR ) {
         tokens.pop();
     } else {
@@ -429,6 +474,7 @@ void Sintactico::proposicion_expresion() {
 
 void Sintactico::proposicion_de_iteracion() {
     if( error ) return;
+
     switch( reservados.find( tokens.front().first )->second ) {
     case WHILE:
         tokens.pop();
@@ -463,6 +509,7 @@ void Sintactico::proposicion_de_iteracion() {
 
 void Sintactico::for_post() {
     if( error ) return;
+
     if( tokens.front().second == PARENTESIS_DER ) {
         tokens.pop();
         proposicion();
@@ -479,6 +526,7 @@ void Sintactico::for_post() {
 
 void Sintactico::proposicion_de_salto() {
     if( error ) return;
+
     switch( reservados.find( tokens.front().first )->second ) {
     case CONTINUE:
     case BREAK:

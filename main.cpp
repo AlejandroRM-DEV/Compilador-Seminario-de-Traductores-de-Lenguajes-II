@@ -19,9 +19,9 @@ int main() {
         sintactico->analiza();
 
         if( !sintactico->hayError() ) {
-            cout << "Analisis sintactico: Aceptado" << endl;
+            cout << "Analisis Sintactico: Aceptado" << endl;
         } else {
-            cout << "Analisis sintactico: Rechazado" << endl;
+            cout << "Analisis Sintactico: Rechazado" << endl;
         }
 
         delete sintactico;

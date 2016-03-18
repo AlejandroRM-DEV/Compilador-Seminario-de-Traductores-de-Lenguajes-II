@@ -24,6 +24,34 @@
 	<iostream>
 	<map>
 
-1457193029 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\sintactico.cpp
+1458087029 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\sintactico.cpp
+	"Sintactico.h"
+
+1457158372 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii\lexico.cpp
+	"Lexico.h"
+
+1457159855 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii\lexico.h
+	<iostream>
+	<fstream>
+	<sstream>
+	<queue>
+	<map>
+	"Constantes.h"
+
+1457159951 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii\constantes.h
+	<iostream>
+	<map>
+
+1458087096 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii\main.cpp
+	<iostream>
+	<fstream>
+	"Lexico.h"
+	"Sintactico.h"
+
+1457159968 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii\sintactico.h
+	"Constantes.h"
+	<queue>
+
+1458262507 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii\sintactico.cpp
 	"Sintactico.h"
 
