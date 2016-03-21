@@ -35,35 +35,67 @@ int func() {
     return a;
     return !a;
 }
-/*
+
 int func() {
-    if( global < 0 ) {
-        return -1;
+    int var = a + 1 - c * 2 / e;
+    int var = 1 - b * c / 2 + e;
+    int var = a * b / 1 + d - e;
+    int var = a / 1 + c - d * 2;
+
+    int var = ( 1 + b - c ) * 2 / e;
+    int var = ( a - 2 ) * c / ( 2 + e );
+    int var = a * b / ( 1 + d - e );
+    int var = a / ( b + c - d ) * 2;
+    int var = a + b - ( ( c * d ) / 2 );
+    int var = ( ( a - b ) * 2 ) / ( d + e );
+    int var = a * ( 10 / ( c + d - e ) );
+    int var = a / ( ( b + c - d ) * 2 );
+
+    if( a ) {}
+    if( !a ) {}
+    if( a && b || c ) {}
+    if( !a && !b || c ) {}
+    if( a || b && c ) {}
+    if( a && b || c && d ) {}
+    if( a || b && c || d ) {}
+    if( a < b ) {}
+    if( a <= b ) {}
+    if( a > b ) {}
+    if( a >= b ) {}
+    if( a == b ) {}
+    if( a != b ) {}
+    if( ( a == b ) && ( c != d ) && ( e < f ) && ( g > h ) && ( i <= j ) && ( k <= l ) ) {}
+}
+
+int func() {
+    if( if_0 < 0 ) {
+        return 0;
     }
 
-    if( global < 0 ) {
-        //Codigo
+    if( if_1 < 0 ) {
+        return 1;
     } else {
-        //Codigo
+        return 2;
     }
 
-    if( global < 0 ) {
-        if( global < 0 ) {
-            //Codigo
+    if( if_2 < 0 ) {
+        if( if_3 < 0 ) {
+            return 3;
         } else {
-            //Codigo
+            return 4;
         }
     } else {
-        //Codigo
+        return 5;
     }
 
-    if( global < 0 ) {
-        //Codigo
-    } else if( global > 0 ) {
-        //Codigo
+    if( if_4 < 0 ) {
+        return 6;
+    } else if( if_5 > 0 ) {
+        return 7;
     } else {
-        //Codigo
+        return 8;
     }
+
 }
 
 int func() {
@@ -139,7 +171,7 @@ int func() {
 
 int func() {
     for( i = 0; i < 10; i++ ) {
-        if( var < 0 ) {
+        if( var < 1 ) {
             continue;
         } else {
             break;
@@ -147,7 +179,7 @@ int func() {
     }
 
     for( i = 0; i < 10; ) {
-        if( var < 0 ) {
+        if( var < 2 ) {
             continue;
         } else {
             break;
@@ -155,7 +187,7 @@ int func() {
     }
 
     for( i = 0; ; ) {
-        if( var < 0 ) {
+        if( var < 3 ) {
             continue;
         } else {
             break;
@@ -163,7 +195,7 @@ int func() {
     }
 
     for( ; i < 10; ) {
-        if( var < 0 ) {
+        if( var < 4 ) {
             continue;
         } else {
             break;
@@ -171,43 +203,16 @@ int func() {
     }
 
     for( ; ; ) {
-        if( var < 0 ) {
+        if( var < 5 ) {
             continue;
         } else {
             break;
         }
     }
-}
+    for( c = n = 1;i <10; i++ ) {
 
-int func() {
-    int var = a + 1 - c * 2 / e;
-    int var = 1 - b * c / 2 + e;
-    int var = a * b / 1 + d - e;
-    int var = a / 1 + c - d * 2;
+    }
 
-    int var = ( 1 + b - c ) * 2 / e;
-    int var = ( a - 2 ) * c / ( 2 + e );
-    int var = a * b / ( 1 + d - e );
-    int var = a / ( b + c - d ) * 2;
-    int var = a + b - ( ( c * d ) / 2 );
-    int var = ( ( a - b ) * 2 ) / ( d + e );
-    int var = a * ( 10 / ( c + d - e ) );
-    int var = a / ( ( b + c - d ) * 2 );
-
-    if( a ) {}
-    if( !a ) {}
-    if( a && b || c ) {}
-    if( !a && !b || c ) {}
-    if( a || b && c ) {}
-    if( a && b || c && d ) {}
-    if( a || b && c || d ) {}
-    if( a < b ) {}
-    if( a <= b ) {}
-    if( a > b ) {}
-    if( a >= b ) {}
-    if( a == b ) {}
-    if( a != b ) {}
-    if( ( a == b ) && ( c != d ) && ( e < f ) && ( g > h ) && ( i <= j ) && ( k <= l ) ) {}
 }
 
 int func() {
@@ -248,4 +253,4 @@ int func() {
     }
 
 }
-*/
+

@@ -16,10 +16,9 @@ int main() {
         cout << "Analisis Lexico: Aceptado" << endl;
 
         sintactico = new Sintactico( tokens );
-        UnidadTraduccion*  nodo = (UnidadTraduccion*)sintactico->analiza();
+        Nodo*  nodo = sintactico->analiza();
 
         if( !sintactico->hayError() ) {
-            cout << "Imprimiendo" << endl;
             cout << nodo->toString() << endl;
             cout << "Analisis Sintactico: Aceptado" << endl;
         } else {
@@ -27,6 +26,7 @@ int main() {
         }
 
         delete sintactico;
+        delete nodo;
     } else {
         cout << "Analisis Lexico: Rechazado" << endl;
     }

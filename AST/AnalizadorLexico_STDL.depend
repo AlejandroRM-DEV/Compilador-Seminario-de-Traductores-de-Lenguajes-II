@@ -1,60 +1,4 @@
 # depslib dependency file v1.0
-1457158372 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\lexico.cpp
-	"Lexico.h"
-
-1457159855 c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\lexico.h
-	<iostream>
-	<fstream>
-	<sstream>
-	<queue>
-	<map>
-	"Constantes.h"
-
-1457163710 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\main.cpp
-	<iostream>
-	<fstream>
-	"Lexico.h"
-	"Sintactico.h"
-
-1457159968 c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\sintactico.h
-	"Constantes.h"
-	<queue>
-
-1457159951 c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\constantes.h
-	<iostream>
-	<map>
-
-1458087029 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_stdl\sintactico.cpp
-	"Sintactico.h"
-
-1457158372 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii\lexico.cpp
-	"Lexico.h"
-
-1457159855 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii\lexico.h
-	<iostream>
-	<fstream>
-	<sstream>
-	<queue>
-	<map>
-	"Constantes.h"
-
-1457159951 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii\constantes.h
-	<iostream>
-	<map>
-
-1458087096 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii\main.cpp
-	<iostream>
-	<fstream>
-	"Lexico.h"
-	"Sintactico.h"
-
-1457159968 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii\sintactico.h
-	"Constantes.h"
-	<queue>
-
-1458142304 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii\sintactico.cpp
-	"Sintactico.h"
-
 1457158372 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_2\lexico.cpp
 	"Lexico.h"
 
@@ -70,21 +14,21 @@
 	<iostream>
 	<map>
 
-1458522913 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_2\main.cpp
+1458592745 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_2\main.cpp
 	<iostream>
 	<fstream>
 	"Lexico.h"
 	"Sintactico.h"
 
-1458539182 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_2\sintactico.h
+1458592500 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_2\sintactico.h
 	"Constantes.h"
 	"AST_Tipos.h"
 	<queue>
 
-1458540322 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_2\ast_tipos.h
+1458596130 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_2\ast_tipos.h
 	<vector>
 	<iostream>
 
-1458540246 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_2\sintactico.cpp
+1458592516 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_2\sintactico.cpp
 	"Sintactico.h"
 

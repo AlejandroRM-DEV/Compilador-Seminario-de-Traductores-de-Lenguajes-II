@@ -213,7 +213,7 @@ Expresion* Sintactico::expresion() {
 /**
 *   ¿Realmente se utiliza, donde y como solucionar?
 */
-void Sintactico::expresion_prima( Expresion* exp ) {
+void Sintactico::expresion_prima( Expresion* &exp ) {
     if( error ) return;
 
     if( tokens.front().second == COMA ) {
@@ -231,8 +231,11 @@ Expresion* Sintactico::expresion_de_asignacion() {
     switch( tokens.front().second ) {
     case OP_ASIGNACION:
         tokens.pop();
-        /** FALTA **/
-        expresion_de_asignacion();
+        if( Identificador* dv = dynamic_cast<Identificador*>( exp ) ) {
+            exp = new Asignacion( dv, expresion_de_asignacion() );
+        } else {
+            marcarError( "Se requiere una variable como operando izquierdo de una asignacion" );
+        }
         break;
     case OP_MULTIPLICATIVO:
         expresion_multiplicativa_prima( exp );
@@ -262,7 +265,7 @@ Expresion* Sintactico::expresion_logica_OR() {
     return exp;
 }
 
-void Sintactico::expresion_logica_OR_prima( Expresion* exp ) {
+void Sintactico::expresion_logica_OR_prima( Expresion* &exp ) {
     if( error ) return;
 
     if( tokens.front().second == LOGICO_OR ) {
@@ -281,7 +284,7 @@ Expresion* Sintactico::expresion_logica_AND() {
     return exp;
 }
 
-void Sintactico::expresion_logica_AND_prima( Expresion* exp ) {
+void Sintactico::expresion_logica_AND_prima( Expresion* &exp ) {
     if( error ) return;
 
     if( tokens.front().second == LOGICO_AND ) {
@@ -300,14 +303,15 @@ Expresion* Sintactico::expresion_de_igualdad() {
     return exp;
 }
 
-void Sintactico::expresion_de_igualdad_prima( Expresion* exp ) {
+void Sintactico::expresion_de_igualdad_prima( Expresion* &exp ) {
     if( error ) return;
 
     if( tokens.front().second == OP_IGUALDAD ) {
-        tokens.pop();
         if( tokens.front().first == "==" ) {
+            tokens.pop();
             exp = new Igual( exp, expresion_relacional() );
         } else {
+            tokens.pop();
             exp = new Diferente( exp, expresion_relacional() );
         }
         expresion_de_igualdad_prima( exp );
@@ -323,18 +327,21 @@ Expresion* Sintactico::expresion_relacional() {
     return exp;
 }
 
-void Sintactico::expresion_relacional_prima( Expresion* exp ) {
+void Sintactico::expresion_relacional_prima( Expresion* &exp ) {
     if( error ) return;
 
     if( tokens.front().second == OP_RELACIONAL ) {
-        tokens.pop();
         if( tokens.front().first == "<" ) {
+            tokens.pop();
             exp = new Menor( exp, expresion_aditiva() );
         } else if( tokens.front().first == "<=" ) {
+            tokens.pop();
             exp = new MenorIgual( exp, expresion_aditiva() );
         } else if( tokens.front().first == ">" ) {
+            tokens.pop();
             exp = new Mayor( exp, expresion_aditiva() );
         } else {
+            tokens.pop();
             exp = new MayorIgual( exp, expresion_aditiva() );
         }
         expresion_relacional_prima( exp );
@@ -351,14 +358,15 @@ Expresion* Sintactico::expresion_aditiva() {
     return exp;
 }
 
-void Sintactico::expresion_aditiva_prima( Expresion* exp ) {
+void Sintactico::expresion_aditiva_prima( Expresion* &exp ) {
     if( error ) return;
 
     if( tokens.front().second == OP_ADITIVO ) {
-        tokens.pop();
         if( tokens.front().first == "+" ) {
+            tokens.pop();
             exp = new Suma( exp, expresion_multiplicativa() );
         } else {
+            tokens.pop();
             exp = new Resta( exp, expresion_multiplicativa() );
         }
         expresion_aditiva_prima( exp );
@@ -375,16 +383,18 @@ Expresion* Sintactico::expresion_multiplicativa() {
     return exp;
 }
 
-void Sintactico::expresion_multiplicativa_prima( Expresion* exp ) {
+void Sintactico::expresion_multiplicativa_prima( Expresion* &exp ) {
     if( error ) return;
 
     if( tokens.front().second == OP_MULTIPLICATIVO ) {
-        tokens.pop();
         if( tokens.front().first == "*" ) {
+            tokens.pop();
             exp = new Multiplicacion( exp, expresion_unaria() );
         } else if( tokens.front().first == "/" ) {
+            tokens.pop();
             exp = new Division( exp, expresion_unaria() );
         } else {
+            tokens.pop();
             exp = new Modulo( exp, expresion_unaria() );
         }
         expresion_multiplicativa_prima( exp );
@@ -429,7 +439,7 @@ Expresion* Sintactico::expresion_posfija() {
     return exp;
 }
 
-void Sintactico::expresion_posfija_prima( Expresion* exp ) {
+void Sintactico::expresion_posfija_prima( Expresion* &exp ) {
     if( error ) return;
 
     switch( tokens.front().second ) {
@@ -473,27 +483,29 @@ Expresion* Sintactico::expresion_primaria() {
 }
 
 If* Sintactico::proposicion_de_seleccion() {
-    If* _if = nullptr;
-    if( error ) return _if;
+    If* proposicionIf = nullptr;
+    if( error ) return proposicionIf;
 
     if( tokens.front().first == "if" ) {
+        proposicionIf = new If();
         tokens.pop();
         comprueba( PARENTESIS_IZQ );
-        expresion();
+        proposicionIf->exp = expresion();
         comprueba( PARENTESIS_DER );
-        proposicion();
-        proposicion_de_seleccion_else();
+        proposicionIf->proIf = proposicion();
+        proposicionIf->proElse = proposicion_de_seleccion_else();
     }
-    return _if;
+    return proposicionIf;
 }
 
-void Sintactico::proposicion_de_seleccion_else() {
-    if( error ) return;
+Nodo* Sintactico::proposicion_de_seleccion_else() {
+    if( error ) return nullptr;
 
     if( tokens.front().first == "else" ) {
         tokens.pop();
-        proposicion();
+        return proposicion();
     }
+    return nullptr;
 }
 
 Nodo* Sintactico::proposicion() {
@@ -554,76 +566,83 @@ Expresion* Sintactico::proposicion_expresion() {
     if( tokens.front().second == DELIMITADOR ) {
         tokens.pop();
     } else {
-        expresion();
+        exp = expresion();
         comprueba( DELIMITADOR );
     }
     return exp;
 }
 
 Proposicion* Sintactico::proposicion_de_iteracion() {
-    Proposicion* p = nullptr;
-    if( error ) return p;
+    if( error ) return nullptr;
 
     switch( reservados.find( tokens.front().first )->second ) {
-    case WHILE:
+    case WHILE: {
         tokens.pop();
+        While* p = new While();
         comprueba( PARENTESIS_IZQ );
-        expresion();
+        p->exp = expresion();
         comprueba( PARENTESIS_DER );
-        proposicion();
-        break;
-    case DO:
+        p->proposicion = proposicion();
+        return p;
+    }
+    case DO: {
         tokens.pop();
-        proposicion_compuesta();
+        DoWhile* p = new DoWhile();
+        p->proposicion = proposicion_compuesta();
         if( tokens.front().first == "while" ) {
             tokens.pop();
             comprueba( PARENTESIS_IZQ );
-            expresion();
+            p->exp = expresion();
             comprueba( PARENTESIS_DER );
             comprueba( DELIMITADOR );
         } else {
             marcarError( "Se esperaba un \"while\" al termino de un \"do\"" );
+            p = nullptr;
         }
-        break;
-    case FOR:
-        tokens.pop();
-        comprueba( PARENTESIS_IZQ );
-        proposicion_expresion();
-        proposicion_expresion();
-        for_post();
-    default:
-        break;
+        return p;
     }
-    return p;
-
-}
-
-void Sintactico::for_post() {
-    if( error ) return;
-
-    if( tokens.front().second == PARENTESIS_DER ) {
+    case FOR: {
         tokens.pop();
-        proposicion();
-    } else {
-        expresion();
+        For* p = new For();
+        comprueba( PARENTESIS_IZQ );
+        p->pre = proposicion_expresion();
+        p->exp = proposicion_expresion();
         if( tokens.front().second == PARENTESIS_DER ) {
             tokens.pop();
-            proposicion();
+            p->proposicion = proposicion();
         } else {
-            marcarError( "Se esperaba un parentesis de cierre" );
+            p->post = expresion();
+            if( tokens.front().second == PARENTESIS_DER ) {
+                tokens.pop();
+                p->proposicion = proposicion();
+            } else {
+                marcarError( "Se esperaba un parentesis de cierre" );
+            }
         }
+        return p;
     }
+    default:
+        return nullptr;
+    }
+
 }
 
 Proposicion*  Sintactico::proposicion_de_salto() {
     if( error ) return nullptr;
 
     switch( reservados.find( tokens.front().first )->second ) {
-    case CONTINUE:
-    case BREAK:
+    case CONTINUE: {
+        Continue* p = new Continue();
         tokens.pop();
         comprueba( DELIMITADOR );
-        break;
+        return p;
+    }
+    case BREAK: {
+        Break* p = new Break();
+        tokens.pop();
+        comprueba( DELIMITADOR );
+        return p;
+    }
     case RETURN: {
         tokens.pop();
         Return* p = new Return();
@@ -636,7 +655,6 @@ Proposicion*  Sintactico::proposicion_de_salto() {
         return p;
     }
     default:
-        break;
+        return nullptr;
     }
-    return nullptr;
 }

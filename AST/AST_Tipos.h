@@ -9,18 +9,8 @@ using namespace std;
 class Nodo {
 public:
     string simbolo;
-    Nodo* siguente;
-
-    Nodo() {
-        siguente = nullptr;
-    }
-
-    virtual ~Nodo() {
-        if( siguente != nullptr ) {
-            delete siguente;
-        };
-    }
-
+    Nodo() {}
+    virtual ~Nodo() {}
     virtual string toString() = 0;
 };
 
@@ -37,7 +27,6 @@ public:
     }
 };
 
-
 class Expresion: public Nodo {
 public:
     Expresion* izquierda;
@@ -47,7 +36,8 @@ public:
         izquierda = nullptr;
         derecha = nullptr;
     }
-    ~Expresion() {
+
+    virtual ~Expresion() {
         if( izquierda != nullptr ) {
             delete izquierda;
         };
@@ -56,9 +46,7 @@ public:
         };
     }
 
-    virtual string toString() {
-        return izquierda->toString() + " " + simbolo + " " + derecha->toString();
-    }
+    string toString() = 0;
 };
 
 class Identificador: public Expresion {
@@ -69,7 +57,7 @@ public:
 
     ~Identificador() {}
 
-    virtual string toString() {
+    string toString() {
         return simbolo;
     }
 };
@@ -81,7 +69,8 @@ public:
     }
 
     ~Entero() {}
-    virtual string toString() {
+
+    string toString() {
         return simbolo;
     }
 };
@@ -94,11 +83,13 @@ public:
         this->derecha = derecha;
     }
 
-    ~OR() {};
-    virtual string toString() {
-        return simbolo;
+    ~OR() {}
+
+    string toString() {
+        return izquierda->toString() + simbolo + derecha->toString();
     }
 };
+
 class AND: public Expresion {
 public:
     AND( Expresion* izquierda, Expresion* derecha ) {
@@ -107,9 +98,10 @@ public:
         this->derecha = derecha;
     }
 
-    ~AND() {};
-    virtual string toString() {
-        return simbolo;
+    ~AND() {}
+
+    string toString() {
+        return izquierda->toString() + simbolo + derecha->toString();
     }
 };
 
@@ -121,9 +113,10 @@ public:
         this->derecha = derecha;
     }
 
-    ~Igual() {};
-    virtual string toString() {
-        return simbolo;
+    ~Igual() {}
+
+    string toString() {
+        return izquierda->toString() + simbolo + derecha->toString();
     }
 };
 
@@ -135,9 +128,10 @@ public:
         this->derecha = derecha;
     }
 
-    ~Diferente() {};
-    virtual string toString() {
-        return simbolo;
+    ~Diferente() {}
+
+    string toString() {
+        return izquierda->toString() + simbolo + derecha->toString();
     }
 };
 
@@ -149,9 +143,10 @@ public:
         this->derecha = derecha;
     }
 
-    ~Menor() {};
-    virtual string toString() {
-        return simbolo;
+    ~Menor() {}
+
+    string toString() {
+        return izquierda->toString() + simbolo + derecha->toString();
     }
 };
 
@@ -163,9 +158,10 @@ public:
         this->derecha = derecha;
     }
 
-    ~MenorIgual() {};
-    virtual string toString() {
-        return simbolo;
+    ~MenorIgual() {}
+
+    string toString() {
+        return izquierda->toString() + simbolo + derecha->toString();
     }
 };
 
@@ -177,9 +173,10 @@ public:
         this->derecha = derecha;
     }
 
-    ~Mayor() {};
-    virtual string toString() {
-        return simbolo;
+    ~Mayor() {}
+
+    string toString() {
+        return izquierda->toString() + simbolo + derecha->toString();
     }
 };
 
@@ -191,9 +188,10 @@ public:
         this->derecha = derecha;
     }
 
-    ~MayorIgual() {};
-    virtual string toString() {
-        return simbolo;
+    ~MayorIgual() {}
+
+    string toString() {
+        return izquierda->toString() + simbolo + derecha->toString();
     }
 };
 
@@ -205,9 +203,10 @@ public:
         this->derecha = derecha;
     }
 
-    ~Suma() {};
-    virtual string toString() {
-        return simbolo;
+    ~Suma() {}
+
+    string toString() {
+        return izquierda->toString() + simbolo + derecha->toString();
     }
 };
 
@@ -219,9 +218,10 @@ public:
         this->derecha = derecha;
     }
 
-    ~Resta() {};
-    virtual string toString() {
-        return simbolo;
+    ~Resta() {}
+
+    string toString() {
+        return izquierda->toString() + simbolo + derecha->toString();
     }
 };
 
@@ -233,9 +233,10 @@ public:
         this->derecha = derecha;
     }
 
-    ~Multiplicacion() {};
-    virtual string toString() {
-        return simbolo;
+    ~Multiplicacion() {}
+
+    string toString() {
+        return izquierda->toString() + simbolo + derecha->toString();
     }
 };
 
@@ -247,9 +248,10 @@ public:
         this->derecha = derecha;
     }
 
-    ~Division() {};
-    virtual string toString() {
-        return simbolo;
+    ~Division() {}
+
+    string toString() {
+        return izquierda->toString() + simbolo + derecha->toString();
     }
 };
 
@@ -261,17 +263,19 @@ public:
         this->derecha = derecha;
     }
 
-    ~Modulo() {};
-    virtual string toString() {
-        return simbolo;
+    ~Modulo() {}
+
+    string toString() {
+        return izquierda->toString() + simbolo + derecha->toString();
     }
 };
 
 
-class Asignacion: public Nodo {
+class Asignacion: public Expresion {
 public:
     Identificador* id;
     Expresion* expresion;
+
     Asignacion( Identificador* id, Expresion* expresion ) {
         this->id = id;
         this->expresion = expresion;
@@ -287,7 +291,6 @@ public:
     }
 
     string toString() {
-        cout << "toString() Asignacion" << endl;
         string strExp;
         if( expresion != nullptr ) {
             strExp = " = " + expresion->toString();
@@ -300,10 +303,16 @@ public:
 class PosfijoIncremento: public Expresion {
 public:
     Expresion* exp;
+
     PosfijoIncremento( Expresion* exp ) {
         this->exp = exp;
     }
-    virtual string toString() {
+
+    ~PosfijoIncremento( ) {
+        delete exp;
+    }
+
+    string toString() {
         return exp->toString() + "++";
     }
 };
@@ -311,10 +320,16 @@ public:
 class PosfijoDecremento: public Expresion {
 public:
     Expresion* exp;
+
     PosfijoDecremento( Expresion* exp ) {
         this->exp = exp;
     }
-    virtual string toString() {
+
+    ~PosfijoDecremento( ) {
+        delete exp;
+    }
+
+    string toString() {
         return exp->toString() + "--";
     }
 };
@@ -322,10 +337,16 @@ public:
 class UnarioIncremento: public Expresion {
 public:
     Expresion* exp;
+
     UnarioIncremento( Expresion* exp ) {
         this->exp = exp;
     }
-    virtual string toString() {
+
+    ~UnarioIncremento( ) {
+        delete exp;
+    }
+
+    string toString() {
         return "++" + exp->toString();
     }
 };
@@ -333,10 +354,16 @@ public:
 class UnarioDecremento: public Expresion {
 public:
     Expresion* exp;
+
     UnarioDecremento( Expresion* exp ) {
         this->exp = exp;
     }
-    virtual string toString() {
+
+    ~UnarioDecremento( ) {
+        delete exp;
+    }
+
+    string toString() {
         return "--" + exp->toString();
     }
 };
@@ -344,10 +371,16 @@ public:
 class UnarioNot: public Expresion {
 public:
     Expresion* exp;
+
     UnarioNot( Expresion* exp ) {
         this->exp = exp;
     }
-    virtual string toString() {
+
+    ~UnarioNot( ) {
+        delete exp;
+    }
+
+    string toString() {
         return "!" + exp->toString();
     }
 };
@@ -355,10 +388,16 @@ public:
 class UnarioNegativo: public Expresion {
 public:
     Expresion* exp;
+
     UnarioNegativo( Expresion* exp ) {
         this->exp = exp;
     }
-    virtual string toString() {
+
+    ~UnarioNegativo( ) {
+        delete exp;
+    }
+
+    string toString() {
         return "-" + exp->toString();
     }
 };
@@ -366,10 +405,16 @@ public:
 class UnarioPositivo: public Expresion {
 public:
     Expresion* exp;
+
     UnarioPositivo( Expresion* exp ) {
         this->exp = exp;
     }
-    virtual string toString() {
+
+    ~UnarioPositivo( ) {
+        delete exp;
+    }
+
+    string toString() {
         return "+" + exp->toString();
     }
 };
@@ -382,12 +427,13 @@ public:
         this->tipo = tipo;
     }
 
-    ~Definicion() {
+    virtual ~Definicion() {
         if( tipo != nullptr ) {
             delete tipo;
         };
     }
 
+    virtual string toString() = 0;
 };
 
 class Parametro: public Nodo {
@@ -400,6 +446,11 @@ public:
         this->asignacion = asignacion;
     }
 
+    ~Parametro() {
+        delete tipo;
+        delete asignacion;
+    }
+
     string toString() {
         return tipo->toString() + " " + asignacion->toString();
     }
@@ -408,11 +459,16 @@ public:
 class DefinicionVariable: public Definicion {
 public:
     vector<Asignacion*> asignaciones;
+
     DefinicionVariable( Tipo* tipo ): Definicion( tipo ) {}
-    ~DefinicionVariable() {}
+
+    ~DefinicionVariable() {
+        for( Asignacion* a : asignaciones ) {
+            delete a;
+        }
+    }
 
     string toString() {
-        cout << "toString() DefinicionVariable" << endl;
         string str = tipo->toString();
 
         for( Asignacion* a : asignaciones ) {
@@ -426,25 +482,56 @@ public:
 class Proposicion: public Nodo {
 public:
     Proposicion() {}
-    ~Proposicion() {}
-    string toString() {
-        return "";
-    }
+    virtual ~Proposicion() {}
+    virtual string toString() = 0;
 };
 
 class If: public Proposicion {
 public:
     Expresion* exp;
-    Proposicion* proIf;
-    Proposicion* proElse;
+    Nodo* proIf;
+    Nodo* proElse;
 
-    If() {}
-    ~If() {}
+    If() {
+        exp = nullptr;
+        proIf = nullptr;
+        proElse = nullptr;
+    }
+
+    ~If() {
+        delete exp;
+        if( proIf != nullptr ) {
+            delete proIf;
+        }
+        if( proElse != nullptr ) {
+            delete proElse;
+        }
+    }
+
     string toString() {
-        return "";
+        string str = "if (" + exp->toString() + ") ";
+        if( proIf != nullptr ) {
+            str +=  proIf->toString();
+        }
+        if( proElse != nullptr ) {
+            str += "\r\nelse ";
+            str +=  proElse->toString();
+        }
+        return str + "\r\n";
     }
 };
 
+class Continue: public Proposicion {
+    string toString() {
+        return "continue ";
+    }
+};
+
+class Break: public Proposicion {
+    string toString() {
+        return "break ";
+    }
+};
 
 class Return: public Proposicion {
 public:
@@ -453,16 +540,21 @@ public:
     Return() {
         exp = nullptr;
     }
-    ~Return() {}
+
+    ~Return() {
+        if( exp != nullptr ) {
+            delete exp;
+        }
+    }
+
     string toString() {
         string str = "return ";
-        if(exp!=nullptr){
-            str+=exp->toString();
+        if( exp != nullptr ) {
+            str += exp->toString();
         }
         return str;
     }
 };
-
 
 class ProposicionCompuesta: public Proposicion {
 public:
@@ -472,19 +564,98 @@ public:
         this->cuerpo = cuerpo;
     }
 
-    ~ProposicionCompuesta() {}
+    ~ProposicionCompuesta() {
+        for( Nodo* nodo : cuerpo ) {
+            delete nodo;
+        }
+    }
 
     string toString() {
-        string str;
+        string str = "{";
 
         for( Nodo* a : cuerpo ) {
-            if( DefinicionVariable* dv = dynamic_cast<DefinicionVariable*>( a ) ) {
-                str += "\r\n\t" + dv->toString();
-            }else if( Return* dv = dynamic_cast<Return*>( a ) ) {
-                cout << "LOG" << endl;
-                str += "\r\n\t" + dv->toString();
-            }
+            str += "\r\n" + a->toString();
         }
+        str += "\r\n}";
+        return str;
+    }
+};
+
+class DoWhile: public Proposicion {
+public:
+    Expresion* exp;
+    ProposicionCompuesta* proposicion;
+
+    DoWhile() {
+        exp = nullptr;
+        proposicion = nullptr;
+    }
+
+    ~DoWhile() {
+        delete exp;
+        delete proposicion;
+    }
+
+    string toString() {
+        string str = "Do \r\n" + proposicion->toString() + "while( " + exp->toString() + " )";
+
+        return str;
+    }
+};
+
+class For: public Proposicion {
+public:
+    Expresion* pre;
+    Expresion* exp;
+    Expresion* post;
+    Nodo* proposicion;
+
+    For() {
+        pre = nullptr;
+        exp = nullptr;
+        post = nullptr;
+        proposicion = nullptr;
+    }
+
+    ~For() {
+        if( pre != nullptr ) delete pre;
+        if( exp != nullptr )  delete exp;
+        if( post != nullptr ) delete post;
+        delete proposicion;
+    }
+
+    string toString() {
+        string str = "for( ";
+        if( pre != nullptr ) str += pre->toString();
+        str += ";";
+        if( exp != nullptr ) str += exp->toString() ;
+        str += ";";
+        if( post != nullptr ) str += post->toString() ;
+        str += ")";
+        str += proposicion->toString();
+
+        return str;
+    }
+};
+
+
+class While: public Proposicion {
+public:
+    Expresion* exp;
+    Nodo* proposicion;
+
+    While() {
+        exp = nullptr;
+        proposicion = nullptr;
+    }
+
+    ~While() {
+        delete exp;
+        delete proposicion;
+    }
+
+    string toString() {
+        string str = "while( " + exp->toString() + " )" + proposicion->toString();
 
         return str;
     }
@@ -500,16 +671,25 @@ public:
         this->id = id;
         cuerpo = nullptr;
     }
-    ~DefinicionFuncion() {}
+    ~DefinicionFuncion() {
+        delete id;
+        for( Parametro* p : parametros ) {
+            delete p;
+        }
+        if( cuerpo != nullptr ) {
+            delete cuerpo;
+        }
+    }
 
     string toString() {
-        cout << "toString() DefinicionVariable" << endl;
         string str = tipo->toString() + " ";
 
-        str += id->toString();
+        str += id->toString() + "(";
+
         for( Parametro* a : parametros ) {
             str += " " + a->toString() + " ";
         }
+        str += ")";
 
         if( cuerpo != nullptr ) {
             str += cuerpo->toString();
@@ -523,15 +703,17 @@ class UnidadTraduccion: public Nodo {
 public:
     vector<Definicion*> definiciones;
 
+    UnidadTraduccion() {}
+
+    ~UnidadTraduccion() {
+        for( Definicion* d : definiciones ) {
+            delete d;
+        }
+    }
     string toString() {
-        cout << "toString() UnidadTraduccion" << endl;
         string str;
         for( Definicion* a : definiciones ) {
-            if( DefinicionVariable* dv = dynamic_cast<DefinicionVariable*>( a ) ) {
-                str += dv->toString() + "\r\n";
-            } else if( DefinicionFuncion* df = dynamic_cast<DefinicionFuncion*>( a ) ) {
-                str += df->toString() + "\r\n";
-            }
+            str += a->toString() + "\r\n";
         }
         return str;
     }
