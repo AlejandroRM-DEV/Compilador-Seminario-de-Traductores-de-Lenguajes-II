@@ -209,8 +209,12 @@ int func() {
             break;
         }
     }
-    for( c = n = 1;i <10; i++ ) {
-
+    for( c = n = 1; i < 10; i++ ) {
+        if( var < 6 ) {
+            continue;
+        } else {
+            break;
+        }
     }
 
 }
@@ -253,4 +257,3 @@ int func() {
     }
 
 }
-

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -11,7 +12,7 @@ public:
     string simbolo;
     Nodo() {}
     virtual ~Nodo() {}
-    virtual string toString() = 0;
+    virtual string toString( string prefijo, bool esHoja ) = 0;
 };
 
 class Tipo: public Nodo {
@@ -22,8 +23,10 @@ public:
 
     ~Tipo() {}
 
-    string toString() {
-        return simbolo;
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << simbolo << endl;
+        return ss.str();
     }
 };
 
@@ -46,7 +49,7 @@ public:
         };
     }
 
-    string toString() = 0;
+    string toString( string prefijo, bool esHoja ) = 0;
 };
 
 class Identificador: public Expresion {
@@ -57,8 +60,10 @@ public:
 
     ~Identificador() {}
 
-    string toString() {
-        return simbolo;
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << simbolo << endl;
+        return ss.str();
     }
 };
 
@@ -70,8 +75,10 @@ public:
 
     ~Entero() {}
 
-    string toString() {
-        return simbolo;
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << simbolo << endl;
+        return ss.str();
     }
 };
 
@@ -85,8 +92,16 @@ public:
 
     ~OR() {}
 
-    string toString() {
-        return izquierda->toString() + simbolo + derecha->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "OR " << endl;
+        if( izquierda != nullptr ) {
+            ss << izquierda->toString( prefijo + ( esHoja ? "    " : "|   " ), ( derecha == nullptr ) );
+        }
+        if( derecha != nullptr ) {
+            ss << derecha->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -100,8 +115,16 @@ public:
 
     ~AND() {}
 
-    string toString() {
-        return izquierda->toString() + simbolo + derecha->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "AND " << endl;
+        if( izquierda != nullptr ) {
+            ss << izquierda->toString( prefijo + ( esHoja ? "    " : "|   " ), ( derecha == nullptr ) );
+        }
+        if( derecha != nullptr ) {
+            ss << derecha->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -115,8 +138,16 @@ public:
 
     ~Igual() {}
 
-    string toString() {
-        return izquierda->toString() + simbolo + derecha->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "Igualdad " << endl;
+        if( izquierda != nullptr ) {
+            ss << izquierda->toString( prefijo + ( esHoja ? "    " : "|   " ), ( derecha == nullptr ) );
+        }
+        if( derecha != nullptr ) {
+            ss << derecha->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -130,8 +161,16 @@ public:
 
     ~Diferente() {}
 
-    string toString() {
-        return izquierda->toString() + simbolo + derecha->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "Diferente " << endl;
+        if( izquierda != nullptr ) {
+            ss << izquierda->toString( prefijo + ( esHoja ? "    " : "|   " ), ( derecha == nullptr ) );
+        }
+        if( derecha != nullptr ) {
+            ss << derecha->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -145,8 +184,16 @@ public:
 
     ~Menor() {}
 
-    string toString() {
-        return izquierda->toString() + simbolo + derecha->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "Menor " << endl;
+        if( izquierda != nullptr ) {
+            ss << izquierda->toString( prefijo + ( esHoja ? "    " : "|   " ), ( derecha == nullptr ) );
+        }
+        if( derecha != nullptr ) {
+            ss << derecha->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -160,8 +207,16 @@ public:
 
     ~MenorIgual() {}
 
-    string toString() {
-        return izquierda->toString() + simbolo + derecha->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "MenorIgual " << endl;
+        if( izquierda != nullptr ) {
+            ss << izquierda->toString( prefijo + ( esHoja ? "    " : "|   " ), ( derecha == nullptr ) );
+        }
+        if( derecha != nullptr ) {
+            ss << derecha->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -175,8 +230,16 @@ public:
 
     ~Mayor() {}
 
-    string toString() {
-        return izquierda->toString() + simbolo + derecha->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "Mayor " << endl;
+        if( izquierda != nullptr ) {
+            ss << izquierda->toString( prefijo + ( esHoja ? "    " : "|   " ), ( derecha == nullptr ) );
+        }
+        if( derecha != nullptr ) {
+            ss << derecha->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -190,8 +253,16 @@ public:
 
     ~MayorIgual() {}
 
-    string toString() {
-        return izquierda->toString() + simbolo + derecha->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "MayorIgual " << endl;
+        if( izquierda != nullptr ) {
+            ss << izquierda->toString( prefijo + ( esHoja ? "    " : "|   " ), ( derecha == nullptr ) );
+        }
+        if( derecha != nullptr ) {
+            ss << derecha->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -205,11 +276,18 @@ public:
 
     ~Suma() {}
 
-    string toString() {
-        return izquierda->toString() + simbolo + derecha->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "Suma" << endl;
+        if( izquierda != nullptr ) {
+            ss << izquierda->toString( prefijo + ( esHoja ? "    " : "|   " ), ( derecha == nullptr ) );
+        }
+        if( derecha != nullptr ) {
+            ss << derecha->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
-
 class Resta: public Expresion {
 public:
     Resta( Expresion* izquierda, Expresion* derecha ) {
@@ -220,8 +298,16 @@ public:
 
     ~Resta() {}
 
-    string toString() {
-        return izquierda->toString() + simbolo + derecha->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "Resta" << endl;
+        if( izquierda != nullptr ) {
+            ss << izquierda->toString( prefijo + ( esHoja ? "    " : "|   " ), ( derecha == nullptr ) );
+        }
+        if( derecha != nullptr ) {
+            ss << derecha->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -235,8 +321,16 @@ public:
 
     ~Multiplicacion() {}
 
-    string toString() {
-        return izquierda->toString() + simbolo + derecha->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "Multiplicacion" << endl;
+        if( izquierda != nullptr ) {
+            ss << izquierda->toString( prefijo + ( esHoja ? "    " : "|   " ), ( derecha == nullptr ) );
+        }
+        if( derecha != nullptr ) {
+            ss << derecha->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -250,8 +344,16 @@ public:
 
     ~Division() {}
 
-    string toString() {
-        return izquierda->toString() + simbolo + derecha->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "Division" << endl;
+        if( izquierda != nullptr ) {
+            ss << izquierda->toString( prefijo + ( esHoja ? "    " : "|   " ), ( derecha == nullptr ) );
+        }
+        if( derecha != nullptr ) {
+            ss << derecha->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -265,8 +367,16 @@ public:
 
     ~Modulo() {}
 
-    string toString() {
-        return izquierda->toString() + simbolo + derecha->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "Modulo" << endl;
+        if( izquierda != nullptr ) {
+            ss << izquierda->toString( prefijo + ( esHoja ? "    " : "|   " ), ( derecha == nullptr ) );
+        }
+        if( derecha != nullptr ) {
+            ss << derecha->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -290,13 +400,17 @@ public:
         };
     }
 
-    string toString() {
-        string strExp;
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+
+        ss << prefijo + ( esHoja ? "\\---" : "|---" ) << "Asignacion" << endl;
+        ss << id->toString( prefijo + ( esHoja ? "    " : "|   " ), ( expresion == nullptr ) );
+
         if( expresion != nullptr ) {
-            strExp = " = " + expresion->toString();
+            ss << expresion->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
         }
 
-        return id->toString() + strExp;
+        return ss.str();
     }
 };
 
@@ -312,8 +426,14 @@ public:
         delete exp;
     }
 
-    string toString() {
-        return exp->toString() + "++";
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "PosfijoIncremento ++ " << endl;
+
+        if( exp != nullptr ) {
+            ss << exp->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -329,8 +449,14 @@ public:
         delete exp;
     }
 
-    string toString() {
-        return exp->toString() + "--";
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "PosfijoDecremento -- " << endl;
+
+        if( exp != nullptr ) {
+            ss << exp->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -346,8 +472,14 @@ public:
         delete exp;
     }
 
-    string toString() {
-        return "++" + exp->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "UnarioIncremento ++ " << endl;
+
+        if( exp != nullptr ) {
+            ss << exp->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -363,8 +495,14 @@ public:
         delete exp;
     }
 
-    string toString() {
-        return "--" + exp->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "UnarioDecremento -- " << endl;
+
+        if( exp != nullptr ) {
+            ss << exp->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -380,8 +518,14 @@ public:
         delete exp;
     }
 
-    string toString() {
-        return "!" + exp->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "UnarioNot ! " << endl;
+
+        if( exp != nullptr ) {
+            ss << exp->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -397,8 +541,14 @@ public:
         delete exp;
     }
 
-    string toString() {
-        return "-" + exp->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "UnarioNegativo - " << endl;
+
+        if( exp != nullptr ) {
+            ss << exp->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -414,8 +564,14 @@ public:
         delete exp;
     }
 
-    string toString() {
-        return "+" + exp->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "UnarioPositivo + " << endl;
+
+        if( exp != nullptr ) {
+            ss << exp->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -433,26 +589,32 @@ public:
         };
     }
 
-    virtual string toString() = 0;
+    virtual string toString( string prefijo, bool esHoja ) = 0;
 };
 
 class Parametro: public Nodo {
 public:
     Tipo* tipo;
-    Asignacion* asignacion;
+    Identificador* id;
 
-    Parametro( Tipo* tipo, Asignacion* asignacion ) {
+    Parametro( Tipo* tipo, Identificador* id ) {
         this->tipo = tipo;
-        this->asignacion = asignacion;
+        this->id = id;
     }
 
     ~Parametro() {
         delete tipo;
-        delete asignacion;
+        delete id;
     }
 
-    string toString() {
-        return tipo->toString() + " " + asignacion->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+
+        ss << prefijo + ( esHoja ? "\\---" : "|---" ) << "Parametro" << endl;
+
+        ss << tipo->toString( prefijo + ( esHoja ? "    " : "|   " ), false );
+        ss << id->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        return ss.str();
     }
 };
 
@@ -468,14 +630,19 @@ public:
         }
     }
 
-    string toString() {
-        string str = tipo->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        int i, j;
 
-        for( Asignacion* a : asignaciones ) {
-            str += " " + a->toString() + " ";
+        ss << prefijo + ( esHoja ? "\\---" : "|---" ) << "DefinicionVariable" << endl;
+        ss << tipo->toString( prefijo + ( esHoja ? "    " : "|   " ), false );
+        for( i = 0, j = asignaciones.size() - 1; i < j; i++ ) {
+            ss << asignaciones.at( i )->toString( prefijo + ( esHoja ? "    " : "|   " ), false );
         }
+        ss << asignaciones.at( j )->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
 
-        return str;
+
+        return ss.str();
     }
 };
 
@@ -483,7 +650,7 @@ class Proposicion: public Nodo {
 public:
     Proposicion() {}
     virtual ~Proposicion() {}
-    virtual string toString() = 0;
+    virtual string toString( string prefijo, bool esHoja ) = 0;
 };
 
 class If: public Proposicion {
@@ -508,28 +675,46 @@ public:
         }
     }
 
-    string toString() {
-        string str = "if (" + exp->toString() + ") ";
-        if( proIf != nullptr ) {
-            str +=  proIf->toString();
-        }
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo + ( esHoja ? "\\---" : "|---" ) << "IF" << endl;
+        ss << exp->toString( prefijo + ( esHoja ? "    " : "|   " ), false );
+        ss << proIf->toString( prefijo + ( esHoja ? "    " : "|   " ), ( proElse == nullptr ) );
+
         if( proElse != nullptr ) {
-            str += "\r\nelse ";
-            str +=  proElse->toString();
+            ss << proElse->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
         }
-        return str + "\r\n";
+        return ss.str();
     }
 };
 
 class Continue: public Proposicion {
-    string toString() {
-        return "continue ";
+public:
+    Continue() {
+        simbolo = "continue";
+    }
+
+    ~Continue() {}
+
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << simbolo << endl;
+        return ss.str();
     }
 };
 
 class Break: public Proposicion {
-    string toString() {
-        return "break ";
+public:
+    Break() {
+        simbolo = "break";
+    }
+
+    ~Break() {}
+
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << simbolo << endl;
+        return ss.str();
     }
 };
 
@@ -538,6 +723,7 @@ public:
     Expresion* exp;
 
     Return() {
+        simbolo = "return";
         exp = nullptr;
     }
 
@@ -547,12 +733,14 @@ public:
         }
     }
 
-    string toString() {
-        string str = "return ";
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << simbolo << endl;
+
         if( exp != nullptr ) {
-            str += exp->toString();
+            ss << exp->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
         }
-        return str;
+        return ss.str();
     }
 };
 
@@ -570,14 +758,17 @@ public:
         }
     }
 
-    string toString() {
-        string str = "{";
-
-        for( Nodo* a : cuerpo ) {
-            str += "\r\n" + a->toString();
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        int i, j;
+        ss << prefijo + ( esHoja ? "\\---" : "|---" ) << "ProposicionCompuesta" << endl;
+        for( i = 0, j = cuerpo.size() - 1; i < j; i++ ) {
+            ss << cuerpo.at( i )->toString( prefijo + ( esHoja ? "    " : "|   " ), false );
         }
-        str += "\r\n}";
-        return str;
+        if( j >= 0 ) {
+            ss << cuerpo.at( j )->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 
@@ -596,10 +787,12 @@ public:
         delete proposicion;
     }
 
-    string toString() {
-        string str = "Do \r\n" + proposicion->toString() + "while( " + exp->toString() + " )";
-
-        return str;
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo + ( esHoja ? "\\---" : "|---" ) << "DoWhile" << endl;
+        ss << proposicion->toString( prefijo + ( esHoja ? "    " : "|   " ), false );
+        ss << exp->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        return ss.str();
     }
 };
 
@@ -624,17 +817,14 @@ public:
         delete proposicion;
     }
 
-    string toString() {
-        string str = "for( ";
-        if( pre != nullptr ) str += pre->toString();
-        str += ";";
-        if( exp != nullptr ) str += exp->toString() ;
-        str += ";";
-        if( post != nullptr ) str += post->toString() ;
-        str += ")";
-        str += proposicion->toString();
-
-        return str;
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo + ( esHoja ? "\\---" : "|---" ) << "For" << endl;
+        if( pre != nullptr ) ss << pre->toString( prefijo + ( esHoja ? "    " : "|   " ), false );
+        if( exp != nullptr ) ss << exp->toString( prefijo + ( esHoja ? "    " : "|   " ), false );
+        if( post != nullptr ) ss << post->toString( prefijo + ( esHoja ? "    " : "|   " ), false );
+        ss << proposicion->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        return ss.str();
     }
 };
 
@@ -654,10 +844,12 @@ public:
         delete proposicion;
     }
 
-    string toString() {
-        string str = "while( " + exp->toString() + " )" + proposicion->toString();
-
-        return str;
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << prefijo + ( esHoja ? "\\---" : "|---" ) << "While" << endl;
+        ss << exp->toString( prefijo + ( esHoja ? "    " : "|   " ), false );
+        ss << proposicion->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        return ss.str();
     }
 };
 
@@ -681,21 +873,24 @@ public:
         }
     }
 
-    string toString() {
-        string str = tipo->toString() + " ";
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        int i, j;
 
-        str += id->toString() + "(";
-
-        for( Parametro* a : parametros ) {
-            str += " " + a->toString() + " ";
+        ss << prefijo + ( esHoja ? "\\---" : "|---" ) << "DefinicionFuncion" << endl;
+        ss << tipo->toString( prefijo + ( esHoja ? "    " : "|   " ), false );
+        ss << id->toString( prefijo + ( esHoja ? "    " : "|   " ), false );
+        for( i = 0, j = parametros.size() - 1; i < j; i++ ) {
+            ss << parametros.at( i )->toString( prefijo + ( esHoja ? "    " : "|   " ), false );
         }
-        str += ")";
-
+        if( j >= 0 ) {
+            ss << parametros.at( j )->toString( prefijo + ( esHoja ? "    " : "|   " ), ( cuerpo == nullptr ) );
+        }
         if( cuerpo != nullptr ) {
-            str += cuerpo->toString();
+            ss << cuerpo->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
         }
 
-        return str;
+        return ss.str();
     }
 };
 
@@ -710,12 +905,18 @@ public:
             delete d;
         }
     }
-    string toString() {
-        string str;
-        for( Definicion* a : definiciones ) {
-            str += a->toString() + "\r\n";
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        ss << "\\---UnidadTraduccion" << endl;
+
+        int i, j;
+        for( i = 0, j = definiciones.size() - 1; i < j; i++ ) {
+            ss << definiciones.at( i )->toString( prefijo + ( esHoja ? "    " : "|   " ), false );
         }
-        return str;
+        if( j >= 0 ) {
+            ss << definiciones.at( j )->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+        return ss.str();
     }
 };
 

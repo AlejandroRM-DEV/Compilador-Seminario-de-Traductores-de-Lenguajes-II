@@ -19,7 +19,7 @@ int main() {
         Nodo*  nodo = sintactico->analiza();
 
         if( !sintactico->hayError() ) {
-            cout << nodo->toString() << endl;
+            cout << nodo->toString( "", true ) << endl;
             cout << "Analisis Sintactico: Aceptado" << endl;
         } else {
             cout << "Analisis Sintactico: Rechazado" << endl;

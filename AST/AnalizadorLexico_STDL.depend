@@ -14,7 +14,7 @@
 	<iostream>
 	<map>
 
-1458592745 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_2\main.cpp
+1458602029 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_2\main.cpp
 	<iostream>
 	<fstream>
 	"Lexico.h"
@@ -25,10 +25,11 @@
 	"AST_Tipos.h"
 	<queue>
 
-1458596130 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_2\ast_tipos.h
+1458614284 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_2\ast_tipos.h
 	<vector>
 	<iostream>
+	<sstream>
 
-1458592516 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_2\sintactico.cpp
+1458610990 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_2\sintactico.cpp
 	"Sintactico.h"
 
