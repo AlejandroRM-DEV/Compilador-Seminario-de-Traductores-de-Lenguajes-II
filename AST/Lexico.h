@@ -28,7 +28,7 @@ enum Salida {
 class Lexico {
 private:
     int matriz[NUMERO_ESTADOS][NUMERO_ENTRADAS] = {
-        {Q0, Q12, Q1, Q2, Q3, Q4, Q8, Q7, Q7, Q9, Q11, Q13, Q14, Q16, Q18, Q19, Q24, Q25, Q26, Q27, Q28, K},
+        {Q0, Q0, Q1, Q2, Q3, Q4, Q8, Q7, Q7, Q9, Q11, Q13, Q14, Q16, Q18, Q19, Q24, Q25, Q26, Q27, Q28, K},
         {K, K, Q1, Q1, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
         {K, K, K, Q2, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
         {K, K, K, K, Q5, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},

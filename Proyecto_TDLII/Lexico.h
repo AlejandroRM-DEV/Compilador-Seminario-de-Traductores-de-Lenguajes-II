@@ -1,0 +1,290 @@
+#ifndef LEXICO_H_INCLUDED
+#define LEXICO_H_INCLUDED
+
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+enum Estado {
+    Q0, Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11, Q12, Q13, Q14, Q15, Q16,
+    Q17, Q18, Q19, Q20, Q21, Q22, Q23, Q24, Q25, Q26, Q27, K, NUMERO_ESTADOS
+};
+
+enum Entrada {
+    E0, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14, E15, E16,
+    E17, E18, E19, E20, E21, E22, NUMERO_ENTRADAS
+} ;
+
+enum Token {
+    IDENTIFICADOR, RESERVADO, ENTERO, OP_ADITIVO, OP_INCREMENTO, OP_DECREMENTO, OP_MULTIPLICATIVO,
+    LOGICO_AND, LOGICO_OR, LOGICO_NOT, OP_ASIGNACION, OP_IGUALDAD, OP_RELACIONAL, COMA,
+    PARENTESIS_IZQ, PARENTESIS_DER, TABULADOR, NUEVA_LINEA, DOS_PUNTOS, FLOTANTE, CADENA,
+    FIN_ENTRADA, ERROR, NUMERO_TOKENS
+};
+
+enum Salida {
+    NO, SI
+};
+
+class Lexico {
+private:
+    int matriz[NUMERO_ESTADOS][NUMERO_ENTRADAS] = {
+        {Q0, Q21, Q1, Q2, Q3, Q4, Q7, Q7, Q7, Q8, Q10, Q12, Q13, Q15, Q17, Q18, Q19, Q20, Q22, K, Q25, Q27, K},
+        {K, K, Q1, Q1, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, Q2, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, Q23, K, K, K},
+        {K, K, K, K, Q5, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, Q6, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, Q9, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, Q11, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, K, K, Q14, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, K, K, Q14, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, K, K, Q16, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, Q24, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, Q24, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {Q25, Q25, Q25, Q25, Q25, Q25, Q25, Q25, Q25, Q25, Q25, Q25, Q25, Q25, Q25, Q25, Q25, Q25, Q25, Q25, Q26, K, Q25},
+        {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K},
+        {K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K, K}
+    };
+    /** Estando es un estado terminal, la entrada determina si el token a finalizado */
+    int salidas[NUMERO_ESTADOS][NUMERO_ENTRADAS] = {
+        {NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO},
+        {SI, SI, NO, NO, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {SI, SI, SI, NO, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, NO, SI, SI, SI},
+        {SI, SI, SI, SI, NO, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {SI, SI, SI, SI, SI, NO, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO},
+        {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO},
+        {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, NO, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, NO, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, NO, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO},
+        {SI, SI, SI, NO, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO},
+        {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI, SI},
+        {NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO}
+    };
+
+    char caracter;
+    int estado;
+    int tipo;
+    bool error;
+    string simbolo;
+    ifstream archivo;
+
+    void fijaTipo( int estado ) {
+        switch( estado ) {
+        case Q1:
+            tipo = IDENTIFICADOR;
+            break;
+        case Q2:
+            tipo = ENTERO;
+            break;
+        case Q3:
+        case Q4:
+            tipo = OP_ADITIVO;
+            break;
+        case Q5:
+            tipo = OP_INCREMENTO;
+            break;
+        case Q6:
+            tipo = OP_DECREMENTO;
+            break;
+        case Q7:
+            tipo = OP_MULTIPLICATIVO;
+            break;
+        case Q9:
+            tipo = LOGICO_AND;
+            break;
+        case Q11:
+            tipo = LOGICO_OR;
+            break;
+        case Q12:
+            tipo = LOGICO_NOT;
+            break;
+        case Q13:
+            tipo = OP_ASIGNACION;
+            break;
+        case Q14:
+            tipo = OP_IGUALDAD;
+            break;
+        case Q15:
+        case Q16:
+            tipo = OP_RELACIONAL;
+            break;
+        case Q17:
+            tipo = COMA;
+            break;
+        case Q18:
+            tipo = PARENTESIS_IZQ;
+            break;
+        case Q19:
+            tipo = PARENTESIS_DER;
+            break;
+        case Q20:
+            tipo = TABULADOR;
+            break;
+        case Q21:
+            tipo = NUEVA_LINEA;
+            break;
+        case Q22:
+            tipo = DOS_PUNTOS;
+            break;
+        case Q24:
+            tipo = FLOTANTE;
+            break;
+        case Q26:
+            tipo = CADENA;
+            break;
+        case Q27:
+            tipo = FIN_ENTRADA;
+            break;
+        default:
+            tipo = ERROR;
+            break;
+        }
+    }
+
+    int transicion( char c ) {
+        if( c == ' ' || c == '\v' || c == '\f' ) {
+            return E0;
+        } else if( c == '\r' || c == '\n' ) {
+            return E1;
+        } else if( ( c >= 'a' && c <= 'z' ) || ( c >= 'A' && c <= 'Z' ) ||  c == '_' ) {
+            return E2;
+        } else if( c >= '0' && c <= '9' ) {
+            return E3;
+        } else if( c == '+' ) {
+            return E4;
+        } else if( c == '-' ) {
+            return E5;
+        } else if( c == '/'  ) {
+            return E6;
+        } else if( c == '*' ) {
+            return E7;
+        } else if( c == '%' ) {
+            return E8;
+        } else if( c == '&' ) {
+            return E9;
+        } else if( c == '|' ) {
+            return E10;
+        } else if( c == '!' ) {
+            return E11;
+        } else if( c == '=' ) {
+            return E12;
+        } else if( c == '<' || c == '>' ) {
+            return E13;
+        } else if( c == ',' ) {
+            return E14;
+        } else if( c == '(' ) {
+            return E15;
+        } else if( c == ')' ) {
+            return E16;
+        } else if( c == '\t' ) {
+            return E17;
+        } else if( c == ':' ) {
+            return E18;
+        } else if( c == '.' ) {
+            return E19;
+        } else if( c == '"' ) {
+            return E20;
+        } else if( c == EOF ) {
+            return E21;
+        } else { // RESTO DE ASCII
+            return E22;
+        }
+    }
+
+public:
+    Lexico() {
+        archivo.open( "entrada.txt" );
+
+        if ( !archivo.is_open() ) {
+            error = true;
+        } else {
+            error = false;
+        }
+    }
+
+    ~Lexico() {
+        archivo.close();
+    }
+
+    void sigSimbolo() {
+        int columna;
+        char temp;
+
+        temp = transicion( archivo.peek() );
+        while ( temp == E0 ) {
+            archivo.get( caracter );
+            temp = transicion( archivo.peek() );
+        }
+
+        estado = Q0;
+        simbolo = "";
+        error = false;
+
+        while( true ) {
+            columna = transicion( archivo.peek() );
+            if( salidas[estado][columna] == SI ) {
+                break;
+            }
+            estado = matriz[estado][columna];
+
+            archivo.get( caracter );
+            simbolo += caracter;
+
+            if( estado == K ) {
+                error = true;
+                break;
+            }
+        }
+        fijaTipo( estado );
+    }
+
+    bool hayError() {
+        return error;
+    }
+
+    bool fin() {
+        return ( tipo == FIN_ENTRADA ) || hayError();
+    }
+
+    string dameSimbolo() {
+        return simbolo;
+    }
+
+    int dameTipo() {
+        return tipo;
+    }
+
+};
+#endif // LEXICO_H_INCLUDED

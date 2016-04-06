@@ -182,9 +182,9 @@ void Sintactico::lista_param_prima( DefinicionFuncion* def ) {
         if( tokens.front().second == COMA ) {
             tokens.pop();
             Tipo* tipo = especificador_tipo();
-             Identificador* id = new Identificador( tokens.front().first );
-        comprueba( IDENTIFICADOR );
-        def->parametros.push_back( new Parametro( tipo, id ) );
+            Identificador* id = new Identificador( tokens.front().first );
+            comprueba( IDENTIFICADOR );
+            def->parametros.push_back( new Parametro( tipo, id ) );
             lista_param_prima( def );
         }
     }
@@ -455,9 +455,36 @@ void Sintactico::expresion_posfija_prima( Expresion* &exp ) {
             exp = new PosfijoDecremento( exp );
             expresion_posfija_prima( exp );
             break;
+        case PARENTESIS_IZQ: {
+            tokens.pop();
+            LlamadaFuncion* llamada = new LlamadaFuncion( ( Identificador* ) exp );
+            if( tokens.front().second != PARENTESIS_DER ) {
+                lista_expresiones_argumento( llamada );
+            }
+            comprueba( PARENTESIS_DER );
+            exp = llamada;
+            expresion_posfija_prima( exp );
+        }
         default:
             break;
         }
+    }
+}
+
+void Sintactico::lista_expresiones_argumento( LlamadaFuncion* llamada ) {
+    if( error ) return;
+
+    llamada->parametros.push_back( expresion_de_asignacion() );
+    lista_expresiones_argumento_prima( llamada );
+}
+
+void Sintactico::lista_expresiones_argumento_prima( LlamadaFuncion* llamada ) {
+    if( error ) return;
+
+    if( tokens.front().second == COMA ) {
+        tokens.pop();
+        llamada->parametros.push_back( expresion_de_asignacion() );
+        lista_expresiones_argumento_prima( llamada );
     }
 }
 

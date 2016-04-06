@@ -58,6 +58,8 @@ public:
     Expresion*  proposicion_expresion();
     Proposicion*  proposicion_de_iteracion();
     Proposicion*  proposicion_de_salto();
+    void lista_expresiones_argumento(LlamadaFuncion* llamada);
+    void lista_expresiones_argumento_prima(LlamadaFuncion* llamada);
 };
 
 #endif // SINTACTICO_H_INCLUDED

@@ -1,0 +1,222 @@
+#ifndef CLASES_H_INCLUDED
+#define CLASES_H_INCLUDED
+
+#include <iostream>
+#include <sstream>
+#include <stack>
+
+using namespace std;
+
+class Nodo {
+public:
+    string simbolo;
+    Nodo* siguente;
+
+    Nodo() {
+        siguente = nullptr;
+    }
+
+    virtual ~Nodo() {
+        if( siguente != nullptr ) {
+            delete siguente;
+        };
+    }
+};
+
+class Tipo: public Nodo {
+public:
+    Tipo( string simbolo ) {
+        this->simbolo = simbolo;
+    }
+
+    ~Tipo() {}
+};
+
+class Expresion: public Nodo {
+public:
+    Expresion* izquierda;
+    Expresion* derecha;
+
+    Expresion() {
+        izquierda = nullptr;
+        derecha = nullptr;
+    }
+    ~Expresion() {
+        if( izquierda != nullptr ) {
+            delete izquierda;
+        };
+        if( derecha != nullptr ) {
+            delete derecha;
+        };
+    }
+};
+
+class Identificador: public Expresion {
+public:
+    Identificador( string simbolo ) {
+        this->simbolo = simbolo;
+    }
+
+    ~Identificador() {}
+};
+
+class Entero: public Expresion {
+public:
+    Entero( string simbolo ) {
+        this->simbolo = simbolo;
+    }
+
+    ~Entero() {}
+};
+
+class Flotante: public Expresion {
+public:
+    Flotante( string simbolo ) {
+        this->simbolo = simbolo;
+    }
+
+    ~Flotante() {}
+};
+
+class Suma: public Expresion {
+public:
+    Suma( Expresion* izquierda, Expresion* derecha ) {
+        simbolo = "+";
+        this->izquierda = izquierda;
+        this->derecha = derecha;
+    }
+
+    ~Suma() {};
+};
+
+class Resta: public Expresion {
+public:
+    Resta( Expresion* izquierda, Expresion* derecha ) {
+        simbolo = "-";
+        this->izquierda = izquierda;
+        this->derecha = derecha;
+    }
+
+    ~Resta() {};
+};
+
+class Multiplicacion: public Expresion {
+public:
+    Multiplicacion( Expresion* izquierda, Expresion* derecha ) {
+        simbolo = "*";
+        this->izquierda = izquierda;
+        this->derecha = derecha;
+    }
+
+    ~Multiplicacion() {};
+};
+
+class Division: public Expresion {
+public:
+    Division( Expresion* izquierda, Expresion* derecha ) {
+        simbolo = "/";
+        this->izquierda = izquierda;
+        this->derecha = derecha;
+    }
+
+    ~Division() {};
+};
+
+class Modulo: public Expresion {
+public:
+    Modulo( Expresion* izquierda, Expresion* derecha ) {
+        simbolo = "%";
+        this->izquierda = izquierda;
+        this->derecha = derecha;
+    }
+
+    ~Modulo() {};
+};
+
+class Asignacion: public Nodo {
+public:
+    Identificador* id;
+    Expresion* expresion;
+    Asignacion( Identificador* id, Expresion* expresion ) {
+        this->id = id;
+        this->expresion = expresion;
+    }
+
+    ~Asignacion() {
+        if( id != nullptr ) {
+            delete id;
+        };
+        if( expresion != nullptr ) {
+            delete expresion;
+        };
+    }
+
+    string toString() {
+        stringstream ss;
+
+        stack<Expresion*> pila;
+        Expresion* aux = expresion;
+        Expresion* ultimo = nullptr;
+        Expresion* tomado = nullptr;
+
+         ss << id->simbolo << " ";
+
+        while( !pila.empty() || aux != nullptr ) {
+            if( aux != nullptr ) {
+                pila.push( aux );
+                aux = aux->izquierda;
+            } else {
+                tomado = pila.top();
+                if( tomado->derecha != nullptr && ultimo != tomado->derecha ) {
+                    aux = tomado->derecha;
+                } else {
+                    ss << tomado->simbolo << " ";
+                    ultimo = pila.top();
+                    pila.pop();
+                }
+            }
+        }
+
+        ss << "=";
+        return ss.str();
+    }
+
+};
+
+class DefinicionVariable: public Nodo {
+public:
+    Tipo* tipo;
+    Identificador* id;
+
+    DefinicionVariable( Tipo* tipo, Identificador* id ) {
+        this->tipo = tipo;
+        this->id = id;
+    }
+
+    ~DefinicionVariable() {
+        if( tipo != nullptr ) {
+            delete tipo;
+        };
+        if( id != nullptr ) {
+            delete id;
+        };
+    }
+
+    string toString() {
+        stringstream ss;
+        Identificador* aux = id;
+
+        ss << tipo->simbolo << " ";
+        while( aux != nullptr ) {
+            ss << aux->simbolo;
+            if( aux->siguente != nullptr ) {
+                ss << " ";
+            }
+            aux = ( Identificador* )aux->siguente;
+        }
+
+        return ss.str();
+    }
+};
+
+#endif // CLASES_H_INCLUDED

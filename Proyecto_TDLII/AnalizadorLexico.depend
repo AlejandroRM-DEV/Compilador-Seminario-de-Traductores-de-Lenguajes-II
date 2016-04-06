@@ -1,0 +1,84 @@
+# depslib dependency file v1.0
+1456671176 source:c:\users\alesito\documents\programacion\c++\analizadorlexico\main.cpp
+	<iostream>
+	<fstream>
+	"Lexico.h"
+
+1457215831 
+
+1456685304 c:\users\alesito\documents\programacion\c++\analizadorlexico\lexico.h
+	<iostream>
+	<fstream>
+
+1454174391 c:\users\alesito\documents\programacion\c++\analizadorlexico\lexico.cpp
+	"Lexico.h"
+
+1455582601 c:\users\alesito\documents\programacion\c++\analizadorlexico\sintactico.h
+	"Lexico.h"
+
+1457308885 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_2\main.cpp
+	<iostream>
+	<fstream>
+	"Sintactico.h"
+
+1457214058 o.h"
+
+1457308679 c:\users\alesito\documents\programacion\c++\analizadorlexico_2\lexico.h
+	<iostream>
+	<fstream>
+
+1455897039 source:c:\users\alesito\documents\programacion\c++\analizadorlexico_2\lexico.cpp
+	"Lexico.h"
+
+1457295042 c:\users\alesito\documents\programacion\c++\analizadorlexico_2\sintactico.h
+	"Lexico.h"
+	"Clases.h"
+
+1457308907 c:\users\alesito\documents\programacion\c++\analizadorlexico_2\clases.h
+	<iostream>
+	<sstream>
+
+1457214058 source:/media/alex/TI10676700D/Users/Alesito/Documents/Programacion/C++/AnalizadorLexico_2/main.cpp
+	<iostream>
+	<fstream>
+	"Sintactico.h"
+
+1457216461 /media/alex/TI10676700D/Users/Alesito/Documents/Programacion/C++/AnalizadorLexico_2/Sintactico.h
+	"Lexico.h"
+	"Clases.h"
+
+1457214895 /media/alex/TI10676700D/Users/Alesito/Documents/Programacion/C++/AnalizadorLexico_2/Lexico.h
+	<iostream>
+	<fstream>
+
+1457215831 /media/alex/TI10676700D/Users/Alesito/Documents/Programacion/C++/AnalizadorLexico_2/Clases.h
+	<iostream>
+	<sstream>
+
+1457914027 source:c:\users\alesito\documents\programacion\c++\algoritmo 5\main.cpp
+	<iostream>
+	<fstream>
+	"Sintactico.h"
+
+1457921949 c:\users\alesito\documents\programacion\c++\algoritmo 5\sintactico.h
+	"Lexico.h"
+	"Clases.h"
+
+1458254080 c:\users\alesito\documents\programacion\c++\algoritmo 5\lexico.h
+	<iostream>
+	<fstream>
+
+1458092833 c:\users\alesito\documents\programacion\c++\algoritmo 5\clases.h
+	<iostream>
+	<sstream>
+	<stack>
+
+1459488699 source:c:\users\alesito\documents\programacion\c++\proyecto_tdlii\main.cpp
+	<iostream>
+	<fstream>
+	"Lexico.h"
+
+1459488814 c:\users\alesito\documents\programacion\c++\proyecto_tdlii\lexico.h
+	<iostream>
+	<fstream>
+

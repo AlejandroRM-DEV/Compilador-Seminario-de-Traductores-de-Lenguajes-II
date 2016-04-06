@@ -1,7 +1,9 @@
+
 /*
     Archivo de prueba para el analizador sintactico, sólo se revisa que sea sintacticamente
     correcto.
 */
+
 int global;
 int global, global2;
 int global = 1;
@@ -256,4 +258,34 @@ int func() {
         return 0;
     }
 
+}
+
+int func() {
+    int a = func();
+    int a = func( a );
+    int a = func( a, b );
+
+    a = func();
+    a = func( a );
+    a = func( a, b );
+
+    func();
+    func( a );
+    func( a, b );
+
+    int a = func( func() );
+    int a = func( a, func() );
+    int a = func( a, func(), b );
+
+    a = func( func() );
+    a = func( a, func() );
+    a = func( a, func(), b );
+
+    func( func() );
+    func( a, func() );
+    func( a, func(), b );
+
+    func( func() + 1 );
+    func( a++, func() );
+    func( ++a, func(), b-- );
 }

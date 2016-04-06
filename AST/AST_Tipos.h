@@ -25,7 +25,7 @@ public:
 
     string toString( string prefijo, bool esHoja ) {
         stringstream ss;
-        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << simbolo << endl;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "Tipo: " << simbolo << endl;
         return ss.str();
     }
 };
@@ -62,7 +62,7 @@ public:
 
     string toString( string prefijo, bool esHoja ) {
         stringstream ss;
-        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << simbolo << endl;
+        ss << prefijo << ( esHoja ? "\\---" : "|---" ) << "ID: " << simbolo << endl;
         return ss.str();
     }
 };
@@ -288,6 +288,7 @@ public:
         return ss.str();
     }
 };
+
 class Resta: public Expresion {
 public:
     Resta( Expresion* izquierda, Expresion* derecha ) {
@@ -888,6 +889,38 @@ public:
         }
         if( cuerpo != nullptr ) {
             ss << cuerpo->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
+        }
+
+        return ss.str();
+    }
+};
+
+class LlamadaFuncion: public Expresion {
+public:
+    Identificador* id;
+    vector<Expresion*> parametros;
+
+    LlamadaFuncion( Identificador* id ) {
+        this->id = id;
+    }
+    ~LlamadaFuncion() {
+        delete id;
+        for( Expresion* p : parametros ) {
+            delete p;
+        }
+    }
+
+    string toString( string prefijo, bool esHoja ) {
+        stringstream ss;
+        int i, j;
+
+        ss << prefijo + ( esHoja ? "\\---" : "|---" ) << "LlamadaFuncion" << endl;
+        ss << id->toString( prefijo + ( esHoja ? "    " : "|   " ), parametros.empty() );
+        for( i = 0, j = parametros.size() - 1; i < j; i++ ) {
+            ss << parametros.at( i )->toString( prefijo + ( esHoja ? "    " : "|   " ), false );
+        }
+        if( j >= 0 ) {
+            ss << parametros.at( j )->toString( prefijo + ( esHoja ? "    " : "|   " ), true );
         }
 
         return ss.str();
