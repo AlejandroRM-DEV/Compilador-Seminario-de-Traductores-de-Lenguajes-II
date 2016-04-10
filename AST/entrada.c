@@ -288,4 +288,9 @@ int func() {
     func( func() + 1 );
     func( a++, func() );
     func( ++a, func(), b-- );
+
+    while( 1 ) {
+        i = 1;
+    }
+    i = 0;
 }

@@ -9,8 +9,12 @@ using namespace std;
 int main() {
     queue<ParToken> tokens;
     Sintactico* sintactico;
-    Lexico* lexico = new Lexico();
+    Lexico* lexico;
+    string nombre;
 
+    cout << "Nombre archivo: ";
+    getline( cin, nombre );
+    lexico = new Lexico( nombre );
     tokens = lexico->dameListaTokens();
     if( !lexico->hayError() ) {
         cout << "Analisis Lexico: Aceptado" << endl;
@@ -19,7 +23,13 @@ int main() {
         Nodo*  nodo = sintactico->analiza();
 
         if( !sintactico->hayError() ) {
-            cout << nodo->toString( "", true ) << endl;
+            ofstream salida( "salida.txt" );
+            if( !sintactico->hayError() ) {
+                salida << nodo->toString( );
+            } else {
+                salida << nodo->toString( );
+            }
+            salida.close();
             cout << "Analisis Sintactico: Aceptado" << endl;
         } else {
             cout << "Analisis Sintactico: Rechazado" << endl;

@@ -108,7 +108,7 @@ private:
     void insertaSimbolo( string );
 
 public:
-    Lexico();
+    Lexico(string nombre);
     ~Lexico();
     void sigSimbolo();
     bool hayError();

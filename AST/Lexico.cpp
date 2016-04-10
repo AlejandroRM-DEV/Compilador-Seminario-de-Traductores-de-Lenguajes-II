@@ -1,7 +1,7 @@
 #include "Lexico.h"
 
-Lexico::Lexico() {
-    archivo.open( "entrada.c" );
+Lexico::Lexico(string nombre) {
+    archivo.open( nombre );
     if ( archivo.is_open() ) {
         error = false;
         simbolo = "";
