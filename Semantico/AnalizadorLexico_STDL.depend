@@ -1,0 +1,46 @@
+# depslib dependency file v1.0
+1460784347 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\lexico.cpp
+	"Lexico.h"
+
+1460785173 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\lexico.h
+	<iostream>
+	<fstream>
+	<sstream>
+	<queue>
+	<map>
+	"Constantes.h"
+
+1460788131 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\constantes.h
+	<iostream>
+	<map>
+
+1460948405 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\main.cpp
+	<iostream>
+	<fstream>
+	"Lexico.h"
+	"Sintactico.h"
+
+1460787440 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\sintactico.h
+	<queue>
+	"Constantes.h"
+	"AST_Tipos.h"
+
+1460958942 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_tipos.h
+	<vector>
+	<iostream>
+	<sstream>
+	"TablaSimbolos.h"
+
+1460958814 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\tablasimbolos.h
+	<iostream>
+	<deque>
+	<vector>
+
+1459911189 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\sintactico.cpp
+	"Sintactico.h"
+
+1460959524 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\tablasimbolos.cpp
+	"TablaSimbolos.h"
+	<sstream>
+	<iomanip>
+
