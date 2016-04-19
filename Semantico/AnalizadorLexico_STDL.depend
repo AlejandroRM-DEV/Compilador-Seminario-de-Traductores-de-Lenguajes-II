@@ -25,7 +25,7 @@
 	"Constantes.h"
 	"AST_Tipos.h"
 
-1460958942 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_tipos.h
+1461032415 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_tipos.h
 	<vector>
 	<iostream>
 	<sstream>
@@ -43,4 +43,124 @@
 	"TablaSimbolos.h"
 	<sstream>
 	<iomanip>
+
+1461016557 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_clases\unidadtraduccion.cpp
+	"../AST_Tipos.h"
+
+1461017524 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\return.cpp
+	"../AST_Tipos.h"
+
+1461016557 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\unidadtraduccion.cpp
+	"../AST_Tipos.h"
+
+1461018065 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\tipo.cpp
+	"../AST_Tipos.h"
+
+1461018391 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\expresion.cpp
+	"../AST_Tipos.h"
+
+1461018607 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\identificador.cpp
+	"../AST_Tipos.h"
+
+1461018851 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\entero.cpp
+	"../AST_Tipos.h"
+
+1461018965 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\or.cpp
+	"../AST_Tipos.h"
+
+1461019122 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\and.cpp
+	"../AST_Tipos.h"
+
+1461019282 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\igual.cpp
+	"../AST_Tipos.h"
+
+1461019648 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\diferente.cpp
+	"../AST_Tipos.h"
+
+1461019878 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\menor.cpp
+	"../AST_Tipos.h"
+
+1461020277 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\mayor.cpp
+	"../AST_Tipos.h"
+
+1461020152 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\menorigual.cpp
+	"../AST_Tipos.h"
+
+1461022459 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\mayorigual.cpp
+	"../AST_Tipos.h"
+
+1461023615 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\asignacion.cpp
+	"../AST_Tipos.h"
+
+1461023041 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\division.cpp
+	"../AST_Tipos.h"
+
+1461023124 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\modulo.cpp
+	"../AST_Tipos.h"
+
+1461022988 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\multiplicacion.cpp
+	"../AST_Tipos.h"
+
+1461022879 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\resta.cpp
+	"../AST_Tipos.h"
+
+1461022827 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\suma.cpp
+	"../AST_Tipos.h"
+
+1461024279 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\unarionegativo.cpp
+	"../AST_Tipos.h"
+
+1461024338 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\unariopositivo.cpp
+	"../AST_Tipos.h"
+
+1461023878 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\posfijodecremento.cpp
+	"../AST_Tipos.h"
+
+1461023780 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\posfijoincremento.cpp
+	"../AST_Tipos.h"
+
+1461023944 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\unarioincremento.cpp
+	"../AST_Tipos.h"
+
+1461024093 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\unarionot.cpp
+	"../AST_Tipos.h"
+
+1461025178 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\unariodecremento.cpp
+	"../AST_Tipos.h"
+
+1461031256 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\definicion.cpp
+	"../AST_Tipos.h"
+
+1461031998 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\break.cpp
+	"../AST_Tipos.h"
+
+1461032031 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\continue.cpp
+	"../AST_Tipos.h"
+
+1461032392 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\definicionfuncion.cpp
+	"../AST_Tipos.h"
+
+1461033446 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\definicionvariable.cpp
+	"../AST_Tipos.h"
+
+1461032175 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\dowhile.cpp
+	"../AST_Tipos.h"
+
+1461032243 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\for.cpp
+	"../AST_Tipos.h"
+
+1461031560 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\if.cpp
+	"../AST_Tipos.h"
+
+1461031921 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\llamadafuncion.cpp
+	"../AST_Tipos.h"
+
+1461031429 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\parametro.cpp
+	"../AST_Tipos.h"
+
+1461032113 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\proposicioncompuesta.cpp
+	"../AST_Tipos.h"
+
+1461032305 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_3\ast_implementaciones\while.cpp
+	"../AST_Tipos.h"
 
