@@ -1,0 +1,33 @@
+#include "..
+DoWhile() {
+        exp = nullptr;
+        proposicion = nullptr;
+    }
+
+    ~DoWhile() {
+        delete exp;
+        delete proposicion;
+    }
+
+    TipoDato analizarTipo() {
+        TablaSimbolos::instance()->agregaContextoAnonimo();
+        if( proposicion->analizarTipo() == T_ERROR){
+            return T_ERROR;
+        }
+        TablaSimbolos::instance()->quitaContexto();
+        if( exp->analizarTipo() == T_ERROR){
+            return T_ERROR;
+        }
+        return T_VACIO;
+    }
+
+    string toString() {
+        stringstream ss;
+        ss << "<DO_WHILE>" << endl;
+        ss << proposicion->toString();
+        ss << "<EXPRESION>" << endl;
+        ss << exp->toString( );
+        ss << "</EXPRESION>" << endl;
+        ss << "</DO_WHILE>" << endl;
+        return ss.str();
+    }

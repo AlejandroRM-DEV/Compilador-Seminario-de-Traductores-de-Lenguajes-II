@@ -1,0 +1,80 @@
+#ifndef TABLASIMBOLOS_H_INCLUDED
+#define TABLASIMBOLOS_H_INCLUDED
+
+#include <iostream>
+#include <deque>
+#include <vector>
+
+using namespace std;
+
+enum TipoDato {T_INT, T_VOID, T_VACIO, T_ERROR};
+
+class EntradaTS {
+private:
+public:
+    string simbolo;
+    TipoDato dato;
+
+    EntradaTS( string simbolo, TipoDato dato ) {
+        this->simbolo = simbolo;;
+        this->dato = dato;
+    }
+};
+
+class TablaSimbolos {
+private:
+    static TablaSimbolos* instancia;
+    vector<EntradaTS*> tabla;
+
+    TablaSimbolos() {}
+    
+public:
+    static TablaSimbolos* instance(){
+        if ( !instancia ) {
+            instancia = new TablaSimbolos;
+        }
+        return instancia;
+    }
+    bool agregarVariable( string simbolo, TipoDato dato ){
+        if( !existe( simbolo ) ) {
+            tabla.push_back( new EntradaTS( simbolo, T_VARIABLE, contextos.front(), dato ) );
+            return true;
+        } 
+    }
+    TipoDato tipoSim( string simbolo ){
+        for( EntradaTS* e : tabla ) {
+            if( e->contexto == contexto && e->simbolo == simbolo ) {
+                return e->dato;
+            }
+        }
+        return T_ERROR;
+    }
+    bool existe( string simbolo ){
+         for( EntradaTS* e : tabla ) {
+            if( e->contexto == contexto && e->simbolo == simbolo && e->parametros == parametros) {
+                return e->dato;
+            }
+        }
+        return T_ERROR;
+    }
+    void print(){
+         stringstream ss;
+    string tipoDato[] = {"int", "void"};
+
+    ss << setw( 40 ) << "Tabla de simbolos" << std::left << endl;
+    ss << setw( 20 )  << "SIMBOLO" << setw( 10 ) << "TIPO" << setw( 20 ) << "CONTEXTO" << setw( 10 ) << "T_DATO" << "PARAMETROS" << endl;
+
+    for( EntradaTS* e : tabla ) {
+        ss << setw( 20 )  << e->simbolo << setw( 10 ) << tipoDef[e->tipo] << setw( 20 ) << e->contexto << setw( 10 ) << tipoDato[e->dato];
+        for( TipoDato td : e->parametros ) {
+            ss << tipoDato[td] << " - ";
+        }
+        ss << endl;
+    }
+
+    cout << ss.str() << endl;
+    }
+};
+
+
+#endif // TABLASIMBOLOS_H_INCLUDED

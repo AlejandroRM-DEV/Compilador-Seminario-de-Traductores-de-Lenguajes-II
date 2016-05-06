@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<FileVersion major="1" minor="0" />
+	<ActiveTarget name="Debug" />
+	<File name="AST_Implementaciones\PosfijoDecremento.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="603" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="Lexico.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="274" topLine="73" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\While.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="776" topLine="19" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\ProposicionCompuesta.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="700" topLine="17" />
+		</Cursor>
+	</File>
+	<File name="Constantes.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="182" topLine="65" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Suma.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="902" topLine="24" />
+		</Cursor>
+	</File>
+	<File name="AST_Tipos.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="10496" topLine="40" />
+		</Cursor>
+		<Folding>
+			<Collapse line="13" />
+			<Collapse line="25" />
+			<Collapse line="34" />
+			<Collapse line="49" />
+			<Collapse line="60" />
+			<Collapse line="71" />
+			<Collapse line="82" />
+			<Collapse line="115" />
+			<Collapse line="126" />
+			<Collapse line="137" />
+			<Collapse line="148" />
+			<Collapse line="159" />
+			<Collapse line="170" />
+			<Collapse line="181" />
+			<Collapse line="192" />
+			<Collapse line="203" />
+			<Collapse line="214" />
+			<Collapse line="228" />
+			<Collapse line="241" />
+			<Collapse line="254" />
+			<Collapse line="267" />
+			<Collapse line="280" />
+			<Collapse line="293" />
+			<Collapse line="306" />
+			<Collapse line="319" />
+			<Collapse line="330" />
+			<Collapse line="342" />
+			<Collapse line="354" />
+			<Collapse line="362" />
+			<Collapse line="375" />
+			<Collapse line="384" />
+			<Collapse line="393" />
+			<Collapse line="405" />
+			<Collapse line="416" />
+			<Collapse line="428" />
+			<Collapse line="442" />
+			<Collapse line="454" />
+			<Collapse line="468" />
+			<Collapse line="482" />
+		</Folding>
+	</File>
+	<File name="AST_Implementaciones\For.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1159" topLine="29" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\UnarioPositivo.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="576" topLine="17" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\If.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1300" topLine="40" />
+		</Cursor>
+	</File>
+	<File name="Sintactico.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="12042" topLine="407" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\UnidadTraduccion.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1439" topLine="34" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\PosfijoIncremento.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="569" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\UnarioIncremento.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="594" topLine="17" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Igual.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="693" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Return.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="678" topLine="20" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Tipo.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="392" topLine="5" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Definicion.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="190" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Sintactico.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="775" topLine="17" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\UnarioDecremento.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="586" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="Lexico.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="906" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\DefinicionVariable.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="578" topLine="8" />
+		</Cursor>
+	</File>
+	<File name="TablaSimbolos.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1390" topLine="31" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\DoWhile.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="796" topLine="19" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Division.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="798" topLine="10" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Identificador.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="372" topLine="8" />
+		</Cursor>
+	</File>
+	<File name="main.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="113" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Modulo.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="817" topLine="10" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Asignacion.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="841" topLine="31" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Diferente.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="741" topLine="24" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\And.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="607" topLine="24" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Resta.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="856" topLine="24" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Expresion.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="332" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\DefinicionFuncion.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1333" topLine="84" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Mayor.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="697" topLine="10" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Continue.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="315" topLine="2" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\MenorIgual.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="700" topLine="10" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\MayorIgual.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="776" topLine="24" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Or.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="631" topLine="10" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Parametro.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="501" topLine="9" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Menor.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="700" topLine="24" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Multiplicacion.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="485" topLine="10" />
+		</Cursor>
+	</File>
+	<File name="TablaSimbolos.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3219" topLine="95" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\LlamadaFuncion.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="692" topLine="27" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Break.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="285" topLine="2" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\UnarioNegativo.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="538" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\Entero.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="379" topLine="14" />
+		</Cursor>
+	</File>
+	<File name="AST_Implementaciones\UnarioNot.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="556" topLine="18" />
+		</Cursor>
+	</File>
+</CodeBlocks_layout_file>
