@@ -7,45 +7,46 @@
 using namespace std;
 
 int main() {
-    queue<ParToken> tokens;
-    Sintactico* sintactico;
-    Lexico* lexico;
-    string nombre;
+	queue<ParToken> tokens;
+	Sintactico* sintactico;
+	Lexico* lexico;
+	string nombre;
 
-    //cout << "Nombre archivo: ";
-    //getline( cin, nombre );
-    nombre = "entrada.c";
-    lexico = new Lexico( nombre );
-    tokens = lexico->dameListaTokens();
-    if( !lexico->hayError() ) {
-        cout << "Analisis Lexico: Aceptado" << endl;
+	//cout << "Nombre archivo: ";
+	//getline( cin, nombre );
+	nombre = "entrada.c";
+	lexico = new Lexico ( nombre );
+	tokens = lexico->dameListaTokens();
+	if ( !lexico->hayError() ) {
+		cout << "Analisis Lexico: Aceptado" << endl;
 
-        sintactico = new Sintactico( tokens );
-        Nodo*  nodo = sintactico->analiza();
+		sintactico = new Sintactico ( tokens );
+		Nodo*  nodo = sintactico->analiza();
 
-        if( !sintactico->hayError() ) {
-            cout << "Analisis Sintactico: Aceptado" << endl;
+		if ( !sintactico->hayError() ) {
+			cout << "Analisis Sintactico: Aceptado" << endl;
 
-            if( nodo->analizarTipo( ) != T_ERROR ) {
-                cout << "Analisis Semantico: Aceptado" << endl;
+			if ( nodo->analizarTipo( ) != T_ERROR ) {
+				cout << "Analisis Semantico: Aceptado" << endl;
 
-                ofstream salida( "salida.asm" );
-                salida << nodo->generarCodigo( );
-                cout << nodo->generarCodigo();
-                salida.close();
-            } else {
-                cout << "Analisis Semantico: Rechazado" << endl;
-            }
-        } else {
-            cout << "Analisis Sintactico: Rechazado" << endl;
-        }
+				ofstream salida ( "salida.asm" );
+				TablaSimbolos::instance()->print();
+				salida << nodo->generarCodigo( );
+				cout << nodo->generarCodigo();
+				salida.close();
+			} else {
+				cout << "Analisis Semantico: Rechazado" << endl;
+			}
+		} else {
+			cout << "Analisis Sintactico: Rechazado" << endl;
+		}
 
-        delete sintactico;
-        delete nodo;
-    } else {
-        cout << "Analisis Lexico: Rechazado" << endl;
-    }
+		delete sintactico;
+		delete nodo;
+	} else {
+		cout << "Analisis Lexico: Rechazado" << endl;
+	}
 
-    delete lexico;
-    return 0;
+	delete lexico;
+	return 0;
 }

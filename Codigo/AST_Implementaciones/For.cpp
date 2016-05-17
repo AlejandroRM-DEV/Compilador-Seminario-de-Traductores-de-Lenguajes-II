@@ -24,7 +24,7 @@ TipoDato For::analizarTipo() {
     if( post != nullptr && post->analizarTipo() == T_ERROR ) {
         return T_ERROR;
     }
-    TablaSimbolos::instance()->agregaContextoAnonimo();
+    contexto = TablaSimbolos::instance()->agregaContextoAnonimo();
     if( proposicion->analizarTipo() == T_ERROR ) {
         return T_ERROR;
     }
@@ -48,3 +48,25 @@ string For::generarCodigo(){
 
     return ss.str();
 }
+
+
+void For::buscarVariables() {
+	ManejadorVariables::instance()->agregaContexto ( contexto );
+	ManejadorVariables::instance()->agregar ( TablaSimbolos::instance()->totalVariables ( contexto ) );
+
+	if ( ProposicionCompuesta* cuerpo = dynamic_cast<ProposicionCompuesta*> ( proposicion ) ) {
+		for ( Nodo* nodo : cuerpo->cuerpo ) {
+			if ( DoWhile* dv = dynamic_cast<DoWhile*> ( nodo ) ) {
+				dv->buscarVariables();
+			} else if ( For* dv = dynamic_cast<For*> ( nodo ) ) {
+				dv->buscarVariables();
+			} else if ( If* dv = dynamic_cast<If*> ( nodo ) ) {
+				dv->buscarVariables();
+			} else if ( While* dv = dynamic_cast<While*> ( nodo ) ) {
+				dv->buscarVariables();
+			}
+		}
+	}
+	ManejadorVariables::instance()->quitaContexto();
+}
+

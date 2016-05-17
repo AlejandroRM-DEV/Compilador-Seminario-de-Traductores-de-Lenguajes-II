@@ -75,6 +75,8 @@
 		<Unit filename="Constantes.h" />
 		<Unit filename="Lexico.cpp" />
 		<Unit filename="Lexico.h" />
+		<Unit filename="ManejadorVariables.cpp" />
+		<Unit filename="ManejadorVariables.h" />
 		<Unit filename="Sintactico.cpp" />
 		<Unit filename="Sintactico.h" />
 		<Unit filename="TablaSimbolos.cpp" />

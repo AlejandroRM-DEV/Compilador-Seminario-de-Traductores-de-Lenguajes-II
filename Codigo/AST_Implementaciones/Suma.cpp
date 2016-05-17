@@ -31,7 +31,13 @@ string Suma::toString() {
 
 string Suma::generarCodigo() {
 	stringstream ss;
-
+	ss << TABULADOR << "pushq" << TABULADOR << "%rbx" << endl;
+	ss << izquierda->generarCodigo();
+	ss << TABULADOR << "movl" << TABULADOR << "%eax," << TABULADOR << "%ebx" << endl;
+	ss << derecha->generarCodigo();
+	ss << TABULADOR << "addl" << TABULADOR << "%eax," << TABULADOR << "%ebx" << endl;
+	ss << TABULADOR << "movl" << TABULADOR << "%ebx," << TABULADOR << "%eax" << endl;
+	ss << TABULADOR << "popq" << TABULADOR << "%rbx" << endl;
 	return ss.str();
 }
 

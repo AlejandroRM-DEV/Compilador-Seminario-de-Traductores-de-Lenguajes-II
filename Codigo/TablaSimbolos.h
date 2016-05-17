@@ -46,14 +46,14 @@ public:
     static TablaSimbolos* instance();
     bool agregarFuncion( string simbolo, TipoDato dato, vector<TipoDato>& parametros );
     bool agregarVariable( string simbolo, TipoDato dato );
-    void agregaContextoAnonimo();
+    string agregaContextoAnonimo();
     void agregaContexto( string contexto );
     void quitaContexto() ;
     TipoDato tipoSim( string simbolo );
     bool existe( string simbolo );
     TipoDato existe( string simbolo, vector<TipoDato>& parametros );
     void print() ;
-    int totalVariables(string contexto);
+    vector<EntradaTS*> totalVariables(string contexto);
     string contexto();
 };
 

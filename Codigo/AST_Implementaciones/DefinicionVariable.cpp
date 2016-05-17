@@ -41,6 +41,8 @@ string DefinicionVariable::toString() {
 
 string DefinicionVariable::generarCodigo() {
 	stringstream ss;
-	ss << "# Codigo DefinicionVariable" << endl;
+	for ( Asignacion* a : asignaciones ) {
+		ss << a->generarCodigo();
+	}
 	return ss.str();
 }

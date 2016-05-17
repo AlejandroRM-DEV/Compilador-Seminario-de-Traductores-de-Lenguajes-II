@@ -25,7 +25,10 @@ string UnarioNot::toString() {
 
 string UnarioNot::generarCodigo() {
 	stringstream ss;
-
+	ss << exp->generarCodigo();
+	ss << TABULADOR << "neg" << TABULADOR << "%eax" << endl;
+	ss << TABULADOR << "sbb" << TABULADOR << "%eax," << TABULADOR << "%eax" << endl;
+	ss << TABULADOR << "add" << TABULADOR << "$1," << TABULADOR << "%eax" << endl;
 	return ss.str();
 }
 

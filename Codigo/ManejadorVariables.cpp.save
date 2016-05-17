@@ -1,0 +1,35 @@
+#include "ManejadorVariables.h"
+
+ManejadorVariables* ManejadorVariables::instancia = nullptr;
+
+ManejadorVariables* ManejadorVariables::instance() {
+	if ( !instancia ) {
+		instancia = new ManejadorVariables;
+	}
+	return instancia;
+}
+
+void ManejadorVariables::agregar (string simbolo, string contexto ){
+    for()
+    variables.push_back(new Variable(simbolo, contexto));
+}
+
+void ManejadorVariables::agregar (string simbolo, string contexto ){
+    variables.push_back(new Variable(simbolo, contexto));
+}
+
+int ManejadorVariables::buscar(string simbolo, string contexto){
+    int pos = 0;
+    for(Variable* var: variables){
+        if(var->simbolo == simbolo && var->contexto == contexto ){
+            return pos;
+        }
+        pos++;
+    }
+    return -1;
+}
+
+void ManejadorVariables::vaciar(){
+    variables.clear();
+}
+

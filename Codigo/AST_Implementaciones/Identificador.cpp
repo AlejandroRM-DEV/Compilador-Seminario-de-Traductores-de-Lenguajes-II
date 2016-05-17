@@ -18,7 +18,14 @@ string Identificador::toString() {
 
 string Identificador::generarCodigo() {
 	stringstream ss;
-
+    int pos = ManejadorVariables::instance()->buscar(simbolo);
+    ss << TABULADOR << "movl" << TABULADOR;
+    if(pos>=0){
+        ss << "-" <<pos << "(%rbp)";
+    }else{
+        ss << simbolo << "(%rip)";
+    }
+    ss << "," << TABULADOR << "%eax" << endl;
 	return ss.str();
 }
 

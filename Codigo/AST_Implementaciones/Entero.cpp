@@ -18,7 +18,7 @@ string Entero::toString() {
 
 string Entero::generarCodigo() {
 	stringstream ss;
-
+	ss << TABULADOR << "movl " << TABULADOR << "$" << simbolo << "," << TABULADOR << "%eax" << endl;
 	return ss.str();
 }
 

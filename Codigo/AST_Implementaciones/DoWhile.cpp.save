@@ -1,33 +1,51 @@
-#include "..
-DoWhile() {
-        exp = nullptr;
-        proposicion = nullptr;
-    }
+#include "../AST_Tipos.h"
 
-    ~DoWhile() {
-        delete exp;
-        delete proposicion;
-    }
+DoWhile::DoWhile() {
+	exp = nullptr;
+	proposicion = nullptr;
+}
 
-    TipoDato analizarTipo() {
-        TablaSimbolos::instance()->agregaContextoAnonimo();
-        if( proposicion->analizarTipo() == T_ERROR){
-            return T_ERROR;
-        }
-        TablaSimbolos::instance()->quitaContexto();
-        if( exp->analizarTipo() == T_ERROR){
-            return T_ERROR;
-        }
-        return T_VACIO;
-    }
+DoWhile::~DoWhile() {
+	delete exp;
+	delete proposicion;
+}
 
-    string toString() {
-        stringstream ss;
-        ss << "<DO_WHILE>" << endl;
-        ss << proposicion->toString();
-        ss << "<EXPRESION>" << endl;
-        ss << exp->toString( );
-        ss << "</EXPRESION>" << endl;
-        ss << "</DO_WHILE>" << endl;
-        return ss.str();
-    }
+TipoDato DoWhile::analizarTipo() {
+	TablaSimbolos::instance()->agregaContextoAnonimo();
+	if ( proposicion->analizarTipo() == T_ERROR ) {
+		return T_ERROR;
+	}
+	TablaSimbolos::instance()->quitaContexto();
+	if ( exp->analizarTipo() == T_ERROR ) {
+		return T_ERROR;
+	}
+	return T_VACIO;
+}
+
+string DoWhile::toString() {
+	stringstream ss;
+	ss << "<DO_WHILE>" << endl;
+	ss << proposicion->toString();
+	ss << "<EXPRESION>" << endl;
+	ss << exp->toString( );
+	ss << "</EXPRESION>" << endl;
+	ss << "</DO_WHILE>" << endl;
+	return ss.str();
+}
+
+string DoWhile::generarCodigo() {
+	stringstream ss;
+	if(pr* pc = dynamic_cast<DoWhile*> ( nodo ))
+	for ( Nodo* nodo : cuerpo->cuerpo ) {
+		if ( DoWhile* dv = dynamic_cast<DoWhile*> ( nodo ) ) {
+			cout << "Do while encontrada" << endl;
+		} else if ( For* dv = dynamic_cast<For*> ( nodo ) ) {
+			cout << "For encontrada" << endl;
+		}   else if ( If* dv = dynamic_cast<If*> ( nodo ) ) {
+			cout << "If encontrada" << endl;
+		}  else if ( While* dv = dynamic_cast<While*> ( nodo ) ) {
+			cout << "while encontrada" << endl;
+		}
+	}
+	return ss.str();
+}

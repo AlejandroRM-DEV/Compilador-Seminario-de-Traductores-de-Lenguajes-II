@@ -411,14 +411,24 @@ Expresion* Sintactico::expresion_unaria() {
         switch( tokens.front().second ) {
         case OP_INCREMENTO:
             tokens.pop();
-            exp = new UnarioIncremento( expresion_unaria() );
+            exp = expresion_unaria() ;
+             if( Identificador* dv = dynamic_cast<Identificador*>( exp ) ) {
+                exp = new UnarioIncremento( dv );
+            } else {
+                marcarError( "Se requiere una variable como operando" );
+            }
             break;
         case OP_DECREMENTO:
             tokens.pop();
-            exp = new UnarioDecremento( expresion_unaria() );
+             exp = expresion_unaria() ;
+             if( Identificador* dv = dynamic_cast<Identificador*>( exp ) ) {
+                exp = new UnarioDecremento( dv );
+            } else {
+                marcarError( "Se requiere una variable como operando" );
+            }
             break;
         case OP_ADITIVO:
-            if( tokens.front() == "+" ) {
+            if( tokens.front().first == "+" ) {
                     tokens.pop();
                     exp = new UnarioPositivo( expresion_unaria() );
                 } else {
@@ -451,12 +461,21 @@ void Sintactico::expresion_posfija_prima( Expresion* &exp ) {
         switch( tokens.front().second ) {
         case OP_INCREMENTO:
             tokens.pop();
-            exp = new PosfijoIncremento( exp );
+            if( Identificador* dv = dynamic_cast<Identificador*>( exp ) ) {
+                exp = new PosfijoIncremento( dv );
+            } else {
+                marcarError( "Se requiere una variable como operando" );
+            }
             expresion_posfija_prima( exp );
             break;
         case OP_DECREMENTO:
             tokens.pop();
             exp = new PosfijoDecremento( exp );
+             if( Identificador* dv = dynamic_cast<Identificador*>( exp ) ) {
+                exp = new PosfijoDecremento( dv );
+            } else {
+                marcarError( "Se requiere una variable como operando" );
+            }
             expresion_posfija_prima( exp );
             break;
         case PARENTESIS_IZQ: {

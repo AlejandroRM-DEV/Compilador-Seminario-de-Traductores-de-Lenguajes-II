@@ -33,7 +33,31 @@ string LlamadaFuncion::toString() {
 }
 
 string LlamadaFuncion::generarCodigo() {
+    vector<string> regsParam = {"%edi", "%esi", "%edx", "%ecx", "%r8d", "%r9d"};
+	vector<string> temp = {"%r10", "%r11", "%r12", "%r13", "%r14", "%r15"};
+	deque <string> usados;
 	stringstream ss;
+
+    auto itTemp = temp.begin();
+    for (auto it = parametros.rbegin(); it != parametros.rend(); ++it){
+        ss << TABULADOR << "pushq" << TABULADOR << (*itTemp) << endl;
+        ss <<(*it)->generarCodigo();
+        ss << TABULADOR << "movl" << TABULADOR << "%eax," << TABULADOR << (*itTemp) << "d" << endl;
+        usados.push_front(*itTemp);
+        itTemp++;
+    }
+
+    auto itParam = regsParam.begin();
+    for(string str: usados){
+        ss << TABULADOR << "movl" << TABULADOR << str<< "d"  << "," << TABULADOR << (*itParam) << endl;
+        itParam++;
+    }
+
+    ss << TABULADOR << "call" << TABULADOR << id->simbolo << endl;
+    while(!usados.empty()){
+        ss << TABULADOR << "popq" << TABULADOR << usados.front() << endl;
+        usados.pop_front();
+    }
 
 	return ss.str();
 }

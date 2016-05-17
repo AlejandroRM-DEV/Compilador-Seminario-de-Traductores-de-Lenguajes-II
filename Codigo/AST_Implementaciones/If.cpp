@@ -21,14 +21,14 @@ TipoDato If::analizarTipo() {
         return T_ERROR;
     }
     if( proIf != nullptr ) {
-        TablaSimbolos::instance()->agregaContextoAnonimo();
+        contextoIf = TablaSimbolos::instance()->agregaContextoAnonimo();
         if( proIf->analizarTipo() == T_ERROR ) {
             return T_ERROR;
         }
         TablaSimbolos::instance()->quitaContexto();
     }
     if( proElse != nullptr ) {
-        TablaSimbolos::instance()->agregaContextoAnonimo();
+        contextoElse = TablaSimbolos::instance()->agregaContextoAnonimo();
         if( proElse->analizarTipo() == T_ERROR ) {
             return T_ERROR;
         }
@@ -58,4 +58,42 @@ string If::generarCodigo(){
     stringstream ss;
 
     return ss.str();
+}
+
+void If::buscarVariables() {
+	ManejadorVariables::instance()->agregaContexto ( contextoIf );
+	ManejadorVariables::instance()->agregar ( TablaSimbolos::instance()->totalVariables ( contextoIf ) );
+
+	if ( ProposicionCompuesta* cuerpo = dynamic_cast<ProposicionCompuesta*> ( proIf ) ) {
+		for ( Nodo* nodo : cuerpo->cuerpo ) {
+			if ( DoWhile* dv = dynamic_cast<DoWhile*> ( nodo ) ) {
+				dv->buscarVariables();
+			} else if ( For* dv = dynamic_cast<For*> ( nodo ) ) {
+				dv->buscarVariables();
+			} else if ( If* dv = dynamic_cast<If*> ( nodo ) ) {
+				dv->buscarVariables();
+			} else if ( While* dv = dynamic_cast<While*> ( nodo ) ) {
+				dv->buscarVariables();
+			}
+		}
+	}
+	ManejadorVariables::instance()->quitaContexto();
+
+	ManejadorVariables::instance()->agregaContexto ( contextoElse );
+	ManejadorVariables::instance()->agregar ( TablaSimbolos::instance()->totalVariables ( contextoElse ) );
+
+	if ( ProposicionCompuesta* cuerpo = dynamic_cast<ProposicionCompuesta*> ( proElse ) ) {
+		for ( Nodo* nodo : cuerpo->cuerpo ) {
+			if ( DoWhile* dv = dynamic_cast<DoWhile*> ( nodo ) ) {
+				dv->buscarVariables();
+			} else if ( For* dv = dynamic_cast<For*> ( nodo ) ) {
+				dv->buscarVariables();
+			} else if ( If* dv = dynamic_cast<If*> ( nodo ) ) {
+				dv->buscarVariables();
+			} else if ( While* dv = dynamic_cast<While*> ( nodo ) ) {
+				dv->buscarVariables();
+			}
+		}
+	}
+	ManejadorVariables::instance()->quitaContexto();
 }

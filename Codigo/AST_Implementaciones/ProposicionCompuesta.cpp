@@ -32,6 +32,8 @@ string ProposicionCompuesta::toString() {
 
 string ProposicionCompuesta::generarCodigo(){
     stringstream ss;
-
+    for( Nodo* nodo : cuerpo ) {
+        ss << nodo->generarCodigo();
+    }
     return ss.str();
 }

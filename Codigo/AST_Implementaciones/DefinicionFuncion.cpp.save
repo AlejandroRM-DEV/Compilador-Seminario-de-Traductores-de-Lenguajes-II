@@ -1,5 +1,7 @@
 #include "../AST_Tipos.h"
 
+string DefinicionFuncion::retornoActivo = "";
+
 DefinicionFuncion::DefinicionFuncion ( Tipo* tipo, Identificador* id ) : Definicion ( tipo ) {
 	this->id = id;
 	cuerpo = nullptr;
@@ -17,7 +19,7 @@ DefinicionFuncion::~DefinicionFuncion() {
 TipoDato DefinicionFuncion::analizarTipo() {
 	vector<TipoDato> tiposParametros;
 
-	for ( Parametro* p : parametros  ) {
+	for ( Parametro* p : parametros ) {
 		tiposParametros.push_back ( p->analizarTipo() );
 	}
 
@@ -66,16 +68,37 @@ int DefinicionFuncion::roundUp ( int numToRound, int multiple ) {
 }
 
 string DefinicionFuncion::generarCodigo() {
-    stringstream ss;
+	string regsParam[] = {"%edi", "%esi", "%edx", "%ecx", "%r8d", "%r9d"};
+	int totalVars;
 	int pilaDecremento = -4;
 	int pilaIncremento = 16;
-	int variables = TablaSimbolos::instance()->totalVariables ( id->simbolo );
-	string regsParam[] = {"%edi", "%esi", "%edx", "%ecx", "%r8d", "%r9d"};
+	stringstream ss;
+
+    DefinicionFuncion::retornoActivo = "retorno_" + id->simbolo;
+	ManejadorVariables::instance()->vaciar();
+	ManejadorVariables::instance()->agregaContexto ( id->simbolo );
+	ManejadorVariables::instance()->agregar ( TablaSimbolos::instance()->totalVariables (
+	            id->simbolo ) );
+
+    for ( Nodo* nodo : cuerpo->cuerpo ) {
+		if ( DoWhile* dv = dynamic_cast<DoWhile*> ( nodo ) ) {
+			dv->buscarVariables();
+		} else if ( For* dv = dynamic_cast<For*> ( nodo ) ) {
+			dv->buscarVariables();
+		} else if ( If* dv = dynamic_cast<If*> ( nodo ) ) {
+			dv->buscarVariables();
+		} else if ( While* dv = dynamic_cast<While*> ( nodo ) ) {
+			dv->buscarVariables();
+		}
+	}
+
+	totalVars = ManejadorVariables::instance()->total();
 
 	ss << id->simbolo << ":" << endl;
 	ss << TABULADOR << "pushq" << TABULADOR << "%rbp" << endl;
 	ss << TABULADOR << "movq" << TABULADOR << "%rsp," << TABULADOR << "%rbp" << endl;
-	ss << TABULADOR << "subq" << TABULADOR << "%" << roundUp ( variables * 4, 16 ) << "," << TABULADOR << "%rsp" << endl;
+	ss << TABULADOR << "subq" << TABULADOR << "%" << roundUp ( totalVars * 4,
+	        16 ) << "," << TABULADOR << "%rsp" << endl;
 	for ( unsigned int i = 0; i < parametros.size(); i++ ) {
 		switch ( i ) {
 		case 0:
@@ -84,21 +107,32 @@ string DefinicionFuncion::generarCodigo() {
 		case 3:
 		case 4:
 		case 5:
-			ss << TABULADOR << "movl" << TABULADOR << regsParam[i] << "," << TABULADOR << pilaDecremento << "(%rbp)" << endl;
+			ss << TABULADOR << "movl" << TABULADOR << regsParam[i] << "," << TABULADOR << pilaDecremento <<
+			   "(%rbp)" << endl;
 			pilaDecremento -= 4;
 			break;
 		default:
-			ss << TABULADOR << "movl" << TABULADOR << pilaIncremento << "(%rbp)," << TABULADOR << "%eax" << endl;
-			ss << TABULADOR << "movl" << TABULADOR << "%eax," << TABULADOR  << pilaDecremento << "(%rbp)" << endl;
+			ss << TABULADOR << "movl" << TABULADOR << pilaIncremento << "(%rbp)," << TABULADOR << "%eax" <<
+			   endl;
+			ss << TABULADOR << "movl" << TABULADOR << "%eax," << TABULADOR  << pilaDecremento << "(%rbp)" <<
+			   endl;
 			pilaDecremento -= 4;
 			pilaIncremento += 4;
 			break;
 		}
 	}
-	ss << TABULADOR << "# Codigo DefinicionFuncion" << endl;
-	ss << TABULADOR << "movq" << TABULADOR << "%rbp," << TABULADOR << "%rsb" << endl;
+
+	if ( cuerpo != nullptr ) {
+		ss << cuerpo->generarCodigo();
+	}
+
+	ss << DefinicionFuncion::retornoActivo << ":" << endl;
+	ss << TABULADOR << "movq" << TABULADOR << "%rbp," << TABULADOR << "%rsp" << endl;
 	ss << TABULADOR << "popq" << TABULADOR << "%rbp" << endl;
 	ss << TABULADOR << "ret" << endl;
 	ss << endl;
+
+	ManejadorVariables::instance()->quitaContexto();
+
 	return ss.str();
 }

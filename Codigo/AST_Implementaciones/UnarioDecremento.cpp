@@ -1,6 +1,6 @@
 #include "../AST_Tipos.h"
 
-UnarioDecremento::UnarioDecremento( Expresion* exp ) {
+UnarioDecremento::UnarioDecremento( Identificador* exp ) {
     this->exp = exp;
 }
 
@@ -25,6 +25,29 @@ string UnarioDecremento::toString() {
 
 string UnarioDecremento::generarCodigo(){
     stringstream ss;
+ int pos = ManejadorVariables::instance()->buscar(exp->simbolo);
+
+    //Obtiene la variable
+    ss << TABULADOR << "movl" << TABULADOR;
+    if(pos>=0){
+        ss << "-" <<pos << "(%rbp)";
+    }else{
+        ss << simbolo << "(%rip)";
+    }
+    ss << "," << TABULADOR << "%r10d" << endl;
+
+    //Incrementa su valor y lo guarda en la variable correspondiente
+    ss << TABULADOR << "subl" << TABULADOR << "$1," << TABULADOR << "%r10d" << endl;
+    ss << TABULADOR << "movl" << TABULADOR << "%r10d," << TABULADOR;
+    if(pos>=0){
+        ss << "-" <<pos << "(%rbp)";
+    }else{
+        ss << simbolo << "(%rip)";
+    }
+    ss  << endl;
+
+    //Entrega el valor
+    ss << TABULADOR << "movl" << TABULADOR << "%r10d," << TABULADOR << "%eax" << endl;
 
     return ss.str();
 }

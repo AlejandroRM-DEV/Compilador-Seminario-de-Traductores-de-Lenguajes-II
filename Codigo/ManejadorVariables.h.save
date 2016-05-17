@@ -1,0 +1,20 @@
+#ifndef MANEJADORVARIABLES_H_INCLUDED
+#define MANEJADORVARIABLES_H_INCLUDED
+
+class Variable{
+public:
+    string simbolo;
+    string contexto;
+    
+    Variable(string simbolo, string contexto){
+        this->simbolo = simbolo;
+        this->contexto = contexto;
+    }
+};
+
+class ManejadorVariables{
+private:
+    static ManejadorVariables*
+};
+
+#endif // MANEJADORVARIABLES_H_INCLUDED

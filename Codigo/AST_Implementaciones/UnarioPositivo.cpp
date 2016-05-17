@@ -25,7 +25,7 @@ string UnarioPositivo::toString() {
 
 string UnarioPositivo::generarCodigo(){
     stringstream ss;
-
+    ss << exp->generarCodigo();
     return ss.str();
 }
 

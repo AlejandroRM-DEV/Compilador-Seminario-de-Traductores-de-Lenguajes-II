@@ -31,7 +31,15 @@ string Modulo::toString() {
 
 string Modulo::generarCodigo(){
     stringstream ss;
-
+    ss << TABULADOR << "pushq" << TABULADOR << "%rbx" << endl;
+	ss << izquierda->generarCodigo();
+	ss << TABULADOR << "movl" << TABULADOR << "%eax," << TABULADOR << "%ebx" << endl;
+	ss << derecha->generarCodigo();
+	ss << TABULADOR << "xchgl" << TABULADOR << " %eax," << TABULADOR << " %ebx" << endl;
+	ss << TABULADOR << "xor" << TABULADOR << "%rdx," << TABULADOR << "%rdx" << endl;
+    ss << TABULADOR << "idiv" << TABULADOR << "%ebx" << endl;
+    ss << TABULADOR << "movl" << TABULADOR << "%edx,"<<TABULADOR << "%eax"<<endl;
+	ss << TABULADOR << "popq" << TABULADOR << "%rbx" << endl;
     return ss.str();
 }
 

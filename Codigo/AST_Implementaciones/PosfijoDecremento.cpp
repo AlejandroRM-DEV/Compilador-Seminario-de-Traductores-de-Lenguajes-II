@@ -1,6 +1,6 @@
 #include "../AST_Tipos.h"
 
-PosfijoDecremento::PosfijoDecremento( Expresion* exp ) {
+PosfijoDecremento::PosfijoDecremento( Identificador* exp ) {
     this->exp = exp;
 }
 
@@ -25,6 +25,29 @@ string PosfijoDecremento::toString() {
 
 string PosfijoDecremento::generarCodigo(){
     stringstream ss;
+int pos = ManejadorVariables::instance()->buscar(exp->simbolo);
+
+    //Obtiene la variable
+    ss << TABULADOR << "movl" << TABULADOR;
+    if(pos>=0){
+        ss << "-" <<pos << "(%rbp)";
+    }else{
+        ss << simbolo << "(%rip)";
+    }
+    ss << "," << TABULADOR << "%r10d" << endl;
+
+    //Entrega el valor
+    ss << TABULADOR << "movl" << TABULADOR << "%r10d," << TABULADOR << "%eax" << endl;
+
+    //Incrementa su valor y lo guarda en la variable correspondiente
+    ss << TABULADOR << "subl" << TABULADOR << "$1," << TABULADOR << "%r10d" << endl;
+    ss << TABULADOR << "movl" << TABULADOR << "%r10d," << TABULADOR;
+    if(pos>=0){
+        ss << "-" <<pos << "(%rbp)";
+    }else{
+        ss << simbolo << "(%rip)";
+    }
+    ss  << endl;
 
     return ss.str();
 }

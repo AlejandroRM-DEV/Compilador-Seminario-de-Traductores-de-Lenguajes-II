@@ -51,7 +51,9 @@ string UnidadTraduccion::generarCodigo() {
 		for ( Asignacion* a : dv->asignaciones ) {
 			ss << ".globl " << a->id->simbolo << endl;
 			ss << ".align 4" << endl;
+            #if __linux__
 			ss << ".type " << a->id->simbolo << ", @object" << endl;
+            #endif
 			ss << a->id->simbolo << ": " << endl;
 			ss << TABULADOR << ".long " << a->evaluar() << endl;
 		}
@@ -61,7 +63,9 @@ string UnidadTraduccion::generarCodigo() {
 	ss << ".text" << endl;
 	for ( DefinicionFuncion* df : funciones ) {
 		ss << ".globl " << df->id->simbolo << endl;
+        #if __linux__
 		ss << ".type " << df->id->simbolo << ", @fuction" << endl;
+        #endif
 	}
 	ss << endl;
 

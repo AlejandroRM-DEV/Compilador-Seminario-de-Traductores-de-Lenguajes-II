@@ -25,7 +25,8 @@ string UnarioNegativo::toString() {
 
 string UnarioNegativo::generarCodigo() {
 	stringstream ss;
-
+	ss << exp->generarCodigo();
+	ss << TABULADOR << "neg" << TABULADOR << "%eax" << endl;
 	return ss.str();
 }
 
