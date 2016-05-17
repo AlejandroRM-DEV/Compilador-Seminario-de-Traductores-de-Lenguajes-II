@@ -16,7 +16,7 @@ TipoDato LlamadaFuncion::analizarTipo() {
 		tiposParametros.push_back ( p->analizarTipo() );
 	}
 
-	return TablaSimbolos::instance()->existe ( id->simbolo, tiposParametros );
+	return tablaSimbolos->existe ( id->simbolo, tiposParametros );
 }
 
 string LlamadaFuncion::toString() {

@@ -1,189 +1,126 @@
 .section .rodata
 
 .data
-.globl global
-.align 4
-global: 
-	.long 1
 
 .text
-.globl aritmeticaBasica
-.globl operacionX
-.globl unarios
 .globl main
-
-aritmeticaBasica:
-	pushq	%rbp
-	movq	%rsp,	%rbp
-	subq	$32,	%rsp
-	movl 	$1,	%eax
-	movl	%eax,	-4(%rbp)
-	pushq	%rbx
-	movl	-4(%rbp),	%eax
-	movl	%eax,	%ebx
-	movl 	$2,	%eax
-	addl	%eax,	%ebx
-	movl	%ebx,	%eax
-	popq	%rbx
-	movl	%eax,	-8(%rbp)
-	pushq	%rbx
-	movl	-8(%rbp),	%eax
-	movl	%eax,	%ebx
-	movl 	$1,	%eax
-	subl	%eax,	%ebx
-	movl	%ebx,	%eax
-	popq	%rbx
-	movl	%eax,	-12(%rbp)
-	pushq	%rbx
-	movl	-12(%rbp),	%eax
-	movl	%eax,	%ebx
-	movl 	$2,	%eax
-	xchgl	 %eax,	 %ebx
-	imul	%ebx
-	popq	%rbx
-	movl	%eax,	-16(%rbp)
-	pushq	%rbx
-	movl	-16(%rbp),	%eax
-	movl	%eax,	%ebx
-	movl 	$1,	%eax
-	xchgl	 %eax,	 %ebx
-	xor	%rdx,	%rdx
-	idiv	%ebx
-	popq	%rbx
-	movl	%eax,	-20(%rbp)
-	pushq	%rbx
-	movl	-20(%rbp),	%eax
-	movl	%eax,	%ebx
-	movl 	$2,	%eax
-	xchgl	 %eax,	 %ebx
-	xor	%rdx,	%rdx
-	idiv	%ebx
-	movl	%edx,	%eax
-	popq	%rbx
-	movl	%eax,	-24(%rbp)
-	movl 	$0,	%eax
-	movl	%eax,	-16(%rbp)
-	movl	%eax,	-12(%rbp)
-	movl	%eax,	-8(%rbp)
-	movl	%eax,	-4(%rbp)
-	movl	%eax,	-28(%rbp)
-retorno_aritmeticaBasica:
-	movq	%rbp,	%rsp
-	popq	%rbp
-	ret
-
-operacionX:
-	pushq	%rbp
-	movq	%rsp,	%rbp
-	subq	$16,	%rsp
-	movl	%edi,	-4(%rbp)
-	movl	%esi,	-8(%rbp)
-	pushq	%rbx
-	pushq	%rbx
-	movl	-4(%rbp),	%eax
-	movl	%eax,	%ebx
-	movl	-8(%rbp),	%eax
-	xchgl	 %eax,	 %ebx
-	xor	%rdx,	%rdx
-	idiv	%ebx
-	movl	%edx,	%eax
-	popq	%rbx
-	movl	%eax,	%ebx
-	pushq	%rbx
-	pushq	%rbx
-	movl	-4(%rbp),	%eax
-	movl	%eax,	%ebx
-	movl	-8(%rbp),	%eax
-	addl	%eax,	%ebx
-	movl	%ebx,	%eax
-	popq	%rbx
-	movl	%eax,	%ebx
-	pushq	%rbx
-	movl	-4(%rbp),	%eax
-	movl	%eax,	%ebx
-	movl	-8(%rbp),	%eax
-	subl	%eax,	%ebx
-	movl	%ebx,	%eax
-	popq	%rbx
-	xchgl	 %eax,	 %ebx
-	xor	%rdx,	%rdx
-	idiv	%ebx
-	popq	%rbx
-	xchgl	 %eax,	 %ebx
-	imul	%ebx
-	popq	%rbx
-	movl	%eax,	-12(%rbp)
-	movl	-12(%rbp),	%eax
-	jmp	retorno_operacionX
-retorno_operacionX:
-	movq	%rbp,	%rsp
-	popq	%rbp
-	ret
-
-unarios:
-	pushq	%rbp
-	movq	%rsp,	%rbp
-	subq	$48,	%rsp
-	movl 	$1,	%eax
-	movl	%eax,	-4(%rbp)
-	movl 	$1,	%eax
-	neg	%eax
-	movl	%eax,	-8(%rbp)
-	movl 	$1,	%eax
-	neg	%eax
-	sbb	%eax,	%eax
-	add	$1,	%eax
-	movl	%eax,	-12(%rbp)
-	movl 	$0,	%eax
-	neg	%eax
-	sbb	%eax,	%eax
-	add	$1,	%eax
-	movl	%eax,	-16(%rbp)
-	movl	-4(%rbp),	%r10d
-	addl	$1,	%r10d
-	movl	%r10d,	-4(%rbp)
-	movl	%r10d,	%eax
-	movl	%eax,	-20(%rbp)
-	movl	-4(%rbp),	%r10d
-	subl	$1,	%r10d
-	movl	%r10d,	-4(%rbp)
-	movl	%r10d,	%eax
-	movl	%eax,	-24(%rbp)
-	movl	-4(%rbp),	%r10d
-	movl	%r10d,	%eax
-	addl	$1,	%r10d
-	movl	%r10d,	-4(%rbp)
-	movl	%eax,	-28(%rbp)
-	movl	-4(%rbp),	%r10d
-	movl	%r10d,	%eax
-	subl	$1,	%r10d
-	movl	%r10d,	-4(%rbp)
-	movl	%eax,	-32(%rbp)
-	movl	-4(%rbp),	%eax
-	movl	%eax,	-36(%rbp)
-retorno_unarios:
-	movq	%rbp,	%rsp
-	popq	%rbp
-	ret
 
 main:
 	pushq	%rbp
 	movq	%rsp,	%rbp
 	subq	$16,	%rsp
-	call	aritmeticaBasica
-	pushq	%r10
-	movl 	$3,	%eax
-	movl	%eax,	%r10d
-	pushq	%r11
-	movl 	$2,	%eax
-	movl	%eax,	%r11d
-	movl	%r11d,	%edi
-	movl	%r10d,	%esi
-	call	operacionX
-	popq	%r11
-	popq	%r10
+	movl 	$1,	%eax
+	movl	%eax,	-8(%rbp)
+	movl 	$1,	%eax
+	movl	%eax,	-12(%rbp)
+IF_1: 
+	pushq	%rbx
+	movl	-8(%rbp),	%eax
+	movl	%eax,	%ebx
+	movl	-12(%rbp),	%eax
+	cmp	%eax,	%ebx
+	jne	FALSO_2
+	movl	$1,	%eax
+	jmp	FIN_2
+FALSO_2: 
+	movl	$0,	%eax
+FIN_2: 
+	popq	%rbx
+	cmp	$1,	%eax
+	jl	FIN_IF_1
+	movl 	$1,	%eax
 	movl	%eax,	-4(%rbp)
-	call	unarios
+FIN_IF_1: 
+IF_3: 
+	pushq	%rbx
+	movl	-8(%rbp),	%eax
+	movl	%eax,	%ebx
+	movl	-12(%rbp),	%eax
+	cmp	%eax,	%ebx
+	je	FALSO_4
+	movl	$1,	%eax
+	jmp	FIN_4
+FALSO_4: 
+	movl	$0,	%eax
+FIN_4: 
+	popq	%rbx
+	cmp	$1,	%eax
+	jl	FIN_IF_3
+	movl 	$1,	%eax
+	movl	%eax,	-4(%rbp)
+FIN_IF_3: 
+IF_5: 
+	pushq	%rbx
+	movl	-8(%rbp),	%eax
+	movl	%eax,	%ebx
+	movl	-12(%rbp),	%eax
+	cmp	%eax,	%ebx
+	jle	FALSO_6
+	movl	$1,	%eax
+	jmp	FIN_6
+FALSO_6: 
+	movl	$0,	%eax
+FIN_6: 
+	popq	%rbx
+	cmp	$1,	%eax
+	jl	FIN_IF_5
+	movl 	$1,	%eax
+	movl	%eax,	-4(%rbp)
+FIN_IF_5: 
+IF_7: 
+	pushq	%rbx
+	movl	-8(%rbp),	%eax
+	movl	%eax,	%ebx
+	movl	-12(%rbp),	%eax
+	cmp	%eax,	%ebx
+	jl	FALSO_8
+	movl	$1,	%eax
+	jmp	FIN_8
+FALSO_8: 
+	movl	$0,	%eax
+FIN_8: 
+	popq	%rbx
+	cmp	$1,	%eax
+	jl	FIN_IF_7
+	movl 	$1,	%eax
+	movl	%eax,	-4(%rbp)
+FIN_IF_7: 
+IF_9: 
+	pushq	%rbx
+	movl	-8(%rbp),	%eax
+	movl	%eax,	%ebx
+	movl	-12(%rbp),	%eax
+	cmp	%eax,	%ebx
+	jge	FALSO_10
+	movl	$1,	%eax
+	jmp	FIN_10
+FALSO_10: 
+	movl	$0,	%eax
+FIN_10: 
+	popq	%rbx
+	cmp	$1,	%eax
+	jl	FIN_IF_9
+	movl 	$1,	%eax
+	movl	%eax,	-4(%rbp)
+FIN_IF_9: 
+IF_11: 
+	pushq	%rbx
+	movl	-8(%rbp),	%eax
+	movl	%eax,	%ebx
+	movl	-12(%rbp),	%eax
+	cmp	%eax,	%ebx
+	jg	FALSO_12
+	movl	$1,	%eax
+	jmp	FIN_12
+FALSO_12: 
+	movl	$0,	%eax
+FIN_12: 
+	popq	%rbx
+	cmp	$1,	%eax
+	jl	FIN_IF_11
+	movl 	$1,	%eax
+	movl	%eax,	-4(%rbp)
+FIN_IF_11: 
 	movl 	$0,	%eax
 	jmp	retorno_main
 retorno_main:

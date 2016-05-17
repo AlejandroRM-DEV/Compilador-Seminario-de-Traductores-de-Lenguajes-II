@@ -9,13 +9,10 @@ using namespace std;
 
 class ManejadorVariables{
 private:
-    static ManejadorVariables* instancia;
     vector<EntradaTS*> variables;
     deque<string> contextos;
-
-    ManejadorVariables(){}
 public:
-    static ManejadorVariables* instance();
+    ManejadorVariables(){}
     void agregar (vector<EntradaTS*> vars );
     int buscar(string simbolo);
     void vaciar();

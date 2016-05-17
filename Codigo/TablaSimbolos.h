@@ -34,16 +34,12 @@ public:
 
 class TablaSimbolos {
 private:
-    static TablaSimbolos* instancia;
     vector<EntradaTS*> tabla;
     deque<string> contextos;
     unsigned long anonimos;
 
-    TablaSimbolos() {
-        anonimos = 0;
-    }
 public:
-    static TablaSimbolos* instance();
+    TablaSimbolos() ;
     bool agregarFuncion( string simbolo, TipoDato dato, vector<TipoDato>& parametros );
     bool agregarVariable( string simbolo, TipoDato dato );
     string agregaContextoAnonimo();

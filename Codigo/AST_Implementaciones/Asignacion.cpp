@@ -41,7 +41,7 @@ string Asignacion::toString() {
 string Asignacion::generarCodigo() {
 	stringstream ss;
 	if ( expresion != nullptr ) {
-		int pos = ManejadorVariables::instance()->buscar ( id->simbolo );
+		int pos = manejadorVariables->buscar ( id->simbolo );
 
 		ss << expresion->generarCodigo();
 		ss << TABULADOR << "movl" << TABULADOR << "%eax," << TABULADOR;

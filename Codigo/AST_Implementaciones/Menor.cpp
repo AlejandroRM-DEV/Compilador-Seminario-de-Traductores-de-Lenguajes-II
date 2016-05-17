@@ -30,8 +30,26 @@ string Menor::toString() {
 }
 
 string Menor::generarCodigo() {
-	stringstream ss;
+	stringstream ss, falso, fin;
+	falso << "FALSO_" << ( ++contador );
+	fin << "FIN_" << ( contador );
 
+	ss << TABULADOR << "pushq" << TABULADOR << "%rbx" << endl;
+	ss << izquierda->generarCodigo();
+	ss << TABULADOR << "movl" << TABULADOR << "%eax," << TABULADOR << "%ebx" << endl;
+	ss << derecha->generarCodigo();
+
+	ss << TABULADOR << "cmp" << TABULADOR << "%eax," << TABULADOR << "%ebx" << endl; // ebx < eax
+	ss << TABULADOR << "jge" << TABULADOR << falso.str() << endl;
+
+	ss << TABULADOR << "movl" << TABULADOR << "$1," << TABULADOR << "%eax" << endl;
+	ss << TABULADOR << "jmp" << TABULADOR << fin.str() << endl;
+
+	ss << falso.str() << ": " << endl;
+	ss << TABULADOR << "movl" << TABULADOR << "$0," << TABULADOR << "%eax" << endl;
+
+	ss << fin.str() << ": " << endl;
+	ss << TABULADOR << "popq" << TABULADOR << "%rbx" << endl;
 	return ss.str();
 }
 

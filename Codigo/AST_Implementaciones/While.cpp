@@ -14,11 +14,11 @@ TipoDato While::analizarTipo() {
 	if ( exp->analizarTipo() == T_ERROR ) {
 		return T_ERROR;
 	}
-	contexto =  TablaSimbolos::instance()->agregaContextoAnonimo();
+	contexto =  tablaSimbolos->agregaContextoAnonimo();
 	if ( proposicion->analizarTipo() == T_ERROR ) {
 		return T_ERROR;
 	}
-	TablaSimbolos::instance()->quitaContexto();
+	tablaSimbolos->quitaContexto();
 	return T_VACIO;
 }
 
@@ -34,19 +34,26 @@ string While::toString() {
 }
 
 string While::generarCodigo() {
-	stringstream ss;
+	stringstream ss, sel, fin;
+	sel << "WHILE_" << ( ++contador );
+	fin << "FIN_WHILE_" << ( contador );
+
+	ss << sel.str() << ": " << endl;
 	ss << exp->generarCodigo();
-	ss << "EVAL COND" << endl;
-	ManejadorVariables::instance()->agregaContexto ( contexto );
+	ss << TABULADOR << "cmp" << TABULADOR << "$1," << TABULADOR << "%eax" << endl;
+	ss << TABULADOR << "jl" << TABULADOR << fin.str()  << endl;
+	manejadorVariables->agregaContexto ( contexto );
 	ss << proposicion->generarCodigo();
-	ManejadorVariables::instance()->quitaContexto();
+	manejadorVariables->quitaContexto();
+	ss << TABULADOR << "jmp" << TABULADOR << sel.str() << endl;
+	ss << fin.str() << ": " << endl;
 	return ss.str();
 }
 
 
 void While::buscarVariables() {
-	ManejadorVariables::instance()->agregaContexto ( contexto );
-	ManejadorVariables::instance()->agregar ( TablaSimbolos::instance()->totalVariables ( contexto ) );
+	manejadorVariables->agregaContexto ( contexto );
+	manejadorVariables->agregar ( tablaSimbolos->totalVariables ( contexto ) );
 
 	if ( ProposicionCompuesta* cuerpo = dynamic_cast<ProposicionCompuesta*> ( proposicion ) ) {
 		for ( Nodo* nodo : cuerpo->cuerpo ) {
@@ -61,5 +68,5 @@ void While::buscarVariables() {
 			}
 		}
 	}
-	ManejadorVariables::instance()->quitaContexto();
+	manejadorVariables->quitaContexto();
 }

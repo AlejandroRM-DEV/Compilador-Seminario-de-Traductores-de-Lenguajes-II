@@ -9,7 +9,7 @@ UnidadTraduccion::~UnidadTraduccion() {
 }
 
 TipoDato UnidadTraduccion::analizarTipo() {
-	TablaSimbolos::instance()->agregaContexto ( "0_PROGRAMA" );
+	tablaSimbolos->agregaContexto ( "0_PROGRAMA" );
 	for ( Definicion* def : definiciones ) {
 		if ( def->analizarTipo( ) == T_ERROR ) {
 			return T_ERROR;

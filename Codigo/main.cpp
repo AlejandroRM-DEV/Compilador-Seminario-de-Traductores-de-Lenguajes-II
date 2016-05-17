@@ -30,7 +30,7 @@ int main() {
 				cout << "Analisis Semantico: Aceptado" << endl;
 
 				ofstream salida ( "salida.asm" );
-				TablaSimbolos::instance()->print();
+				tablaSimbolos->print();
 				salida << nodo->generarCodigo( );
 				cout << nodo->generarCodigo();
 				salida.close();

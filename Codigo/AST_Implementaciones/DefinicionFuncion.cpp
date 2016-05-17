@@ -23,8 +23,8 @@ TipoDato DefinicionFuncion::analizarTipo() {
 		tiposParametros.push_back ( p->analizarTipo() );
 	}
 
-	TablaSimbolos::instance()->agregarFuncion ( id->simbolo, tipo->analizarTipo(), tiposParametros );
-	TablaSimbolos::instance()->agregaContexto ( id->simbolo );
+	tablaSimbolos->agregarFuncion ( id->simbolo, tipo->analizarTipo(), tiposParametros );
+	tablaSimbolos->agregaContexto ( id->simbolo );
 
 	if ( tipo->analizarTipo() == T_INT ) {
 		Return::permiteExpresion = true;
@@ -33,7 +33,7 @@ TipoDato DefinicionFuncion::analizarTipo() {
 	}
 
 	for ( Parametro* p : parametros ) {
-		TablaSimbolos::instance()->agregarVariable ( p->id->simbolo, p->tipo->analizarTipo() );
+		tablaSimbolos->agregarVariable ( p->id->simbolo, p->tipo->analizarTipo() );
 	}
 
 	if ( cuerpo != nullptr ) {
@@ -42,7 +42,7 @@ TipoDato DefinicionFuncion::analizarTipo() {
 		}
 	}
 
-	TablaSimbolos::instance()->quitaContexto();
+	tablaSimbolos->quitaContexto();
 	return T_VACIO;
 }
 
@@ -75,9 +75,9 @@ string DefinicionFuncion::generarCodigo() {
 	stringstream ss;
 
     DefinicionFuncion::retornoActivo = "retorno_" + id->simbolo;
-	ManejadorVariables::instance()->vaciar();
-	ManejadorVariables::instance()->agregaContexto ( id->simbolo );
-	ManejadorVariables::instance()->agregar ( TablaSimbolos::instance()->totalVariables (
+	manejadorVariables->vaciar();
+	manejadorVariables->agregaContexto ( id->simbolo );
+	manejadorVariables->agregar ( tablaSimbolos->totalVariables (
 	            id->simbolo ) );
 
     for ( Nodo* nodo : cuerpo->cuerpo ) {
@@ -92,7 +92,7 @@ string DefinicionFuncion::generarCodigo() {
 		}
 	}
 
-	totalVars = ManejadorVariables::instance()->total();
+	totalVars = manejadorVariables->total();
 
 	ss << id->simbolo << ":" << endl;
 	ss << TABULADOR << "pushq" << TABULADOR << "%rbp" << endl;
@@ -132,7 +132,7 @@ string DefinicionFuncion::generarCodigo() {
 	ss << TABULADOR << "ret" << endl;
 	ss << endl;
 
-	ManejadorVariables::instance()->quitaContexto();
+	manejadorVariables->quitaContexto();
 
 	return ss.str();
 }

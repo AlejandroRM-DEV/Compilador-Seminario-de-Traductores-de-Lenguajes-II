@@ -30,8 +30,20 @@ string AND::toString() {
 }
 
 string AND::generarCodigo() {
-	stringstream ss;
+	stringstream ss, fin;
+	fin << "FIN_AND_" << ( ++contador );
 
+    ss << TABULADOR << "pushq" << TABULADOR << "%rbx" << endl;
+
+	ss << izquierda->generarCodigo();
+	// Si lado izquierdo es falso, producios corto circuito
+	ss << TABULADOR << "cmp" << TABULADOR << "$1," << TABULADOR << "%eax" << endl;
+	ss << TABULADOR << "jl" << TABULADOR << fin.str()  << endl;
+
+	ss << derecha->generarCodigo();
+
+	ss << fin.str() << ": " << endl;
+	ss << TABULADOR << "popq" << TABULADOR << "%rbx" << endl;
 	return ss.str();
 }
 

@@ -8,14 +8,14 @@ DefinicionVariable::~DefinicionVariable() {
 
 TipoDato DefinicionVariable::analizarTipo() {
 	for ( Asignacion* a : asignaciones ) {
-		if ( !TablaSimbolos::instance()->agregarVariable ( a->id->simbolo, tipo->analizarTipo() ) ) {
+		if ( !tablaSimbolos->agregarVariable ( a->id->simbolo, tipo->analizarTipo() ) ) {
 			return T_ERROR;
 		}
 		if ( a->expresion != nullptr ) {
 			if ( a->analizarTipo( ) == T_ERROR ) {
 				return T_ERROR;
 			}
-			if ( TablaSimbolos::instance()->contexto() == "0_PROGRAMA" && !a->analizarTipoConstante() ) {
+			if ( tablaSimbolos->contexto() == "0_PROGRAMA" && !a->analizarTipoConstante() ) {
 				cout << "Variables globales solo con constantes" << endl;
 				return T_ERROR;
 			}

@@ -71,6 +71,7 @@
 		<Unit filename="AST_Implementaciones/UnarioPositivo.cpp" />
 		<Unit filename="AST_Implementaciones/UnidadTraduccion.cpp" />
 		<Unit filename="AST_Implementaciones/While.cpp" />
+		<Unit filename="AST_Tipos.cpp" />
 		<Unit filename="AST_Tipos.h" />
 		<Unit filename="Constantes.h" />
 		<Unit filename="Lexico.cpp" />

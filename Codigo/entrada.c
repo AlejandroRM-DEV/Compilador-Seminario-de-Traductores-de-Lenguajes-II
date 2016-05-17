@@ -1,4 +1,4 @@
-
+/*
 int global = 1;
 
 void aritmeticaBasica() {
@@ -14,9 +14,7 @@ void aritmeticaBasica() {
 
 int operacionX ( int a, int b ) {
 	int res = a % b * ( ( a + b ) / ( a - b ) );
-	/**
-	*    Algo de codigo
-	*/
+	// Algo de codigo
 	return res;
 }
 
@@ -32,13 +30,32 @@ void unarios() {
 	int y = a--;
 	int z = a;
 }
-
+*/
 int main() {
-	int x;
+    int z;
+	int x = 0, y = 1;
 
-	aritmeticaBasica();
-	x = operacionX ( 2, 3 );
-	unarios();
+	//aritmeticaBasica();
+	//x = operacionX ( 2, 3 );
+	//unarios();
+    if ( x == y ){
+        z = 1;
+    }
+    if ( x != y ){
+        z = 1;
+    }
+    if ( x > y ){
+        z = 1;
+    }
+    if ( x >= y ){
+        z = 1;
+    }
+    if ( x < y ){
+        z = 1;
+    }
+    if ( x <= y ){
+        z = 1;
+    }
 	return 0;
 }
 

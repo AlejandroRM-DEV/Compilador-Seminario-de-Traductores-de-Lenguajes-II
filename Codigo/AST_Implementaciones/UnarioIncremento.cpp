@@ -25,7 +25,7 @@ string UnarioIncremento::toString() {
 
 string UnarioIncremento::generarCodigo(){
     stringstream ss;
-    int pos = ManejadorVariables::instance()->buscar(exp->simbolo);
+    int pos = manejadorVariables->buscar(exp->simbolo);
 
     //Obtiene la variable
     ss << TABULADOR << "movl" << TABULADOR;

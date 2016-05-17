@@ -24,11 +24,11 @@ TipoDato For::analizarTipo() {
     if( post != nullptr && post->analizarTipo() == T_ERROR ) {
         return T_ERROR;
     }
-    contexto = TablaSimbolos::instance()->agregaContextoAnonimo();
+    contexto = tablaSimbolos->agregaContextoAnonimo();
     if( proposicion->analizarTipo() == T_ERROR ) {
         return T_ERROR;
     }
-    TablaSimbolos::instance()->quitaContexto();
+    tablaSimbolos->quitaContexto();
     return T_VACIO;
 }
 
@@ -44,15 +44,39 @@ string For::toString() {
 }
 
 string For::generarCodigo(){
-    stringstream ss;
+   stringstream ss, sel, fin;
+	sel << "FOR_" << ( ++contador );
+	fin << "FIN_FOR_" << ( contador );
 
-    return ss.str();
+    if( pre != nullptr ){ //for ( XXXXX ; ; )
+            ss << pre->generarCodigo();
+	}
+
+	ss << sel.str() << ": " << endl;
+
+	if( exp != nullptr ){ //for ( ; XXXXX ; )
+        ss << exp->generarCodigo();
+        ss << TABULADOR << "cmp" << TABULADOR << "$1," << TABULADOR << "%eax" << endl;
+        ss << TABULADOR << "jl" << TABULADOR << fin.str()  << endl;
+	}
+
+	manejadorVariables->agregaContexto ( contexto );
+	ss << proposicion->generarCodigo();
+	manejadorVariables->quitaContexto();
+
+    if( post != nullptr ){ //for ( ; ; XXXXX )
+        ss << post->generarCodigo();
+    }
+
+	ss << TABULADOR << "jmp" << TABULADOR << sel.str() << endl;
+	ss << fin.str() << ": " << endl;
+	return ss.str();
 }
 
 
 void For::buscarVariables() {
-	ManejadorVariables::instance()->agregaContexto ( contexto );
-	ManejadorVariables::instance()->agregar ( TablaSimbolos::instance()->totalVariables ( contexto ) );
+	manejadorVariables->agregaContexto ( contexto );
+	manejadorVariables->agregar ( tablaSimbolos->totalVariables ( contexto ) );
 
 	if ( ProposicionCompuesta* cuerpo = dynamic_cast<ProposicionCompuesta*> ( proposicion ) ) {
 		for ( Nodo* nodo : cuerpo->cuerpo ) {
@@ -67,6 +91,6 @@ void For::buscarVariables() {
 			}
 		}
 	}
-	ManejadorVariables::instance()->quitaContexto();
+	manejadorVariables->quitaContexto();
 }
 

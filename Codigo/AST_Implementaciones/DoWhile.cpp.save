@@ -11,14 +11,14 @@ DoWhile::~DoWhile() {
 }
 
 TipoDato DoWhile::analizarTipo() {
-	TablaSimbolos::instance()->agregaContextoAnonimo();
+	contexto = tablaSimbolos->agregaContextoAnonimo();
 	if ( proposicion->analizarTipo() == T_ERROR ) {
 		return T_ERROR;
 	}
-	TablaSimbolos::instance()->quitaContexto();
 	if ( exp->analizarTipo() == T_ERROR ) {
 		return T_ERROR;
 	}
+	tablaSimbolos->quitaContexto();
 	return T_VACIO;
 }
 
@@ -34,18 +34,40 @@ string DoWhile::toString() {
 }
 
 string DoWhile::generarCodigo() {
-	stringstream ss;
-	if(pr* pc = dynamic_cast<DoWhile*> ( nodo ))
-	for ( Nodo* nodo : cuerpo->cuerpo ) {
-		if ( DoWhile* dv = dynamic_cast<DoWhile*> ( nodo ) ) {
-			cout << "Do while encontrada" << endl;
-		} else if ( For* dv = dynamic_cast<For*> ( nodo ) ) {
-			cout << "For encontrada" << endl;
-		}   else if ( If* dv = dynamic_cast<If*> ( nodo ) ) {
-			cout << "If encontrada" << endl;
-		}  else if ( While* dv = dynamic_cast<While*> ( nodo ) ) {
-			cout << "while encontrada" << endl;
+	stringstream ss, sel, fin;
+	sel << "WHILE_" << ( ++contador );
+	fin << "FIN_WHILE_" << ( contador );
+
+	manejadorVariables->agregaContexto ( contexto );
+	ss << sel.str() << ": " << endl;
+	
+	ss << exp->generarCodigo();
+	ss << TABULADOR << "cmp" << TABULADOR << "$1," << TABULADOR << "%eax" << endl;
+	ss << TABULADOR << "jl" << TABULADOR << fin.str()  << endl;
+	
+	ss << proposicion->generarCodigo();
+	ss << TABULADOR << "jmp" << TABULADOR << sel.str() << endl;
+	ss << fin.str() << ": " << endl;
+	manejadorVariables->quitaContexto();
+	return ss.str();
+}
+
+void DoWhile::buscarVariables() {
+	manejadorVariables->agregaContexto ( contexto );
+	manejadorVariables->agregar ( tablaSimbolos->totalVariables ( contexto ) );
+
+	if ( ProposicionCompuesta* cuerpo = dynamic_cast<ProposicionCompuesta*> ( proposicion ) ) {
+		for ( Nodo* nodo : cuerpo->cuerpo ) {
+			if ( DoWhile* dv = dynamic_cast<DoWhile*> ( nodo ) ) {
+				dv->buscarVariables();
+			} else if ( For* dv = dynamic_cast<For*> ( nodo ) ) {
+				dv->buscarVariables();
+			} else if ( If* dv = dynamic_cast<If*> ( nodo ) ) {
+				dv->buscarVariables();
+			} else if ( While* dv = dynamic_cast<While*> ( nodo ) ) {
+				dv->buscarVariables();
+			}
 		}
 	}
-	return ss.str();
+	manejadorVariables->quitaContexto();
 }

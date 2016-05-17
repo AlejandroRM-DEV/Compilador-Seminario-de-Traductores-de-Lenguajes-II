@@ -3,13 +3,8 @@
 #include <sstream>
 #include <iomanip>
 
-TablaSimbolos* TablaSimbolos::instancia = nullptr;
-
-TablaSimbolos* TablaSimbolos::instance() {
-	if ( !instancia ) {
-		instancia = new TablaSimbolos;
-	}
-	return instancia;
+TablaSimbolos::TablaSimbolos() {
+	anonimos = 0;
 }
 
 bool TablaSimbolos::agregarFuncion ( string simbolo, TipoDato dato, vector<TipoDato>& parametros ) {

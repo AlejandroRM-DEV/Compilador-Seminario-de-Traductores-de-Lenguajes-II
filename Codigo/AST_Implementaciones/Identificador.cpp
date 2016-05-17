@@ -7,7 +7,7 @@ Identificador::Identificador ( string simbolo ) {
 Identificador::~Identificador() {}
 
 TipoDato Identificador::analizarTipo() {
-	return TablaSimbolos::instance()->tipoSim ( simbolo );
+	return tablaSimbolos->tipoSim ( simbolo );
 }
 
 string Identificador::toString() {
@@ -18,7 +18,7 @@ string Identificador::toString() {
 
 string Identificador::generarCodigo() {
 	stringstream ss;
-    int pos = ManejadorVariables::instance()->buscar(simbolo);
+    int pos = manejadorVariables->buscar(simbolo);
     ss << TABULADOR << "movl" << TABULADOR;
     if(pos>=0){
         ss << "-" <<pos << "(%rbp)";

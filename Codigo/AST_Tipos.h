@@ -11,6 +11,10 @@
 
 #define TABULADOR "\t"
 
+extern unsigned long long int contador;
+extern TablaSimbolos* tablaSimbolos;
+extern ManejadorVariables* manejadorVariables;
+
 using namespace std;
 
 class Nodo {

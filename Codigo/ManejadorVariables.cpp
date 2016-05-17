@@ -1,14 +1,5 @@
 #include "ManejadorVariables.h"
 
-ManejadorVariables* ManejadorVariables::instancia = nullptr;
-
-ManejadorVariables* ManejadorVariables::instance() {
-	if ( !instancia ) {
-		instancia = new ManejadorVariables;
-	}
-	return instancia;
-}
-
 void ManejadorVariables::agregar ( vector<EntradaTS*> vars ) {
 	for ( EntradaTS* v : vars ) {
 		variables.push_back ( v );

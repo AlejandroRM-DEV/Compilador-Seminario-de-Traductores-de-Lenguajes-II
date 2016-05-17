@@ -11,14 +11,14 @@ DoWhile::~DoWhile() {
 }
 
 TipoDato DoWhile::analizarTipo() {
-	contexto = TablaSimbolos::instance()->agregaContextoAnonimo();
+	contexto = tablaSimbolos->agregaContextoAnonimo();
 	if ( proposicion->analizarTipo() == T_ERROR ) {
 		return T_ERROR;
 	}
 	if ( exp->analizarTipo() == T_ERROR ) {
 		return T_ERROR;
 	}
-	TablaSimbolos::instance()->quitaContexto();
+	tablaSimbolos->quitaContexto();
 	return T_VACIO;
 }
 
@@ -34,18 +34,27 @@ string DoWhile::toString() {
 }
 
 string DoWhile::generarCodigo() {
-	stringstream ss;
-    ManejadorVariables::instance()->agregaContexto ( contexto );
+	stringstream ss, sel, fin;
+	sel << "DO_WHILE_" << ( ++contador );
+	fin << "FIN_DO_WHILE_" << ( contador );
+
+	ss << sel.str() << ": " << endl;
+	manejadorVariables->agregaContexto ( contexto );
 	ss << proposicion->generarCodigo();
+	manejadorVariables->quitaContexto();
+
 	ss << exp->generarCodigo();
-	ss << "EVAL COND" << endl;
-	ManejadorVariables::instance()->quitaContexto();
+	ss << TABULADOR << "cmp" << TABULADOR << "$1," << TABULADOR << "%eax" << endl;
+	ss << TABULADOR << "jl" << TABULADOR << fin.str()  << endl;
+	ss << TABULADOR << "jmp" << TABULADOR << sel.str() << endl;
+	ss << fin.str() << ": " << endl;
+
 	return ss.str();
 }
 
 void DoWhile::buscarVariables() {
-	ManejadorVariables::instance()->agregaContexto ( contexto );
-	ManejadorVariables::instance()->agregar ( TablaSimbolos::instance()->totalVariables ( contexto ) );
+	manejadorVariables->agregaContexto ( contexto );
+	manejadorVariables->agregar ( tablaSimbolos->totalVariables ( contexto ) );
 
 	if ( ProposicionCompuesta* cuerpo = dynamic_cast<ProposicionCompuesta*> ( proposicion ) ) {
 		for ( Nodo* nodo : cuerpo->cuerpo ) {
@@ -60,5 +69,5 @@ void DoWhile::buscarVariables() {
 			}
 		}
 	}
-	ManejadorVariables::instance()->quitaContexto();
+	manejadorVariables->quitaContexto();
 }
