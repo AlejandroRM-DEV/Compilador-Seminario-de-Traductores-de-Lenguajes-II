@@ -35,8 +35,10 @@ string DoWhile::toString() {
 
 string DoWhile::generarCodigo() {
 	stringstream ss, sel, fin;
-	sel << "DO_WHILE_" << ( ++contador );
-	fin << "FIN_DO_WHILE_" << ( contador );
+	sel << "DO_WHILE_" << ( ++contadorDoWhile );
+	fin << "FIN_DO_WHILE_" << ( contadorDoWhile );
+
+    iterativasActivas.push_front(sel.str());
 
 	ss << sel.str() << ": " << endl;
 	manejadorVariables->agregaContexto ( contexto );
@@ -48,6 +50,8 @@ string DoWhile::generarCodigo() {
 	ss << TABULADOR << "jl" << TABULADOR << fin.str()  << endl;
 	ss << TABULADOR << "jmp" << TABULADOR << sel.str() << endl;
 	ss << fin.str() << ": " << endl;
+
+	iterativasActivas.pop_front();
 
 	return ss.str();
 }

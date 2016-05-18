@@ -167,7 +167,7 @@
 1463518836 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\and.cpp
 	"../AST_Tipos.h"
 
-1463511808 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_tipos.h
+1463548400 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_tipos.h
 	<vector>
 	<iostream>
 	<sstream>
@@ -175,7 +175,7 @@
 	"TablaSimbolos.h"
 	"ManejadorVariables.h"
 
-1463511433 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\tablasimbolos.h
+1463550036 c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\tablasimbolos.h
 	<iostream>
 	<deque>
 	<vector>
@@ -183,10 +183,10 @@
 1463511745 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\asignacion.cpp
 	"../AST_Tipos.h"
 
-1462293734 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\break.cpp
+1463543219 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\break.cpp
 	"../AST_Tipos.h"
 
-1462293744 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\continue.cpp
+1463543176 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\continue.cpp
 	"../AST_Tipos.h"
 
 1461031256 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\definicion.cpp
@@ -198,7 +198,7 @@
 1463451122 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\division.cpp
 	"../AST_Tipos.h"
 
-1463519405 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\dowhile.cpp
+1463548573 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\dowhile.cpp
 	"../AST_Tipos.h"
 
 1463287705 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\entero.cpp
@@ -207,13 +207,13 @@
 1462293803 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\expresion.cpp
 	"../AST_Tipos.h"
 
-1463519343 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\for.cpp
+1463548552 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\for.cpp
 	"../AST_Tipos.h"
 
 1463511746 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\identificador.cpp
 	"../AST_Tipos.h"
 
-1463519343 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\if.cpp
+1463548564 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\if.cpp
 	"../AST_Tipos.h"
 
 1463521030 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\igual.cpp
@@ -282,7 +282,7 @@
 1463452458 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\unariopositivo.cpp
 	"../AST_Tipos.h"
 
-1463519343 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\while.cpp
+1463548540 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\while.cpp
 	"../AST_Tipos.h"
 
 1460784347 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\lexico.cpp
@@ -300,7 +300,7 @@
 	<iostream>
 	<map>
 
-1463511605 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\main.cpp
+1463545905 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\main.cpp
 	<iostream>
 	<fstream>
 	"Lexico.h"
@@ -314,18 +314,18 @@
 1463371976 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\sintactico.cpp
 	"Sintactico.h"
 
-1463511430 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\tablasimbolos.cpp
+1463550015 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\tablasimbolos.cpp
 	"TablaSimbolos.h"
 	<sstream>
 	<iomanip>
 
-1463511746 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\definicionfuncion.cpp
+1463550087 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\definicionfuncion.cpp
 	"../AST_Tipos.h"
 
-1463511605 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\definicionvariable.cpp
+1463550120 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\definicionvariable.cpp
 	"../AST_Tipos.h"
 
-1463511605 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\unidadtraduccion.cpp
+1463549166 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_implementaciones\unidadtraduccion.cpp
 	"../AST_Tipos.h"
 
 1463511676 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\manejadorvariables.cpp
@@ -336,6 +336,6 @@
 	<vector>
 	"TablaSimbolos.h"
 
-1463511745 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_tipos.cpp
+1463548398 source:c:\users\alesito\documents\programacion\c++\compilador_stdl_ii_4\ast_tipos.cpp
 	"AST_Tipos.h"
 

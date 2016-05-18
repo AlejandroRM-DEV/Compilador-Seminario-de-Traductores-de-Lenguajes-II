@@ -18,17 +18,19 @@ public:
     string contexto;
     TipoDato dato;
     vector<TipoDato> parametros;
+    bool esPrototipo;
 
-    EntradaTS( string simbolo, TipoDef tipo, string contexto, TipoDato dato, vector<TipoDato>& parametros ):
-         EntradaTS( simbolo, tipo, contexto, dato ) {
+    EntradaTS( string simbolo, TipoDef tipo, string contexto, TipoDato dato, vector<TipoDato>& parametros, bool esPrototipo ):
+         EntradaTS( simbolo, tipo, contexto, dato, esPrototipo ) {
         this->parametros = parametros;
     }
 
-    EntradaTS( string simbolo, TipoDef tipo, string contexto, TipoDato dato ) {
+    EntradaTS( string simbolo, TipoDef tipo, string contexto, TipoDato dato, bool esPrototipo ) {
         this->simbolo = simbolo;
         this->tipo = tipo;
         this->contexto = contexto;
         this->dato = dato;
+        this->esPrototipo = esPrototipo;
     }
 };
 
@@ -40,8 +42,8 @@ private:
 
 public:
     TablaSimbolos() ;
-    bool agregarFuncion( string simbolo, TipoDato dato, vector<TipoDato>& parametros );
-    bool agregarVariable( string simbolo, TipoDato dato );
+    bool agregarFuncion( string simbolo, TipoDato dato, vector<TipoDato>& parametros, bool esPrototipo  );
+    bool agregarVariable( string simbolo, TipoDato dato, bool esPrototipo );
     string agregaContextoAnonimo();
     void agregaContexto( string contexto );
     void quitaContexto() ;
@@ -51,6 +53,7 @@ public:
     void print() ;
     vector<EntradaTS*> totalVariables(string contexto);
     string contexto();
+    bool existeMain();
 };
 
 

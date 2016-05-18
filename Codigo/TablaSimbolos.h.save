@@ -7,73 +7,54 @@
 
 using namespace std;
 
+enum TipoDef {T_VARIABLE, T_FUNCION};
 enum TipoDato {T_INT, T_VOID, T_VACIO, T_ERROR};
 
 class EntradaTS {
 private:
 public:
     string simbolo;
+    TipoDef tipo;
+    string contexto;
     TipoDato dato;
+    vector<TipoDato> parametros;
+    bool esPrototipo;
 
-    EntradaTS( string simbolo, TipoDato dato ) {
-        this->simbolo = simbolo;;
+    EntradaTS( string simbolo, TipoDef tipo, string contexto, TipoDato dato, vector<TipoDato>& parametros, bool esPrototipo ):
+         EntradaTS( simbolo, tipo, contexto, dato ) {
+        this->parametros = parametros;
+        this->esPrototipo = esPrototipo;
+    }
+
+    EntradaTS( string simbolo, TipoDef tipo, string contexto, TipoDato dato ) {
+        this->simbolo = simbolo;
+        this->tipo = tipo;
+        this->contexto = contexto;
         this->dato = dato;
+        this->esPrototipo = false;
     }
 };
 
 class TablaSimbolos {
 private:
-    static TablaSimbolos* instancia;
     vector<EntradaTS*> tabla;
+    deque<string> contextos;
+    unsigned long anonimos;
 
-    TablaSimbolos() {}
-    
 public:
-    static TablaSimbolos* instance(){
-        if ( !instancia ) {
-            instancia = new TablaSimbolos;
-        }
-        return instancia;
-    }
-    bool agregarVariable( string simbolo, TipoDato dato ){
-        if( !existe( simbolo ) ) {
-            tabla.push_back( new EntradaTS( simbolo, T_VARIABLE, contextos.front(), dato ) );
-            return true;
-        } 
-    }
-    TipoDato tipoSim( string simbolo ){
-        for( EntradaTS* e : tabla ) {
-            if( e->contexto == contexto && e->simbolo == simbolo ) {
-                return e->dato;
-            }
-        }
-        return T_ERROR;
-    }
-    bool existe( string simbolo ){
-         for( EntradaTS* e : tabla ) {
-            if( e->contexto == contexto && e->simbolo == simbolo && e->parametros == parametros) {
-                return e->dato;
-            }
-        }
-        return T_ERROR;
-    }
-    void print(){
-         stringstream ss;
-    string tipoDato[] = {"int", "void"};
-
-    ss << setw( 40 ) << "Tabla de simbolos" << std::left << endl;
-    ss << setw( 20 )  << "SIMBOLO" << setw( 10 ) << "TIPO" << setw( 20 ) << "CONTEXTO" << setw( 10 ) << "T_DATO" << "PARAMETROS" << endl;
-
-    for( EntradaTS* e : tabla ) {
-        ss << setw( 20 )  << e->simbolo << setw( 10 ) << tipoDef[e->tipo] << setw( 20 ) << e->contexto << setw( 10 ) << tipoDato[e->dato];
-        for( TipoDato td : e->parametros ) {
-            ss << tipoDato[td] << " - ";
-        }
-        ss << endl;
-    }
-
-    cout << ss.str() << endl;
-    }
+    TablaSimbolos() ;
+    bool agregarFuncion( string simbolo, TipoDato dato, vector<TipoDato>& parametros, bool esPrototipo  );
+    bool agregarVariable( string simbolo, TipoDato dato );
+    string agregaContextoAnonimo();
+    void agregaContexto( string contexto );
+    void quitaContexto() ;
+    TipoDato tipoSim( string simbolo );
+    bool existe( string simbolo );
+    TipoDato existe( string simbolo, vector<TipoDato>& parametros );
+    void print() ;
+    vector<EntradaTS*> totalVariables(string contexto);
+    string contexto();
+    bool existeMain();
 };
 
 

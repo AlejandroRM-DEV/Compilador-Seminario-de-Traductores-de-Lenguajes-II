@@ -8,7 +8,7 @@ DefinicionVariable::~DefinicionVariable() {
 
 TipoDato DefinicionVariable::analizarTipo() {
 	for ( Asignacion* a : asignaciones ) {
-		if ( !tablaSimbolos->agregarVariable ( a->id->simbolo, tipo->analizarTipo() ) ) {
+		if ( !tablaSimbolos->agregarVariable ( a->id->simbolo, tipo->analizarTipo(), false ) ) {
 			return T_ERROR;
 		}
 		if ( a->expresion != nullptr ) {

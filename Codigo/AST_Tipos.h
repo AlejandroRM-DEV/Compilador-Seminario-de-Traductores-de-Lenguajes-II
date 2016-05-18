@@ -11,10 +11,14 @@
 
 #define TABULADOR "\t"
 
-extern unsigned long long int contador;
+extern unsigned int contador;
+extern unsigned int contadorDoWhile;
+extern unsigned int contadorIf;
+extern unsigned int contadorFor;
+extern unsigned int contadorWhile;
 extern TablaSimbolos* tablaSimbolos;
 extern ManejadorVariables* manejadorVariables;
-
+extern deque<string> iterativasActivas;
 using namespace std;
 
 class Nodo {

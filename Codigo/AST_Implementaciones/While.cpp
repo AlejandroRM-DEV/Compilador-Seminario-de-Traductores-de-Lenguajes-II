@@ -35,8 +35,10 @@ string While::toString() {
 
 string While::generarCodigo() {
 	stringstream ss, sel, fin;
-	sel << "WHILE_" << ( ++contador );
-	fin << "FIN_WHILE_" << ( contador );
+	sel << "WHILE_" << ( ++contadorWhile );
+	fin << "FIN_WHILE_" << ( contadorWhile );
+
+    iterativasActivas.push_front(sel.str());
 
 	ss << sel.str() << ": " << endl;
 	ss << exp->generarCodigo();
@@ -47,6 +49,9 @@ string While::generarCodigo() {
 	manejadorVariables->quitaContexto();
 	ss << TABULADOR << "jmp" << TABULADOR << sel.str() << endl;
 	ss << fin.str() << ": " << endl;
+
+	iterativasActivas.pop_front();
+
 	return ss.str();
 }
 

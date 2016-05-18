@@ -32,14 +32,19 @@ void unarios() {
 }
 */
 int main() {
-	int x, y;
+    int z;
+	int x = 0, y = 1;
 
 	//aritmeticaBasica();
 	//x = operacionX ( 2, 3 );
 	//unarios();
-	for(x = 10; x; x--){
-        y 0
-	}
+    while(1){
+        if(x==10){
+            continue;
+        }
+        ++x;
+    }
+
 	return 0;
 }
 

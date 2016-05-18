@@ -15,6 +15,9 @@ TipoDato UnidadTraduccion::analizarTipo() {
 			return T_ERROR;
 		}
 	}
+	if(!tablaSimbolos->existeMain()){
+        return T_ERROR;
+	}
 	return T_VACIO;
 }
 
@@ -52,7 +55,7 @@ string UnidadTraduccion::generarCodigo() {
 			ss << ".globl " << a->id->simbolo << endl;
 			ss << ".align 4" << endl;
             #if __linux__
-			ss << ".type " << a->id->simbolo << ", @object" << endl;
+                ss << ".type " << a->id->simbolo << ", @object" << endl;
             #endif
 			ss << a->id->simbolo << ": " << endl;
 			ss << TABULADOR << ".long " << a->evaluar() << endl;
@@ -62,15 +65,19 @@ string UnidadTraduccion::generarCodigo() {
 
 	ss << ".text" << endl;
 	for ( DefinicionFuncion* df : funciones ) {
-		ss << ".globl " << df->id->simbolo << endl;
-        #if __linux__
-		ss << ".type " << df->id->simbolo << ", @fuction" << endl;
-        #endif
+		if ( df->cuerpo != nullptr ) {
+			ss << ".globl " << df->id->simbolo << endl;
+            #if __linux__
+                ss << ".type " << df->id->simbolo << ", @fuction" << endl;
+            #endif
+		}
 	}
 	ss << endl;
 
 	for ( DefinicionFuncion* df : funciones ) {
-		ss << df->generarCodigo();
+		if ( df->cuerpo != nullptr ) {
+			ss << df->generarCodigo();
+		}
 	}
 
 	return ss.str();

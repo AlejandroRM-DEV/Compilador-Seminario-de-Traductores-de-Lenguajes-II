@@ -56,9 +56,9 @@ string If::toString() {
 
 string If::generarCodigo() {
 	stringstream ss, sel, fin, otro;
-	sel << "IF_" << ( ++contador );
-	fin << "FIN_IF_" << ( contador );
-	otro << "ELSE_" << ( contador );
+	sel << "IF_" << ( ++contadorIf );
+	fin << "FIN_IF_" << ( contadorIf );
+	otro << "ELSE_" << ( contadorIf );
 
 	ss << sel.str() << ": " << endl;
 	ss << exp->generarCodigo();

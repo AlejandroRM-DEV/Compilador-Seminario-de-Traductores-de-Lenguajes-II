@@ -18,6 +18,8 @@ string Break::toString() {
 
 string Break::generarCodigo(){
     stringstream ss;
-
+    if(!iterativasActivas.empty()){
+        ss << TABULADOR << "jmp" << TABULADOR << "FIN_" << iterativasActivas.front() << endl;
+    }
     return ss.str();
 }

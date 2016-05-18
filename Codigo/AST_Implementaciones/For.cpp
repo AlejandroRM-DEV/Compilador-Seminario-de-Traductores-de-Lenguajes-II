@@ -45,8 +45,10 @@ string For::toString() {
 
 string For::generarCodigo(){
    stringstream ss, sel, fin;
-	sel << "FOR_" << ( ++contador );
-	fin << "FIN_FOR_" << ( contador );
+	sel << "FOR_" << ( ++contadorFor );
+	fin << "FIN_FOR_" << ( contadorFor );
+
+    iterativasActivas.push_front(sel.str());
 
     if( pre != nullptr ){ //for ( XXXXX ; ; )
             ss << pre->generarCodigo();
@@ -70,6 +72,9 @@ string For::generarCodigo(){
 
 	ss << TABULADOR << "jmp" << TABULADOR << sel.str() << endl;
 	ss << fin.str() << ": " << endl;
+
+	iterativasActivas.pop_front();
+
 	return ss.str();
 }
 

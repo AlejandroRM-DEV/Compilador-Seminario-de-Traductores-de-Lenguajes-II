@@ -12,8 +12,9 @@ int main() {
 	Lexico* lexico;
 	string nombre;
 
-	cout << "Nombre archivo: ";
-	getline( cin, nombre );
+	//cout << "Nombre archivo: ";
+	//getline( cin, nombre );
+	nombre = "entrada.c";
 	lexico = new Lexico ( nombre );
 	tokens = lexico->dameListaTokens();
 	if ( !lexico->hayError() ) {

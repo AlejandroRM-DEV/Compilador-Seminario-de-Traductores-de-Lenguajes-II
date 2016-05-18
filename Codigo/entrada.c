@@ -1,5 +1,19 @@
-/*
+
 int global = 1;
+
+void aritmeticaBasica();
+int operacionX ( int a, int b );
+void unarios();
+
+int main() {
+	int x;
+	aritmeticaBasica();
+	x = operacionX ( 2, 3 );
+	unarios();
+
+
+	return 0;
+}
 
 void aritmeticaBasica() {
 	int a, b, c, d, e, f, x;
@@ -30,32 +44,3 @@ void unarios() {
 	int y = a--;
 	int z = a;
 }
-*/
-int main() {
-    int z;
-	int x = 0, y = 1;
-
-	//aritmeticaBasica();
-	//x = operacionX ( 2, 3 );
-	//unarios();
-    if ( x == y ){
-        z = 1;
-    }
-    if ( x != y ){
-        z = 1;
-    }
-    if ( x > y ){
-        z = 1;
-    }
-    if ( x >= y ){
-        z = 1;
-    }
-    if ( x < y ){
-        z = 1;
-    }
-    if ( x <= y ){
-        z = 1;
-    }
-	return 0;
-}
-

@@ -23,7 +23,7 @@ TipoDato DefinicionFuncion::analizarTipo() {
 		tiposParametros.push_back ( p->analizarTipo() );
 	}
 
-	tablaSimbolos->agregarFuncion ( id->simbolo, tipo->analizarTipo(), tiposParametros );
+	tablaSimbolos->agregarFuncion ( id->simbolo, tipo->analizarTipo(), tiposParametros, cuerpo == nullptr );
 	tablaSimbolos->agregaContexto ( id->simbolo );
 
 	if ( tipo->analizarTipo() == T_INT ) {
@@ -33,7 +33,7 @@ TipoDato DefinicionFuncion::analizarTipo() {
 	}
 
 	for ( Parametro* p : parametros ) {
-		tablaSimbolos->agregarVariable ( p->id->simbolo, p->tipo->analizarTipo() );
+		tablaSimbolos->agregarVariable ( p->id->simbolo, p->tipo->analizarTipo(), cuerpo == nullptr );
 	}
 
 	if ( cuerpo != nullptr ) {
@@ -77,8 +77,7 @@ string DefinicionFuncion::generarCodigo() {
     DefinicionFuncion::retornoActivo = "retorno_" + id->simbolo;
 	manejadorVariables->vaciar();
 	manejadorVariables->agregaContexto ( id->simbolo );
-	manejadorVariables->agregar ( tablaSimbolos->totalVariables (
-	            id->simbolo ) );
+	manejadorVariables->agregar ( tablaSimbolos->totalVariables (id->simbolo ) );
 
     for ( Nodo* nodo : cuerpo->cuerpo ) {
 		if ( DoWhile* dv = dynamic_cast<DoWhile*> ( nodo ) ) {

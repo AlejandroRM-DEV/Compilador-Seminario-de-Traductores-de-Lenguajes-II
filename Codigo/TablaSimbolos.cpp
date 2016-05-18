@@ -7,26 +7,39 @@ TablaSimbolos::TablaSimbolos() {
 	anonimos = 0;
 }
 
-bool TablaSimbolos::agregarFuncion ( string simbolo, TipoDato dato, vector<TipoDato>& parametros ) {
+bool TablaSimbolos::agregarFuncion ( string simbolo, TipoDato dato, vector<TipoDato>& parametros,
+                                     bool esPrototipo ) {
 	if ( !existe ( simbolo ) ) {
-		tabla.push_back ( new EntradaTS ( simbolo, T_FUNCION, contextos.front(), dato, parametros ) );
+		tabla.push_back ( new EntradaTS ( simbolo, T_FUNCION, contextos.front(), dato, parametros,
+		                                  esPrototipo ) );
 		return true;
 	} else {
+		for ( EntradaTS* e : tabla ) {
+			if ( ( e->simbolo == simbolo ) && ( e->tipo == TipoDef::T_FUNCION ) && ( e->esPrototipo ) ) {
+				e->esPrototipo = false;
+				return true;
+			}
+		}
 		cout << "Multiple declaracion de " << simbolo << endl;
 		return false;
 	}
 }
 
-bool TablaSimbolos::agregarVariable ( string simbolo, TipoDato dato ) {
+bool TablaSimbolos::agregarVariable ( string simbolo, TipoDato dato, bool esPrototipo ) {
 	if ( existe ( simbolo ) ) {
 		for ( EntradaTS* e : tabla ) {
 			if ( e->contexto == contextos.front() && e->simbolo == simbolo ) {
-				cout << "Multiple declaracion de " << simbolo << endl;
-				return false;
+				if ( e->esPrototipo ) {
+					e->esPrototipo = false;
+					return true;
+				} else {
+					cout << "Multiple declaracion de " << simbolo << endl;
+					return false;
+				}
 			}
 		}
 	}
-	tabla.push_back ( new EntradaTS ( simbolo, T_VARIABLE, contextos.front(), dato ) );
+	tabla.push_back ( new EntradaTS ( simbolo, T_VARIABLE, contextos.front(), dato, esPrototipo ) );
 	return true;
 }
 
@@ -90,12 +103,12 @@ void TablaSimbolos::print() {
 	string tipoDato[] = {"int", "void"};
 
 	ss << setw ( 40 ) << "Tabla de simbolos" << std::left << endl;
-	ss << setw ( 20 )  << "SIMBOLO" << setw ( 10 ) << "TIPO" << setw ( 20 ) << "CONTEXTO" << setw (
-	       10 ) << "T_DATO" << "PARAMETROS" << endl;
+	ss << setw ( 20 )  << "SIMBOLO" << setw ( 10 ) << "TIPO" << setw ( 20 ) << "CONTEXTO" << setw ( 10 )
+	   << "T_DATO" << setw ( 10 ) << "PROTOTIPO" << "PARAMETROS" << endl;
 
 	for ( EntradaTS* e : tabla ) {
-		ss << setw ( 20 )  << e->simbolo << setw ( 10 ) << tipoDef[e->tipo] << setw (
-		       20 ) << e->contexto << setw ( 10 ) << tipoDato[e->dato];
+		ss << setw ( 20 )  << e->simbolo << setw ( 10 ) << tipoDef[e->tipo] << setw ( 20 )
+		   << e->contexto << setw ( 10 ) << tipoDato[e->dato] << setw ( 10 ) << e->esPrototipo;
 		for ( TipoDato td : e->parametros ) {
 			ss << tipoDato[td] << " - ";
 		}
@@ -113,4 +126,13 @@ vector<EntradaTS*> TablaSimbolos::totalVariables ( string contexto ) {
 		}
 	}
 	return lista;
+}
+
+bool TablaSimbolos::existeMain() {
+	for ( EntradaTS* e : tabla ) {
+		if ( e->simbolo == "main" && e->tipo == T_FUNCION && e->contexto == "0_PROGRAMA" ) {
+			return true;
+		}
+	}
+	return false;
 }
